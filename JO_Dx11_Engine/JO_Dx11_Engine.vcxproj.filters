@@ -51,9 +51,6 @@
     <ClCompile Include="MyIndexBuffer.cpp">
       <Filter>소스 파일\DxGraphics</Filter>
     </ClCompile>
-    <ClCompile Include="MyConstBuffer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="MyErrorCheck.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>

@@ -156,7 +156,6 @@
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Graphics\shaders.cpp" />
-    <ClCompile Include="MyConstBuffer.cpp" />
     <ClCompile Include="MyD3D_Mgr.cpp" />
     <ClCompile Include="MyErrorCheck.cpp" />
     <ClCompile Include="MyIndexBuffer.cpp" />
