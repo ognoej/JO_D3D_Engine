@@ -19,6 +19,9 @@
     <Filter Include="헤더 파일\DxGraphics">
       <UniqueIdentifier>{0422d302-86cf-4f33-a3fd-27c6c90a53b0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\DxGraphics\shaders">
+      <UniqueIdentifier>{5bac418f-af5e-41bf-bfa8-06c0c42c5e2c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -51,6 +54,12 @@
     <ClCompile Include="MyConstBuffer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="MyErrorCheck.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MyString.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -80,19 +89,25 @@
     <ClInclude Include="MyConstBuffer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="MyErrorCheck.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MyString.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="pixelshader.hlsl">
-      <Filter>소스 파일</Filter>
-    </FxCompile>
-    <FxCompile Include="vertexshader.hlsl">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\DxGraphics\shaders</Filter>
     </FxCompile>
     <FxCompile Include="Sample.fx">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\DxGraphics\shaders</Filter>
     </FxCompile>
     <FxCompile Include="Sample2.fx">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\DxGraphics\shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="vertexshader.hlsl">
+      <Filter>소스 파일\DxGraphics\shaders</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

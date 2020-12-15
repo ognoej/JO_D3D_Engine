@@ -158,9 +158,11 @@
     <ClCompile Include="Graphics\shaders.cpp" />
     <ClCompile Include="MyConstBuffer.cpp" />
     <ClCompile Include="MyD3D_Mgr.cpp" />
+    <ClCompile Include="MyErrorCheck.cpp" />
     <ClCompile Include="MyIndexBuffer.cpp" />
     <ClCompile Include="MyMesh.cpp" />
     <ClCompile Include="MyModel.cpp" />
+    <ClCompile Include="MyString.cpp" />
     <ClCompile Include="MyVertexBuffer.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="WinMain.cpp" />
@@ -170,9 +172,11 @@
     <ClInclude Include="Graphics\MyD3D_Mgr.h" />
     <ClInclude Include="Graphics\shaders.h" />
     <ClInclude Include="MyConstBuffer.h" />
+    <ClInclude Include="MyErrorCheck.h" />
     <ClInclude Include="MyIndexBuffer.h" />
     <ClInclude Include="MyMesh.h" />
     <ClInclude Include="MyModel.h" />
+    <ClInclude Include="MyString.h" />
     <ClInclude Include="MyVertexBuffer.h" />
     <ClInclude Include="Object.h" />
   </ItemGroup>
