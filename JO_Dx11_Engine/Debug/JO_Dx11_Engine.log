@@ -1,1 +1,25 @@
-﻿  JO_Dx11_Engine.vcxproj -> C:\Users\jO_o\source\repos\JO_Dx11_Engine\Debug\JO_Dx11_Engine.exe
+﻿  Engine.cpp
+c:\users\jo_o\source\repos\jo_dx11_engine\jo_dx11_engine\engine.cpp(33): warning C4101: 'a' :참조되지 않은 지역 변수입니다.
+  shaders.cpp
+  MyConstBuffer.cpp
+  MyD3D_Mgr.cpp
+c:\users\jo_o\source\repos\jo_dx11_engine\jo_dx11_engine\myd3d_mgr.cpp(63): warning C4002: 함수 같은 매크로 호출 'FAILED'에 대해 인수가 너무 많습니다.
+c:\users\jo_o\source\repos\jo_dx11_engine\jo_dx11_engine\myd3d_mgr.cpp(67): warning C4002: 함수 같은 매크로 호출 'FAILED'에 대해 인수가 너무 많습니다.
+c:\users\jo_o\source\repos\jo_dx11_engine\jo_dx11_engine\myd3d_mgr.cpp(76): warning C4002: 함수 같은 매크로 호출 'FAILED'에 대해 인수가 너무 많습니다.
+c:\users\jo_o\source\repos\jo_dx11_engine\jo_dx11_engine\myd3d_mgr.cpp(79): warning C4002: 함수 같은 매크로 호출 'FAILED'에 대해 인수가 너무 많습니다.
+c:\users\jo_o\source\repos\jo_dx11_engine\jo_dx11_engine\myd3d_mgr.cpp(84): warning C4002: 함수 같은 매크로 호출 'FAILED'에 대해 인수가 너무 많습니다.
+c:\users\jo_o\source\repos\jo_dx11_engine\jo_dx11_engine\myd3d_mgr.cpp(96): warning C4002: 함수 같은 매크로 호출 'FAILED'에 대해 인수가 너무 많습니다.
+c:\users\jo_o\source\repos\jo_dx11_engine\jo_dx11_engine\myd3d_mgr.cpp(102): warning C4002: 함수 같은 매크로 호출 'FAILED'에 대해 인수가 너무 많습니다.
+c:\users\jo_o\source\repos\jo_dx11_engine\jo_dx11_engine\myd3d_mgr.cpp(119): warning C4002: 함수 같은 매크로 호출 'FAILED'에 대해 인수가 너무 많습니다.
+c:\users\jo_o\source\repos\jo_dx11_engine\jo_dx11_engine\myd3d_mgr.cpp(131): warning C4002: 함수 같은 매크로 호출 'FAILED'에 대해 인수가 너무 많습니다.
+  MyIndexBuffer.cpp
+  MyMesh.cpp
+  MyModel.cpp
+c:\users\jo_o\source\repos\jo_dx11_engine\jo_dx11_engine\mymodel.h(3): warning C4067: 전처리기 지시문 다음에 예기치 않은 토큰이 있습니다. 줄 바꿈 문자가 필요합니다.
+  MyVertexBuffer.cpp
+  Object.cpp
+c:\users\jo_o\source\repos\jo_dx11_engine\jo_dx11_engine\mymodel.h(3): warning C4067: 전처리기 지시문 다음에 예기치 않은 토큰이 있습니다. 줄 바꿈 문자가 필요합니다.
+c:\users\jo_o\source\repos\jo_dx11_engine\jo_dx11_engine\includes\assimp\material.inl(106): error C2589: '(': '::' 오른쪽에 잘못된 토큰이 있습니다.
+  c:\users\jo_o\source\repos\jo_dx11_engine\jo_dx11_engine\includes\assimp\material.inl(106): note: 이 진단은 컴파일러 생성 함수 'aiReturn aiMaterial::Get(const char *,unsigned int,unsigned int,Type *,unsigned int *) const'에서 수행되었습니다.
+  WinMain.cpp
+  코드를 생성하고 있습니다...

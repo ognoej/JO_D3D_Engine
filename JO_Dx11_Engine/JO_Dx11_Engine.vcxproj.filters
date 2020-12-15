@@ -36,8 +36,20 @@
     <ClCompile Include="Object.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Model.cpp">
+    <ClCompile Include="MyModel.cpp">
       <Filter>소스 파일\DxGraphics</Filter>
+    </ClCompile>
+    <ClCompile Include="MyVertexBuffer.cpp">
+      <Filter>소스 파일\DxGraphics</Filter>
+    </ClCompile>
+    <ClCompile Include="MyMesh.cpp">
+      <Filter>소스 파일\DxGraphics</Filter>
+    </ClCompile>
+    <ClCompile Include="MyIndexBuffer.cpp">
+      <Filter>소스 파일\DxGraphics</Filter>
+    </ClCompile>
+    <ClCompile Include="MyConstBuffer.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -47,14 +59,26 @@
     <ClInclude Include="Object.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>헤더 파일\DxGraphics</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\MyD3D_Mgr.h">
       <Filter>헤더 파일\DxGraphics</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\shaders.h">
       <Filter>헤더 파일\DxGraphics</Filter>
+    </ClInclude>
+    <ClInclude Include="MyModel.h">
+      <Filter>헤더 파일\DxGraphics</Filter>
+    </ClInclude>
+    <ClInclude Include="MyVertexBuffer.h">
+      <Filter>헤더 파일\DxGraphics</Filter>
+    </ClInclude>
+    <ClInclude Include="MyMesh.h">
+      <Filter>헤더 파일\DxGraphics</Filter>
+    </ClInclude>
+    <ClInclude Include="MyIndexBuffer.h">
+      <Filter>헤더 파일\DxGraphics</Filter>
+    </ClInclude>
+    <ClInclude Include="MyConstBuffer.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
