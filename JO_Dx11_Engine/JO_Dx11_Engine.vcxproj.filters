@@ -42,9 +42,6 @@
     <ClCompile Include="MyModel.cpp">
       <Filter>소스 파일\DxGraphics</Filter>
     </ClCompile>
-    <ClCompile Include="MyVertexBuffer.cpp">
-      <Filter>소스 파일\DxGraphics</Filter>
-    </ClCompile>
     <ClCompile Include="MyMesh.cpp">
       <Filter>소스 파일\DxGraphics</Filter>
     </ClCompile>

@@ -162,7 +162,6 @@
     <ClCompile Include="MyMesh.cpp" />
     <ClCompile Include="MyModel.cpp" />
     <ClCompile Include="MyString.cpp" />
-    <ClCompile Include="MyVertexBuffer.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
