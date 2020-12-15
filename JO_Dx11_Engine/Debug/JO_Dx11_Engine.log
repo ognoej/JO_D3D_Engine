@@ -1,11 +1,1 @@
-﻿  MyD3D_Mgr.cpp
-c:\users\jo_o\source\repos\jo_dx11_engine\jo_dx11_engine\myd3d_mgr.cpp(63): warning C4002: 함수 같은 매크로 호출 'FAILED'에 대해 인수가 너무 많습니다.
-c:\users\jo_o\source\repos\jo_dx11_engine\jo_dx11_engine\myd3d_mgr.cpp(67): warning C4002: 함수 같은 매크로 호출 'FAILED'에 대해 인수가 너무 많습니다.
-c:\users\jo_o\source\repos\jo_dx11_engine\jo_dx11_engine\myd3d_mgr.cpp(76): warning C4002: 함수 같은 매크로 호출 'FAILED'에 대해 인수가 너무 많습니다.
-c:\users\jo_o\source\repos\jo_dx11_engine\jo_dx11_engine\myd3d_mgr.cpp(79): warning C4002: 함수 같은 매크로 호출 'FAILED'에 대해 인수가 너무 많습니다.
-c:\users\jo_o\source\repos\jo_dx11_engine\jo_dx11_engine\myd3d_mgr.cpp(84): warning C4002: 함수 같은 매크로 호출 'FAILED'에 대해 인수가 너무 많습니다.
-c:\users\jo_o\source\repos\jo_dx11_engine\jo_dx11_engine\myd3d_mgr.cpp(96): warning C4002: 함수 같은 매크로 호출 'FAILED'에 대해 인수가 너무 많습니다.
-c:\users\jo_o\source\repos\jo_dx11_engine\jo_dx11_engine\myd3d_mgr.cpp(102): warning C4002: 함수 같은 매크로 호출 'FAILED'에 대해 인수가 너무 많습니다.
-c:\users\jo_o\source\repos\jo_dx11_engine\jo_dx11_engine\myd3d_mgr.cpp(119): warning C4002: 함수 같은 매크로 호출 'FAILED'에 대해 인수가 너무 많습니다.
-c:\users\jo_o\source\repos\jo_dx11_engine\jo_dx11_engine\myd3d_mgr.cpp(131): warning C4002: 함수 같은 매크로 호출 'FAILED'에 대해 인수가 너무 많습니다.
-  JO_Dx11_Engine.vcxproj -> C:\Users\jO_o\source\repos\JO_Dx11_Engine\Debug\JO_Dx11_Engine.exe
+﻿  JO_Dx11_Engine.vcxproj -> C:\Users\jO_o\source\repos\JO_Dx11_Engine\Debug\JO_Dx11_Engine.exe

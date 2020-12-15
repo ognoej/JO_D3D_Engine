@@ -3,6 +3,9 @@
 #include <wrl/client.h>
 #include <d3dcompiler.h>
 #include "shaders.h"
+
+
+
 using namespace Microsoft::WRL;
 
 class MyD3D_Mgr

@@ -30,6 +30,9 @@ bool Engine::Initialize(HINSTANCE _hInstance, LPCWSTR  _window_title, std::wstri
 	auto width = rt.right - rt.left;
 	auto height = rt.bottom - rt.top;
 
+	int a;
+
+
 
 	// 윈도우 등록
 	WNDCLASSEX	wndClass = {};

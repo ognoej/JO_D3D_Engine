@@ -16,6 +16,9 @@
     <Filter Include="소스 파일\DxGraphics">
       <UniqueIdentifier>{a1bcb216-ad87-4133-83a1-ce44ed549486}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\DxGraphics">
+      <UniqueIdentifier>{0422d302-86cf-4f33-a3fd-27c6c90a53b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -30,16 +33,28 @@
     <ClCompile Include="Graphics\shaders.cpp">
       <Filter>소스 파일\DxGraphics</Filter>
     </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>소스 파일\DxGraphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\shaders.h">
+    <ClInclude Include="Object.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>헤더 파일\DxGraphics</Filter>
+    </ClInclude>
     <ClInclude Include="Graphics\MyD3D_Mgr.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\DxGraphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\shaders.h">
+      <Filter>헤더 파일\DxGraphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
