@@ -162,6 +162,7 @@
     <ClCompile Include="MyMesh.cpp" />
     <ClCompile Include="MyModel.cpp" />
     <ClCompile Include="MyString.cpp" />
+    <ClCompile Include="MyTexture.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
@@ -175,6 +176,7 @@
     <ClInclude Include="MyMesh.h" />
     <ClInclude Include="MyModel.h" />
     <ClInclude Include="MyString.h" />
+    <ClInclude Include="MyTexture.h" />
     <ClInclude Include="MyVertexBuffer.h" />
     <ClInclude Include="Object.h" />
   </ItemGroup>
