@@ -21,7 +21,7 @@ template<class T>
 class MyConstBuffer
 {
 private:
-	MyConstBuffer(const ConstantBuffer<T>& rhs);
+	MyConstBuffer(const MyConstBuffer<T>& rhs);
 
 private:
 
@@ -29,7 +29,7 @@ private:
 	ID3D11DeviceContext * deviceContext = nullptr;
 
 public:
-	ConstantBuffer() {}
+	MyConstBuffer() {}
 
 	T data;
 
