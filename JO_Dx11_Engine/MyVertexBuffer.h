@@ -1,4 +1,5 @@
-#pragma once
+#ifndef VertexBuffer_h__
+#define VertexBuffer_h__
 #include <d3d11.h>
 #include <wrl/client.h>
 #include <memory>
@@ -15,16 +16,16 @@ private:
 	UINT vertexCount = 0;
 
 public:
-	VertexBuffer() {}
+	MyVertexBuffer() {}
 
-	VertexBuffer(const VertexBuffer<T>& rhs)
+	MyVertexBuffer(const MyVertexBuffer<T>& rhs)
 	{
 		this->buffer = rhs.buffer;
 		this->vertexCount = rhs.vertexCount;
 		this->stride = rhs.stride;
 	}
 
-	VertexBuffer<T> & operator=(const VertexBuffer<T>& a)
+	MyVertexBuffer<T> & operator=(const MyVertexBuffer<T>& a)
 	{
 		this->buffer = a.buffer;
 		this->vertexCount = a.vertexCount;
@@ -82,3 +83,5 @@ public:
 	}
 };
 
+
+#endif // VertexBuffer_h__

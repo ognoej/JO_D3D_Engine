@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ConstantBuffer_h__
+#define ConstantBuffer_h__
 #include <DirectXMath.h>
 #include "MyErrorCheck.h"
 #include <wrl/client.h>
@@ -77,3 +78,6 @@ public:
 
 };
 
+
+
+#endif // ConstantBuffer_h__
