@@ -2,7 +2,9 @@
 #include "MyIndexBuffer.h"
 #include "MyVertexBuffer.h"
 #include "MyConstBuffer.h"
+#include "MyTexture.h"
 #include <d3d11.h>
+
 
 struct Vertex
 {
@@ -17,13 +19,13 @@ struct Vertex
 class MyMesh
 {
 public:
-	MyMesh(ID3D11Device * device, ID3D11DeviceContext * deviceContext, std::vector<Vertex> & vertices, std::vector<DWORD> & indices, std::vector<Texture> & textures);
+	MyMesh(ID3D11Device * device, ID3D11DeviceContext * deviceContext, std::vector<Vertex> & vertices, std::vector<DWORD> & indices, std::vector<MyTexture> & textures);
 	MyMesh(const MyMesh & mesh);
 	void Draw();
 private:
 	MyVertexBuffer<Vertex> vertexbuffer;
 	MyIndexBuffer indexbuffer;
 	ID3D11DeviceContext * deviceContext;
-	std::vector<Texture> textures;
+	std::vector<MyTexture> textures;
 };
 
