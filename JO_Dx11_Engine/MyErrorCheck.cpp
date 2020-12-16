@@ -22,3 +22,9 @@ void MyErrorCheck::Log(HRESULT hr, std::wstring message)
 	std::wstring error_message = L"에러 발생: " + message + L"\n" + error.ErrorMessage();
 	MessageBoxW(NULL, error_message.c_str(), L"Error", MB_ICONERROR);
 }
+
+void MyErrorCheck::Log(MyErrorCheck & exception)
+{
+	std::wstring error_message = exception.whatmsg.c_str();
+	MessageBoxW(NULL, error_message.c_str(), L"Error", MB_ICONERROR);
+}
