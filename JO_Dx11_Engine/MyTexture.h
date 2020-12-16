@@ -2,7 +2,12 @@
 #include <d3d11.h>
 #include <wrl/client.h>
 #include <assimp/material.h>
+#include <WICTextureLoader.h>
+#include <DDSTextureLoader.h>
 #include "MyColor.h"
+#include "MyErrorCheck.h"
+#include "MyString.h"
+
 
 // 텍스쳐 타입용 열거체
 enum class TextureStorageType

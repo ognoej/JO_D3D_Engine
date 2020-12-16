@@ -1,5 +1,6 @@
 #include "MyTexture.h"
 
+
 MyTexture::MyTexture(ID3D11Device * device, const MyColor & color, aiTextureType type)
 {
 	this->Initialize1x1ColorTexture(device, color, type);
@@ -14,9 +15,9 @@ MyTexture::MyTexture(ID3D11Device * device, const MyColor * colorData, UINT widt
 MyTexture::MyTexture(ID3D11Device * device, const std::string & filePath, aiTextureType type)
 {
 	this->type = type;
-	if (StringHelper::GetFileExtension(filePath) == ".dds")
+	if (MyString::GetFileExtension(filePath) == ".dds")
 	{
-		HRESULT hr = DirectX::CreateDDSTextureFromFile(device, StringHelper::StringToWide(filePath).c_str(), texture.GetAddressOf(), this->textureView.GetAddressOf());
+		HRESULT hr = DirectX::CreateDDSTextureFromFile(device, MyString::toWstring(filePath).c_str(), texture.GetAddressOf(), this->textureView.GetAddressOf());
 		if (FAILED(hr))
 		{
 			this->Initialize1x1ColorTexture(device, Colors::UnloadedTextureColor, type);

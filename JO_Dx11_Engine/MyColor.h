@@ -32,5 +32,12 @@ private:
 		unsigned char rgba[4];
 		unsigned int color;
 	};
+
+
 };
 
+namespace Colors
+{
+	const Color UnloadedTextureColor(100, 100, 100);
+	const Color UnhandledTextureColor(250, 0, 0);
+}
