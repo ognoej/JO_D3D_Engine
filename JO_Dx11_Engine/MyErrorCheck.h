@@ -4,6 +4,8 @@
 #include <Windows.h>
 #include <string>
 
+#define COM_ERROR_IF_FAILED( hr, msg ) if( FAILED( hr ) ) throw Log( hr, msg )
+
 class MyErrorCheck
 {
 public:

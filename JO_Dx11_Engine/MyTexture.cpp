@@ -26,7 +26,7 @@ MyTexture::MyTexture(ID3D11Device * device, const std::string & filePath, aiText
 	}
 	else
 	{
-		HRESULT hr = DirectX::CreateWICTextureFromFile(device, StringHelper::StringToWide(filePath).c_str(), texture.GetAddressOf(), this->textureView.GetAddressOf());
+		HRESULT hr = DirectX::CreateWICTextureFromFile(device, MyString::toWstring(filePath).c_str(), texture.GetAddressOf(), this->textureView.GetAddressOf());
 		if (FAILED(hr))
 		{
 			this->Initialize1x1ColorTexture(device, Colors::UnloadedTextureColor, type);
@@ -37,6 +37,9 @@ MyTexture::MyTexture(ID3D11Device * device, const std::string & filePath, aiText
 
 MyTexture::MyTexture(ID3D11Device * device, const uint8_t * pData, size_t size, aiTextureType type)
 {
+	this->type = type;
+	HRESULT hr = DirectX::CreateWICTextureFromMemory(device, pData, size, this->texture.GetAddressOf(), this->textureView.GetAddressOf());
+	COM_ERROR_IF_FAILED(hr, "Failed to create Texture from memory.");
 }
 
 aiTextureType MyTexture::GetType()
