@@ -78,6 +78,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>C:\Users\jO_o\source\repos\JO_Dx11_Engine\JO_Dx11_Engine\Includes\assimp;C:\Users\jO_o\source\repos\JO_Dx11_Engine\JO_Dx11_Engine\Includes;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\jO_o\source\repos\JO_Dx11_Engine\JO_Dx11_Engine\Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
