@@ -6,12 +6,17 @@
 #include <SpriteBatch.h>
 #include <SpriteFont.h>
 #include "..\ObjectMgr.h"
+#include "..\MyCamera.h"
+
 
 
 using namespace Microsoft::WRL;
 
 class MyD3D_Mgr
 {
+private:
+	MyCamera cameraMgr;
+
 public:
 	
 	bool Initialize(HWND hwnd, int width, int height);

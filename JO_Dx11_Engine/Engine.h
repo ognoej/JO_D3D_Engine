@@ -5,7 +5,6 @@
 #include "Graphics\MyD3D_Mgr.h"
 
 
-
 class Engine
 {
 	//MyD3D_Mgr DxMgr;
