@@ -29,5 +29,7 @@ public:
 	void	Update(float _delayTime = 0);
 	void	Render();
 	bool	InitDx(HWND _hWnd, int _width, int _height);
+
+	XMMATRIX  viewProjectionMatrix;
 };
 

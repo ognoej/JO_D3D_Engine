@@ -23,7 +23,7 @@ public:
 	int windowWidth = 0;
 	int windowHeight = 0;
 
-	Microsoft::WRL::ComPtr<ObjectMgr>				MyObjectMgr;
+	ObjectMgr MyObjectMgr;
 	Microsoft::WRL::ComPtr<ID3D11Device>			device;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext>		deviceContext;
 	Microsoft::WRL::ComPtr<IDXGISwapChain>			swapchain;

@@ -114,7 +114,7 @@ void Engine::Update(float _delayTime)
 
 void Engine::Render()
 {
-	DxMgr.Render();
+	DxMgr.Render(viewProjectionMatrix);
 }
 
 bool Engine::InitDx(HWND _hWnd,int _width,int _height)

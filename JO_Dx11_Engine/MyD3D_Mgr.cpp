@@ -163,7 +163,11 @@ bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 #pragma endregion
 
 
+#pragma region OBJ°ü¸®
 
+		MyObjectMgr.initialize();
+
+#pragma endregion
 	return true;
 
 }
@@ -178,7 +182,7 @@ void MyD3D_Mgr::Render(const XMMATRIX & viewProjectionMatrix)
 	deviceContext->ClearRenderTargetView(this->renderTargetView.Get(), bgcolor);
 	deviceContext->ClearDepthStencilView(this->depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
 
-	this->MyObjectMgr->DrawObjects(viewProjectionMatrix);
+	this->MyObjectMgr.DrawObjects(viewProjectionMatrix);
 
 	this->deviceContext->Draw(0,0);
 	this->swapchain->Present(0, NULL);
@@ -189,5 +193,5 @@ void MyD3D_Mgr::Render(const XMMATRIX & viewProjectionMatrix)
 
 Object & MyD3D_Mgr::NewObject(std::string objname, std::string filepath)
 {
-	return MyObjectMgr->AddObject(objname, filepath, this->device.Get(), this->deviceContext.Get(), this->cb_vs_vertexshader);	
+	return MyObjectMgr.AddObject(objname, filepath, this->device.Get(), this->deviceContext.Get(), this->cb_vs_vertexshader);	
 }
