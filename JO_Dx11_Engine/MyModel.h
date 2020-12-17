@@ -12,6 +12,7 @@ class MyModel
 public:
 	bool Initialize(const std::string & filePath, ID3D11Device * device, ID3D11DeviceContext * deviceContext, MyConstBuffer<CB_VS_vertexshader> & cb_vs_vertexshader);
 	void Draw(const XMMATRIX & worldMatrix, const XMMATRIX & viewProjectionMatrix);
+//	void Release();
 
 private:
 	std::vector<MyMesh> meshes;
@@ -26,6 +27,7 @@ private:
 	ID3D11DeviceContext * deviceContext = nullptr;
 	MyConstBuffer<CB_VS_vertexshader> * cb_vs_vertexshader = nullptr;
 	std::string directory = "";
+
 
 
 

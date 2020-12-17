@@ -34,6 +34,7 @@ void MyModel::Draw(const XMMATRIX & worldMatrix, const XMMATRIX & viewProjection
 	}
 }
 
+
 bool MyModel::LoadModel(const std::string & filePath)
 {
 	this->directory = MyString::GetDirectoryFromPath(filePath);

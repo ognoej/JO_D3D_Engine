@@ -4,15 +4,15 @@ bool Object::Initialize(const std::string & filePath, ID3D11Device * device, ID3
 {
 	if (filePath == "Sphere")
 	{
-		return;
+		return true;
 	}
 	else if (filePath == "Square")
 	{
-		return;
+		return true;
 	}
 	else
 	{
-		model = new MyModel;
+		//model = new MyModel;
 		if (!model->Initialize(filePath, device, deviceContext, cb_vs_vertexshader))
 			return false;
 

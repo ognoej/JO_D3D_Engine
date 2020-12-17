@@ -49,7 +49,11 @@ public:
 	const XMVECTOR & GetLeftVector();
 
 private :
-	Microsoft::WRL::ComPtr<MyModel> model = nullptr;
+
+	Microsoft::WRL::ComPtr<MyModel> model;// = nullptr;
+
+	// squre 나 다각형 모델용 클래스 추가해야함
+
 	XMVECTOR posVector;
 	XMVECTOR rotVector;
 	XMFLOAT3 pos;
