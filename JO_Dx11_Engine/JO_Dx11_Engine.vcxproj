@@ -166,6 +166,7 @@
     <ClCompile Include="MyString.cpp" />
     <ClCompile Include="MyTexture.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="ObjectMgr.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -182,6 +183,7 @@
     <ClInclude Include="MyTexture.h" />
     <ClInclude Include="MyVertexBuffer.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="ObjectMgr.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="pixelshader.hlsl">

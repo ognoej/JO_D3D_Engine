@@ -60,6 +60,9 @@
     <ClCompile Include="MyColor.cpp">
       <Filter>소스 파일\DxGraphics</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectMgr.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -100,6 +103,9 @@
     </ClInclude>
     <ClInclude Include="MyColor.h">
       <Filter>헤더 파일\DxGraphics</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectMgr.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

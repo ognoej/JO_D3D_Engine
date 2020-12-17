@@ -7,7 +7,6 @@
 #include <SpriteFont.h>
 
 
-
 using namespace Microsoft::WRL;
 
 class MyD3D_Mgr
@@ -16,10 +15,9 @@ public:
 	
 	bool Initialize(HWND hwnd, int width, int height);
 	void Render();
-
+	
 	int windowWidth = 0;
 	int windowHeight = 0;
-
 
 	Microsoft::WRL::ComPtr<ID3D11Device>			device;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext>		deviceContext;

@@ -1,6 +1,6 @@
 #include "Object.h"
 
-bool Object::Initialize(const std::string & filePath, ID3D11Device * device, ID3D11DeviceContext * deviceContext, MyConstBuffer<CB_VS_vertexshader>& cb_vs_vertexshader)
+bool Object::Initialize(const std::string _name, std::string & filePath, ID3D11Device * device, ID3D11DeviceContext * deviceContext, MyConstBuffer<CB_VS_vertexshader>& cb_vs_vertexshader)
 {
 	if (filePath == "Sphere")
 	{
@@ -12,6 +12,7 @@ bool Object::Initialize(const std::string & filePath, ID3D11Device * device, ID3
 	}
 	else
 	{
+		this->ObjectName = _name;
 		//model = new MyModel;
 		if (!model->Initialize(filePath, device, deviceContext, cb_vs_vertexshader))
 			return false;
