@@ -5,6 +5,7 @@
 #include "shaders.h"
 #include <SpriteBatch.h>
 #include <SpriteFont.h>
+#include "..\ObjectMgr.h"
 
 
 using namespace Microsoft::WRL;
@@ -14,11 +15,15 @@ class MyD3D_Mgr
 public:
 	
 	bool Initialize(HWND hwnd, int width, int height);
-	void Render();
+	void Render(const XMMATRIX & viewProjectionMatrix);
+
+	Object& NewObject(std::string objname, std::string filepath);
+
 	
 	int windowWidth = 0;
 	int windowHeight = 0;
 
+	Microsoft::WRL::ComPtr<ObjectMgr>				MyObjectMgr;
 	Microsoft::WRL::ComPtr<ID3D11Device>			device;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext>		deviceContext;
 	Microsoft::WRL::ComPtr<IDXGISwapChain>			swapchain;
@@ -35,6 +40,8 @@ public:
 	Microsoft::WRL::ComPtr<ID3D11BlendState>		blendState;
 	Microsoft::WRL::ComPtr<ID3D11SamplerState>		samplerState;
 
+	MyConstBuffer<CB_VS_vertexshader> cb_vs_vertexshader;
+	MyConstBuffer<CB_PS_pixelshader> cb_ps_pixelshader;
 
 	//Ω¶¿Ã¥ı
 	VertexShader	vertexshader;

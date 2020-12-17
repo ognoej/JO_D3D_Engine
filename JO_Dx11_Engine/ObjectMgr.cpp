@@ -8,14 +8,16 @@ void ObjectMgr::initialize()
 }
 
 // const string  수정
-bool ObjectMgr::NewObject(const std::string _objectname, std::string & filePath, ID3D11Device * device, ID3D11DeviceContext * deviceContext, MyConstBuffer<CB_VS_vertexshader>& cb_vs_vertexshader)
+Object& ObjectMgr::AddObject(const std::string _objectname, std::string & filePath, ID3D11Device * device, ID3D11DeviceContext * deviceContext, MyConstBuffer<CB_VS_vertexshader>& cb_vs_vertexshader)
 {
 	Object obj;
 	if(!obj.Initialize(_objectname,filePath,device,deviceContext,cb_vs_vertexshader))
-	return false;
+	return;
 
+
+	// 복사값?
 	ObjectList->push_back(obj);
-	return true;
+	return obj;
 
 }
 

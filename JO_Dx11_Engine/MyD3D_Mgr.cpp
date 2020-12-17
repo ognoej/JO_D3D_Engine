@@ -152,15 +152,24 @@ bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 		if (!pixelshader.Initialize(this->device,  L"pixelshader.hlsl"))
 			return false;
 
+
+		// 상수버퍼 초기화
+		hr = this->cb_vs_vertexshader.Initialize(this->device.Get(), this->deviceContext.Get());
+		COM_ERROR_IF_FAILED(hr, "Failed to initialize constant buffer.");
+
+		hr = this->cb_ps_pixelshader.Initialize(this->device.Get(), this->deviceContext.Get());
+		COM_ERROR_IF_FAILED(hr, "Failed to initialize constant buffer.");
+
 #pragma endregion
+
+
 
 	return true;
 
 }
 
-void MyD3D_Mgr::Render()
-{
-	
+void MyD3D_Mgr::Render(const XMMATRIX & viewProjectionMatrix)
+{	
 
 	if (deviceContext == nullptr) return;
 	
@@ -169,8 +178,16 @@ void MyD3D_Mgr::Render()
 	deviceContext->ClearRenderTargetView(this->renderTargetView.Get(), bgcolor);
 	deviceContext->ClearDepthStencilView(this->depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
 
+	this->MyObjectMgr->DrawObjects(viewProjectionMatrix);
+
 	this->deviceContext->Draw(0,0);
 	this->swapchain->Present(0, NULL);
 
+	
 
+}
+
+Object & MyD3D_Mgr::NewObject(std::string objname, std::string filepath)
+{
+	return MyObjectMgr->AddObject(objname, filepath, this->device.Get(), this->deviceContext.Get(), this->cb_vs_vertexshader);	
 }
