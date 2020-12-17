@@ -1,6 +1,7 @@
 #include "Graphics\MyD3D_Mgr.h"
 #include <vector>
 
+
 bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 {
 

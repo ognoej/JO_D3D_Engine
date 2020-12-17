@@ -3,6 +3,8 @@
 #include <wrl/client.h>
 #include <d3dcompiler.h>
 #include "shaders.h"
+#include <SpriteBatch.h>
+#include <SpriteFont.h>
 
 
 
@@ -40,6 +42,6 @@ public:
 	VertexShader	vertexshader;
 	PixelShader		pixelshader;
 
-	//std::unique_ptr<DirectX::SpriteBatch> spriteBatch;
-	//std::unique_ptr<DirectX::SpriteFont> spriteFont;
+	std::unique_ptr<DirectX::SpriteBatch> spriteBatch;
+	std::unique_ptr<DirectX::SpriteFont> spriteFont;
 };
