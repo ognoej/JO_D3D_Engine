@@ -1,7 +1,7 @@
 #ifndef ConstantBuffer_h__
 #define ConstantBuffer_h__
 #include <DirectXMath.h>
-#include "MyErrorCheck.h"
+#include "..\Utilites\MyErrorCheck.h"
 #include <wrl/client.h>
 
 struct CB_VS_vertexshader

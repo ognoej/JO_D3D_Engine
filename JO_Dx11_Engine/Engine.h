@@ -3,7 +3,7 @@
 #include <d3d11.h>
 #include <string>
 #include "Graphics\MyD3D_Mgr.h"
-#include "MyTimer.h"
+#include "..\Utilites\MyTimer.h"
 
 
 class Engine

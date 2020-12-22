@@ -36,55 +36,55 @@
     <ClCompile Include="Engine.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="MyD3D_Mgr.cpp">
+    <ClCompile Include="Utilites\MouseClass.cpp">
+      <Filter>소스 파일\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilites\MouseEvent.cpp">
+      <Filter>소스 파일\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\MyColor.cpp">
+      <Filter>소스 파일\DxGraphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\MyD3D_Mgr.cpp">
+      <Filter>소스 파일\DxGraphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\MyIndexBuffer.cpp">
+      <Filter>소스 파일\DxGraphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\MyMesh.cpp">
+      <Filter>소스 파일\DxGraphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\MyModel.cpp">
+      <Filter>소스 파일\DxGraphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\MyTexture.cpp">
+      <Filter>소스 파일\DxGraphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Object.cpp">
+      <Filter>소스 파일\DxGraphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\ObjectMgr.cpp">
       <Filter>소스 파일\DxGraphics</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\shaders.cpp">
       <Filter>소스 파일\DxGraphics</Filter>
     </ClCompile>
-    <ClCompile Include="MyModel.cpp">
-      <Filter>소스 파일\DxGraphics</Filter>
-    </ClCompile>
-    <ClCompile Include="MyMesh.cpp">
-      <Filter>소스 파일\DxGraphics</Filter>
-    </ClCompile>
-    <ClCompile Include="MyIndexBuffer.cpp">
-      <Filter>소스 파일\DxGraphics</Filter>
-    </ClCompile>
-    <ClCompile Include="MyColor.cpp">
-      <Filter>소스 파일\DxGraphics</Filter>
-    </ClCompile>
-    <ClCompile Include="MyTexture.cpp">
-      <Filter>소스 파일\DxGraphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>소스 파일\DxGraphics</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectMgr.cpp">
-      <Filter>소스 파일\DxGraphics</Filter>
-    </ClCompile>
-    <ClCompile Include="MyErrorCheck.cpp">
+    <ClCompile Include="Utilites\KeyboardClass.cpp">
       <Filter>소스 파일\Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="MyCamera.cpp">
+    <ClCompile Include="Utilites\KeyboardEvent.cpp">
       <Filter>소스 파일\Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="MyString.cpp">
+    <ClCompile Include="Utilites\MyCamera.cpp">
       <Filter>소스 파일\Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="MyTimer.cpp">
+    <ClCompile Include="Utilites\MyErrorCheck.cpp">
       <Filter>소스 파일\Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="KeyboardClass.cpp">
+    <ClCompile Include="Utilites\MyString.cpp">
       <Filter>소스 파일\Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="KeyboardEvent.cpp">
-      <Filter>소스 파일\Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="Utilites\MouseClass.cpp">
-      <Filter>소스 파일\Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="Utilites\MouseEvent.cpp">
+    <ClCompile Include="Utilites\MyTimer.cpp">
       <Filter>소스 파일\Utilities</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,55 +98,55 @@
     <ClInclude Include="Graphics\shaders.h">
       <Filter>헤더 파일\DxGraphics</Filter>
     </ClInclude>
-    <ClInclude Include="MyModel.h">
-      <Filter>헤더 파일\DxGraphics</Filter>
-    </ClInclude>
-    <ClInclude Include="MyVertexBuffer.h">
-      <Filter>헤더 파일\DxGraphics</Filter>
-    </ClInclude>
-    <ClInclude Include="MyMesh.h">
-      <Filter>헤더 파일\DxGraphics</Filter>
-    </ClInclude>
-    <ClInclude Include="MyIndexBuffer.h">
-      <Filter>헤더 파일\DxGraphics</Filter>
-    </ClInclude>
-    <ClInclude Include="MyColor.h">
-      <Filter>헤더 파일\DxGraphics</Filter>
-    </ClInclude>
-    <ClInclude Include="MyCamera.h">
-      <Filter>헤더 파일\Utilites</Filter>
-    </ClInclude>
-    <ClInclude Include="MyErrorCheck.h">
-      <Filter>헤더 파일\Utilites</Filter>
-    </ClInclude>
-    <ClInclude Include="MyString.h">
-      <Filter>헤더 파일\Utilites</Filter>
-    </ClInclude>
-    <ClInclude Include="MyTimer.h">
-      <Filter>헤더 파일\Utilites</Filter>
-    </ClInclude>
-    <ClInclude Include="MyConstBuffer.h">
-      <Filter>헤더 파일\DxGraphics</Filter>
-    </ClInclude>
-    <ClInclude Include="MyTexture.h">
-      <Filter>헤더 파일\DxGraphics</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectMgr.h">
-      <Filter>헤더 파일\DxGraphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>헤더 파일\DxGraphics</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyboardClass.h">
-      <Filter>헤더 파일\Utilites</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyboardEvent.h">
-      <Filter>헤더 파일\Utilites</Filter>
-    </ClInclude>
     <ClInclude Include="Utilites\MouseClass.h">
       <Filter>헤더 파일\Utilites</Filter>
     </ClInclude>
     <ClInclude Include="Utilites\MouseEvent.h">
+      <Filter>헤더 파일\Utilites</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\MyColor.h">
+      <Filter>헤더 파일\DxGraphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\MyIndexBuffer.h">
+      <Filter>헤더 파일\DxGraphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\MyMesh.h">
+      <Filter>헤더 파일\DxGraphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\MyModel.h">
+      <Filter>헤더 파일\DxGraphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\MyTexture.h">
+      <Filter>헤더 파일\DxGraphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\MyConstBuffer.h">
+      <Filter>헤더 파일\DxGraphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\MyVertexBuffer.h">
+      <Filter>헤더 파일\DxGraphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Object.h">
+      <Filter>헤더 파일\DxGraphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\ObjectMgr.h">
+      <Filter>헤더 파일\DxGraphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilites\KeyboardClass.h">
+      <Filter>헤더 파일\Utilites</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilites\KeyboardEvent.h">
+      <Filter>헤더 파일\Utilites</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilites\MyCamera.h">
+      <Filter>헤더 파일\Utilites</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilites\MyErrorCheck.h">
+      <Filter>헤더 파일\Utilites</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilites\MyString.h">
+      <Filter>헤더 파일\Utilites</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilites\MyTimer.h">
       <Filter>헤더 파일\Utilites</Filter>
     </ClInclude>
   </ItemGroup>

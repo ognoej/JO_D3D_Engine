@@ -156,46 +156,46 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Graphics\MyColor.cpp" />
+    <ClCompile Include="Graphics\MyD3D_Mgr.cpp" />
+    <ClCompile Include="Graphics\MyIndexBuffer.cpp" />
+    <ClCompile Include="Graphics\MyMesh.cpp" />
+    <ClCompile Include="Graphics\MyModel.cpp" />
+    <ClCompile Include="Graphics\MyTexture.cpp" />
+    <ClCompile Include="Graphics\Object.cpp" />
+    <ClCompile Include="Graphics\ObjectMgr.cpp" />
     <ClCompile Include="Graphics\shaders.cpp" />
-    <ClCompile Include="KeyboardClass.cpp" />
-    <ClCompile Include="KeyboardEvent.cpp" />
-    <ClCompile Include="MyCamera.cpp" />
-    <ClCompile Include="MyColor.cpp" />
-    <ClCompile Include="MyD3D_Mgr.cpp" />
-    <ClCompile Include="MyErrorCheck.cpp" />
-    <ClCompile Include="MyIndexBuffer.cpp" />
-    <ClCompile Include="MyMesh.cpp" />
-    <ClCompile Include="MyModel.cpp" />
-    <ClCompile Include="MyString.cpp" />
-    <ClCompile Include="MyTexture.cpp" />
-    <ClCompile Include="MyTimer.cpp" />
-    <ClCompile Include="Object.cpp" />
-    <ClCompile Include="ObjectMgr.cpp" />
+    <ClCompile Include="Utilites\KeyboardClass.cpp" />
+    <ClCompile Include="Utilites\KeyboardEvent.cpp" />
     <ClCompile Include="Utilites\MouseClass.cpp" />
     <ClCompile Include="Utilites\MouseEvent.cpp" />
+    <ClCompile Include="Utilites\MyCamera.cpp" />
+    <ClCompile Include="Utilites\MyErrorCheck.cpp" />
+    <ClCompile Include="Utilites\MyString.cpp" />
+    <ClCompile Include="Utilites\MyTimer.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
+    <ClInclude Include="Graphics\MyColor.h" />
+    <ClInclude Include="Graphics\MyConstBuffer.h" />
     <ClInclude Include="Graphics\MyD3D_Mgr.h" />
+    <ClInclude Include="Graphics\MyIndexBuffer.h" />
+    <ClInclude Include="Graphics\MyMesh.h" />
+    <ClInclude Include="Graphics\MyModel.h" />
+    <ClInclude Include="Graphics\MyTexture.h" />
+    <ClInclude Include="Graphics\MyVertexBuffer.h" />
+    <ClInclude Include="Graphics\Object.h" />
+    <ClInclude Include="Graphics\ObjectMgr.h" />
     <ClInclude Include="Graphics\shaders.h" />
-    <ClInclude Include="KeyboardClass.h" />
-    <ClInclude Include="KeyboardEvent.h" />
-    <ClInclude Include="MyCamera.h" />
-    <ClInclude Include="MyColor.h" />
-    <ClInclude Include="MyConstBuffer.h" />
-    <ClInclude Include="MyErrorCheck.h" />
-    <ClInclude Include="MyIndexBuffer.h" />
-    <ClInclude Include="MyMesh.h" />
-    <ClInclude Include="MyModel.h" />
-    <ClInclude Include="MyString.h" />
-    <ClInclude Include="MyTexture.h" />
-    <ClInclude Include="MyTimer.h" />
-    <ClInclude Include="MyVertexBuffer.h" />
-    <ClInclude Include="Object.h" />
-    <ClInclude Include="ObjectMgr.h" />
+    <ClInclude Include="Utilites\KeyboardClass.h" />
+    <ClInclude Include="Utilites\KeyboardEvent.h" />
     <ClInclude Include="Utilites\MouseClass.h" />
     <ClInclude Include="Utilites\MouseEvent.h" />
+    <ClInclude Include="Utilites\MyCamera.h" />
+    <ClInclude Include="Utilites\MyErrorCheck.h" />
+    <ClInclude Include="Utilites\MyString.h" />
+    <ClInclude Include="Utilites\MyTimer.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="pixelshader.hlsl">

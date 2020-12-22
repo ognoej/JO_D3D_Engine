@@ -5,8 +5,8 @@
 #include <WICTextureLoader.h>
 #include <DDSTextureLoader.h>
 #include "MyColor.h"
-#include "MyErrorCheck.h"
-#include "MyString.h"
+#include "..\Utilites\MyErrorCheck.h"
+#include "..\Utilites\MyString.h"
 
 
 // 텍스쳐 타입용 열거체

@@ -5,8 +5,8 @@
 #include "shaders.h"
 #include <SpriteBatch.h>
 #include <SpriteFont.h>
-#include "..\ObjectMgr.h"
-#include "..\MyCamera.h"
+#include "ObjectMgr.h"
+#include "..\Utilites\MyCamera.h"
 
 
 

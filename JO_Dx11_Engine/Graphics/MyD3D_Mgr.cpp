@@ -1,6 +1,12 @@
 #include "MyD3D_Mgr.h"
 #include <vector>
 
+
+MyD3D_Mgr::~MyD3D_Mgr()
+{
+
+}
+
 bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 {
 
@@ -144,29 +150,83 @@ bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 
 		//쉐이더 등록
 		std::wstring shaderfolder = L"";
+
+
 			//버텍스
-		if (!vertexshader.Initialize(this->device,  L"vertexshader.hlsl", layout, numElements))
+		if (!vertexshader.Initialize(this->device, shaderfolder+  L"vertexshader.cso", layout, numElements))
 			return false;
 			//픽셀
-		if (!pixelshader.Initialize(this->device,  L"pixelshader.hlsl"))
+		if (!pixelshader.Initialize(this->device, shaderfolder+ L"pixelshader.cso"))
 			return false;
+
+
+		// 상수버퍼 초기화
+		hr = this->cb_vs_vertexshader.Initialize(this->device.Get(), this->deviceContext.Get());
+		COM_ERROR_IF_FAILED(hr, "Failed to initialize constant buffer.");
+
+		hr = this->cb_ps_pixelshader.Initialize(this->device.Get(), this->deviceContext.Get());
+		COM_ERROR_IF_FAILED(hr, "Failed to initialize constant buffer.");
 
 #pragma endregion
 
+
+
+#pragma region 카메라 기본설정
+
+		cameraMgr.SetPosition(0.0f, 0.0f, -10.0f);
+		cameraMgr.SetProjectionValues(90.0f, static_cast<float>(windowWidth) / static_cast<float>(windowHeight), 0.1f, 1000.0f);
+
+#pragma endregion
+
+
+
+#pragma region OBJ관리
+
+		MyObjectMgr.initialize();
+
+		NewObject("jigu", "Data\\earth.obj");
+
+
+#pragma endregion
 	return true;
 
 }
 
 void MyD3D_Mgr::Render()
-{
+{	
 
 	if (deviceContext == nullptr) return;
 	
-	float bgcolor[] = { 255.0f, 255.0f, 0.0f, 0.0f };
+	float bgcolor[] = { 0.0f,0.0f, 0.0f, 0.0f };
 	//	버퍼 청소
-	deviceContext->ClearRenderTargetView(this->renderTargetView.Get(), bgcolor);
-	deviceContext->ClearDepthStencilView(this->depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
+	this->deviceContext->ClearRenderTargetView(this->renderTargetView.Get(), bgcolor);
+	this->deviceContext->ClearDepthStencilView(this->depthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
-	this->deviceContext->Draw(0,0);
+	this->deviceContext->IASetInputLayout(this->vertexshader.GetInputLayout());
+	this->deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	this->deviceContext->RSSetState(this->rasterizerState.Get());
+	this->deviceContext->OMSetDepthStencilState(this->depthStencilState.Get(), 0);
+	this->deviceContext->OMSetBlendState(NULL, NULL, 0xFFFFFFFF);
+	this->deviceContext->PSSetSamplers(0, 1, this->samplerState.GetAddressOf());
+	this->deviceContext->VSSetShader(vertexshader.GetShader(), NULL, 0);
+	this->deviceContext->PSSetShader(pixelshader.GetShader(), NULL, 0);
+
+	this->MyObjectMgr.DrawObjects(cameraMgr.GetViewMatrix()*cameraMgr.GetProjectionMatrix());
+
+	//this->deviceContext->Draw(0,0);
 	this->swapchain->Present(0, NULL);
+
+	
+
+}
+
+bool MyD3D_Mgr::NewObject(std::string objname, std::string filepath)
+{
+
+	 MyObjectMgr.AddObject(objname, filepath, this->device.Get(), this->deviceContext.Get(), this->cb_vs_vertexshader);	
+	 
+	 MyObjectMgr.SetObjects("jigu");
+
+	 return true;
+
 }
