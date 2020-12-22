@@ -22,6 +22,8 @@ public:
 	int width = 0;
 	int height = 0;
 
+	Object m_earth;
+
 	//윈도우 이름
 	std::wstring window_class_wide = L"";
 

@@ -9,7 +9,8 @@
 
 void ObjectMgr::initialize()
 {
-	this->ObjectList = new std::vector<Object>();
+	findobj = new Object;
+	//this->ObjectList = new std::vector<Object>();
 	return;
 }
 
@@ -22,17 +23,17 @@ bool ObjectMgr::AddObject(const std::string _objectname, std::string & filePath,
 
 
 	// 복사값?
-	ObjectList->push_back(*obj);
+	ObjectList.push_back(*obj);
 	return true;
 
 }
 
 void ObjectMgr::DrawObjects(const XMMATRIX & viewProjectionMatrix)
 {
-	if (ObjectList->empty())
+	if (ObjectList.empty())
 		return;
 	
-	std::for_each(ObjectList->begin(), ObjectList->end(), [&](Object i)
+	std::for_each(ObjectList.begin(), ObjectList.end(), [&](Object i)
 	{
 		i.Draw(viewProjectionMatrix);
 	});
@@ -40,23 +41,30 @@ void ObjectMgr::DrawObjects(const XMMATRIX & viewProjectionMatrix)
 }
 
 
-
-
-Object & ObjectMgr::GetObject(std::string _name)
+Object* ObjectMgr::GetObjects(std::string _name)
 {
-	Object *findobj;
-	// 람다식 foreach (시작 , 끝, [가져올 외부 변수](탐색할변수)  가져올 외부변수에 &면 모두 레퍼런스 =면 모두 값 이름이면 해당변수만
-	std::for_each(ObjectList->begin(), ObjectList->end(), [&](Object i)
+
+	for (int i = 0; i < ObjectList.size(); i++)
 	{
-
-		if (i.ObjectName == _name)
+		if (ObjectList[i].ObjectName == _name)
 		{
-			findobj = &i;
+			return &ObjectList[i]; 
 		}
-		
-	});
+	}
 
-	return *findobj;
+	return findobj;
+}
+
+void ObjectMgr::SetObjects(std::string _name)
+{
+	for (int i = 0; i < ObjectList.size(); i++)
+	{
+		if (ObjectList[i].ObjectName == _name)
+		{
+			findobj = &ObjectList[i];
+			return;
+		}
+	}
 }
 
 

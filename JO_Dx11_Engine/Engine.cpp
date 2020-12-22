@@ -76,6 +76,7 @@ bool Engine::Initialize(HINSTANCE _hInstance, LPCWSTR  _window_title, std::wstri
 		return 0;
 	}
 
+
 	return true;
 }
 
@@ -110,6 +111,8 @@ bool Engine::ProcessMessages()
 
 void Engine::Update(float _delayTime)
 {
+	DxMgr.MyObjectMgr.GetObjects("jigu")->AdjustRotation(0.0f, 0.1f, 0.0f);
+	//DxMgr.MyObjectMgr.findobj->AdjustRotation(0.0f, 0.1f, 0.0f);
 }
 
 void Engine::Render()

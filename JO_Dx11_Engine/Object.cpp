@@ -285,22 +285,22 @@ const XMVECTOR & Object::GetLeftVector()
 // 행렬 업데이트
 void Object::UpdateWorldMatrix()
 {
-	if (this->parents != nullptr)
-	{
-		this->worldMatrix = XMMatrixScaling(this->scale.x, this->scale.y, this->scale.z)* XMMatrixRotationRollPitchYaw(this->rot.x, this->rot.y, this->rot.z) * XMMatrixTranslation(this->pos.x, this->pos.y, this->pos.z) *
-			XMMatrixRotationRollPitchYaw(this->rev.x, this->rev.y, this->rev.z)* XMMatrixTranslation(this->parents->x, this->parents->y, this->parents->z);
-	}
-	else if (this->parentsWorld != nullptr)
-	{
-		this->worldMatrix = XMMatrixScaling(this->scale.x, this->scale.y, this->scale.z)* XMMatrixRotationRollPitchYaw(this->rot.x, this->rot.y, this->rot.z) * XMMatrixTranslation(this->pos.x, this->pos.y, this->pos.z) *
-			XMMatrixRotationRollPitchYaw(this->rev.x, this->rev.y, this->rev.z) * *(this->parentsWorld);
-	}
-
-	else
-	{
+	//if (this->parents != nullptr)
+	//{
+	//	this->worldMatrix = XMMatrixScaling(this->scale.x, this->scale.y, this->scale.z)* XMMatrixRotationRollPitchYaw(this->rot.x, this->rot.y, this->rot.z) * XMMatrixTranslation(this->pos.x, this->pos.y, this->pos.z) *
+	//		XMMatrixRotationRollPitchYaw(this->rev.x, this->rev.y, this->rev.z)* XMMatrixTranslation(this->parents->x, this->parents->y, this->parents->z);
+	//}
+	//else if (this->parentsWorld != nullptr)
+	//{
+	//	this->worldMatrix = XMMatrixScaling(this->scale.x, this->scale.y, this->scale.z)* XMMatrixRotationRollPitchYaw(this->rot.x, this->rot.y, this->rot.z) * XMMatrixTranslation(this->pos.x, this->pos.y, this->pos.z) *
+	//		XMMatrixRotationRollPitchYaw(this->rev.x, this->rev.y, this->rev.z) * *(this->parentsWorld);
+	//}
+   //
+	//else
+	
 		this->worldMatrix = XMMatrixScaling(this->scale.x, this->scale.y, this->scale.z)* XMMatrixRotationRollPitchYaw(this->rot.x, this->rot.y, this->rot.z) * XMMatrixTranslation(this->pos.x, this->pos.y, this->pos.z) *
 			XMMatrixRotationRollPitchYaw(this->rev.x, this->rev.y, this->rev.z);//*XMMatrixTranslation(this->parents.x,this->parents.y,this->parents.z);
-	}
+	
 	XMMATRIX vecRotationMatrix = XMMatrixRotationRollPitchYaw(0.0f, this->rot.y, 0.0f);
 	this->vec_forward = XMVector3TransformCoord(this->DEFAULT_FORWARD_VECTOR, vecRotationMatrix);
 	this->vec_backward = XMVector3TransformCoord(this->DEFAULT_BACKWARD_VECTOR, vecRotationMatrix);

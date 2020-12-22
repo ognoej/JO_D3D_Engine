@@ -222,5 +222,11 @@ void MyD3D_Mgr::Render()
 
 bool MyD3D_Mgr::NewObject(std::string objname, std::string filepath)
 {
-	return MyObjectMgr.AddObject(objname, filepath, this->device.Get(), this->deviceContext.Get(), this->cb_vs_vertexshader);	
+
+	 MyObjectMgr.AddObject(objname, filepath, this->device.Get(), this->deviceContext.Get(), this->cb_vs_vertexshader);	
+	 
+	 MyObjectMgr.SetObjects("jigu");
+
+	 return true;
+
 }
