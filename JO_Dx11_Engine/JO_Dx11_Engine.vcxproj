@@ -166,6 +166,7 @@
     <ClCompile Include="MyModel.cpp" />
     <ClCompile Include="MyString.cpp" />
     <ClCompile Include="MyTexture.cpp" />
+    <ClCompile Include="MyTimer.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectMgr.cpp" />
     <ClCompile Include="WinMain.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="MyModel.h" />
     <ClInclude Include="MyString.h" />
     <ClInclude Include="MyTexture.h" />
+    <ClInclude Include="MyTimer.h" />
     <ClInclude Include="MyVertexBuffer.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectMgr.h" />
