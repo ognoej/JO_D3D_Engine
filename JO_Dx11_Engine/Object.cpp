@@ -14,7 +14,7 @@ bool Object::Initialize(const std::string _name, std::string & filePath, ID3D11D
 	{
 		this->ObjectName = _name;
 		//model = new MyModel;
-		if (!model.Initialize(filePath, device, deviceContext, cb_vs_vertexshader))
+		if (!model->Initialize(filePath, device, deviceContext, cb_vs_vertexshader))
 			return false;
 
 		this->SetPosition(0.0f, 0.0f, 0.0f);
@@ -30,8 +30,9 @@ bool Object::Initialize(const std::string _name, std::string & filePath, ID3D11D
 
 void Object::Draw(const XMMATRIX & viewProjectionMatrix)
 {
-	//if(model!=nullptr)
-	model.Draw(this->worldMatrix, viewProjectionMatrix);
+	
+	if(model!=nullptr)
+	model->Draw(this->worldMatrix, viewProjectionMatrix);
 	
 }
 

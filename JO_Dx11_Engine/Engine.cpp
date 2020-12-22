@@ -123,5 +123,8 @@ bool Engine::InitDx(HWND _hWnd,int _width,int _height)
 	{
 		return false;
 	}
+
+	//DxMgr.NewObject("Sphere", "Sphere");
+	
 	return true;
 }

@@ -179,8 +179,17 @@ void MyD3D_Mgr::Render(const XMMATRIX & viewProjectionMatrix)
 	
 	float bgcolor[] = { 255.0f,0.0f, 255.0f, 0.0f };
 	//	버퍼 청소
-	deviceContext->ClearRenderTargetView(this->renderTargetView.Get(), bgcolor);
-	deviceContext->ClearDepthStencilView(this->depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
+	this->deviceContext->ClearRenderTargetView(this->renderTargetView.Get(), bgcolor);
+	this->deviceContext->ClearDepthStencilView(this->depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
+
+	this->deviceContext->IASetInputLayout(this->vertexshader.GetInputLayout());
+	this->deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	this->deviceContext->RSSetState(this->rasterizerState.Get());
+	this->deviceContext->OMSetDepthStencilState(this->depthStencilState.Get(), 0);
+	this->deviceContext->OMSetBlendState(NULL, NULL, 0xFFFFFFFF);
+	this->deviceContext->PSSetSamplers(0, 1, this->samplerState.GetAddressOf());
+	this->deviceContext->VSSetShader(vertexshader.GetShader(), NULL, 0);
+	this->deviceContext->PSSetShader(pixelshader.GetShader(), NULL, 0);
 
 	this->MyObjectMgr.DrawObjects(viewProjectionMatrix);
 
