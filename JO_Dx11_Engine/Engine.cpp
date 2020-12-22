@@ -17,6 +17,10 @@ LRESULT CALLBACK MessageHandler(HWND _hwnd, UINT _uMsg, WPARAM _wParam, LPARAM _
 
 bool Engine::Initialize(HINSTANCE _hInstance, LPCWSTR  _window_title, std::wstring _window_class, int _width, int _height)
 {
+
+
+	TimeMgr.Start();
+
 	// 윈도우 초기화
 	this->hInstance = _hInstance;
 	this->width = _width;
@@ -111,11 +115,14 @@ bool Engine::ProcessMessages()
 
 void Engine::Update(float _delayTime)
 {
-	DxMgr.MyObjectMgr.GetObjects("jigu")->AdjustRotation(0.0f, 0.1f, 0.0f);
+	float dt = TimeMgr.GetMilisecondsElapsed();
+	TimeMgr.Restart();
+
+	DxMgr.MyObjectMgr.GetObjects("jigu")->AdjustRotation(0.0f, 0.0001f*dt, 0.0f);
 	//DxMgr.MyObjectMgr.findobj->AdjustRotation(0.0f, 0.1f, 0.0f);
 }
 
-void Engine::Render()
+void Engine::Render(float _delayTime)
 {
 	DxMgr.Render();
 }

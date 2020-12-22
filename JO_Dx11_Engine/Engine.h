@@ -3,6 +3,7 @@
 #include <d3d11.h>
 #include <string>
 #include "Graphics\MyD3D_Mgr.h"
+#include "MyTimer.h"
 
 
 class Engine
@@ -17,6 +18,7 @@ public:
 
 	// DX매니져
 	MyD3D_Mgr DxMgr;
+	MyTimer TimeMgr;
 
 	// Window 크기
 	int width = 0;
@@ -30,7 +32,7 @@ public:
 	bool	Initialize(HINSTANCE _hInstance, LPCWSTR _window_title, std::wstring _window_class, int _width, int _height);
 	bool	ProcessMessages();
 	void	Update(float _delayTime = 0);
-	void	Render();
+	void	Render(float _delayTime = 0);
 	bool	InitDx(HWND _hWnd, int _width, int _height);
 
 	//XMMATRIX  viewProjectionMatrix;
