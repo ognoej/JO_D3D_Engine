@@ -81,6 +81,12 @@
     <ClCompile Include="KeyboardEvent.cpp">
       <Filter>소스 파일\Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="Utilites\MouseClass.cpp">
+      <Filter>소스 파일\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilites\MouseEvent.cpp">
+      <Filter>소스 파일\Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -135,6 +141,12 @@
       <Filter>헤더 파일\Utilites</Filter>
     </ClInclude>
     <ClInclude Include="KeyboardEvent.h">
+      <Filter>헤더 파일\Utilites</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilites\MouseClass.h">
+      <Filter>헤더 파일\Utilites</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilites\MouseEvent.h">
       <Filter>헤더 파일\Utilites</Filter>
     </ClInclude>
   </ItemGroup>

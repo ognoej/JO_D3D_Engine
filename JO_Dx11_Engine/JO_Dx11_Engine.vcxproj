@@ -171,6 +171,8 @@
     <ClCompile Include="MyTimer.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectMgr.cpp" />
+    <ClCompile Include="Utilites\MouseClass.cpp" />
+    <ClCompile Include="Utilites\MouseEvent.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -192,6 +194,8 @@
     <ClInclude Include="MyVertexBuffer.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectMgr.h" />
+    <ClInclude Include="Utilites\MouseClass.h" />
+    <ClInclude Include="Utilites\MouseEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="pixelshader.hlsl">
