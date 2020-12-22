@@ -157,6 +157,8 @@
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Graphics\shaders.cpp" />
+    <ClCompile Include="KeyboardClass.cpp" />
+    <ClCompile Include="KeyboardEvent.cpp" />
     <ClCompile Include="MyCamera.cpp" />
     <ClCompile Include="MyColor.cpp" />
     <ClCompile Include="MyD3D_Mgr.cpp" />
@@ -175,6 +177,8 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Graphics\MyD3D_Mgr.h" />
     <ClInclude Include="Graphics\shaders.h" />
+    <ClInclude Include="KeyboardClass.h" />
+    <ClInclude Include="KeyboardEvent.h" />
     <ClInclude Include="MyCamera.h" />
     <ClInclude Include="MyColor.h" />
     <ClInclude Include="MyConstBuffer.h" />

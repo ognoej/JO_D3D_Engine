@@ -22,6 +22,12 @@
     <Filter Include="소스 파일\DxGraphics\shaders">
       <UniqueIdentifier>{5bac418f-af5e-41bf-bfa8-06c0c42c5e2c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Utilities">
+      <UniqueIdentifier>{d1bb1d09-4774-4d99-a32a-a8eea0615e3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Utilites">
+      <UniqueIdentifier>{35b79cc3-4921-4717-9536-30d9774a441e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -36,9 +42,6 @@
     <ClCompile Include="Graphics\shaders.cpp">
       <Filter>소스 파일\DxGraphics</Filter>
     </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="MyModel.cpp">
       <Filter>소스 파일\DxGraphics</Filter>
     </ClCompile>
@@ -48,33 +51,39 @@
     <ClCompile Include="MyIndexBuffer.cpp">
       <Filter>소스 파일\DxGraphics</Filter>
     </ClCompile>
-    <ClCompile Include="MyErrorCheck.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="MyString.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="MyTexture.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="MyColor.cpp">
       <Filter>소스 파일\DxGraphics</Filter>
     </ClCompile>
+    <ClCompile Include="MyTexture.cpp">
+      <Filter>소스 파일\DxGraphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>소스 파일\DxGraphics</Filter>
+    </ClCompile>
     <ClCompile Include="ObjectMgr.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\DxGraphics</Filter>
+    </ClCompile>
+    <ClCompile Include="MyErrorCheck.cpp">
+      <Filter>소스 파일\Utilities</Filter>
     </ClCompile>
     <ClCompile Include="MyCamera.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="MyString.cpp">
+      <Filter>소스 파일\Utilities</Filter>
     </ClCompile>
     <ClCompile Include="MyTimer.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardClass.cpp">
+      <Filter>소스 파일\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardEvent.cpp">
+      <Filter>소스 파일\Utilities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\MyD3D_Mgr.h">
@@ -95,29 +104,38 @@
     <ClInclude Include="MyIndexBuffer.h">
       <Filter>헤더 파일\DxGraphics</Filter>
     </ClInclude>
-    <ClInclude Include="MyConstBuffer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="MyErrorCheck.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="MyString.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="MyTexture.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="MyColor.h">
       <Filter>헤더 파일\DxGraphics</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectMgr.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="MyCamera.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Utilites</Filter>
+    </ClInclude>
+    <ClInclude Include="MyErrorCheck.h">
+      <Filter>헤더 파일\Utilites</Filter>
+    </ClInclude>
+    <ClInclude Include="MyString.h">
+      <Filter>헤더 파일\Utilites</Filter>
     </ClInclude>
     <ClInclude Include="MyTimer.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Utilites</Filter>
+    </ClInclude>
+    <ClInclude Include="MyConstBuffer.h">
+      <Filter>헤더 파일\DxGraphics</Filter>
+    </ClInclude>
+    <ClInclude Include="MyTexture.h">
+      <Filter>헤더 파일\DxGraphics</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectMgr.h">
+      <Filter>헤더 파일\DxGraphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>헤더 파일\DxGraphics</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardClass.h">
+      <Filter>헤더 파일\Utilites</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardEvent.h">
+      <Filter>헤더 파일\Utilites</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
