@@ -1,5 +1,14 @@
 #include "Object.h"
 
+//Object::~Object()
+//{
+//	if (this->model != nullptr)
+//	{
+//		delete(model);
+//	}
+//	return;
+//}
+
 bool Object::Initialize(const std::string _name, std::string & filePath, ID3D11Device * device, ID3D11DeviceContext * deviceContext, MyConstBuffer<CB_VS_vertexshader>& cb_vs_vertexshader)
 {
 	if (filePath == "Sphere")
@@ -12,6 +21,7 @@ bool Object::Initialize(const std::string _name, std::string & filePath, ID3D11D
 	}
 	else
 	{
+		model = new MyModel;
 		this->ObjectName = _name;
 		//model = new MyModel;
 		if (!model->Initialize(filePath, device, deviceContext, cb_vs_vertexshader))
@@ -30,7 +40,7 @@ bool Object::Initialize(const std::string _name, std::string & filePath, ID3D11D
 
 void Object::Draw(const XMMATRIX & viewProjectionMatrix)
 {
-	
+
 	if(model!=nullptr)
 	model->Draw(this->worldMatrix, viewProjectionMatrix);
 	

@@ -31,6 +31,6 @@ public:
 	void	Render();
 	bool	InitDx(HWND _hWnd, int _width, int _height);
 
-	XMMATRIX  viewProjectionMatrix;
+	//XMMATRIX  viewProjectionMatrix;
 };
 

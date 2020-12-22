@@ -8,9 +8,11 @@ using namespace DirectX;
 
 class Object
 {
+private:
 public:
 	bool Initialize(const std::string _name, std::string & filePath, ID3D11Device * device, ID3D11DeviceContext * deviceContext, MyConstBuffer<CB_VS_vertexshader> & cb_vs_vertexshader);
-	
+
+	//~Object();
 	void Draw(const XMMATRIX & viewProjectionMatrix);
 
 	std::string ObjectName;
@@ -55,7 +57,7 @@ public:
 
 private :
 
-	Microsoft::WRL::ComPtr<MyModel> model;// = nullptr;
+	MyModel *model = nullptr;
 	//MyModel model;
 	// squre 나 다각형 모델용 클래스 추가해야함
 

@@ -17,12 +17,14 @@ class MyD3D_Mgr
 private:
 	MyCamera cameraMgr;
 
-public:
-	
-	bool Initialize(HWND hwnd, int width, int height);
-	void Render(const XMMATRIX & viewProjectionMatrix);
 
-	Object& NewObject(std::string objname, std::string filepath);
+public:
+
+	~MyD3D_Mgr();
+	bool Initialize(HWND hwnd, int width, int height);
+	void Render();
+
+	bool NewObject(std::string objname, std::string filepath);
 
 	
 	int windowWidth = 0;

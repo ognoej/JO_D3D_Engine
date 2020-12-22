@@ -34,16 +34,12 @@ void MyModel::Draw(const XMMATRIX & worldMatrix, const XMMATRIX & viewProjection
 	}
 }
 
-unsigned long MyModel::Release()
+void MyModel::Release()
 {
-	delete(this);
-	return 0;
-}
-
-void MyModel::AddRef()
-{
+	this->meshes.clear();
 	return;
 }
+
 
 
 bool MyModel::LoadModel(const std::string & filePath)
