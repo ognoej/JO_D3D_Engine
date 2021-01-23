@@ -173,7 +173,7 @@ bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 
 #pragma region 카메라 기본설정
 
-		cameraMgr.SetPosition(0.0f, 0.0f, -10.0f);
+		cameraMgr.SetPosition(0.0f, 100.0f, -150.0f);
 		cameraMgr.SetProjectionValues(90.0f, static_cast<float>(windowWidth) / static_cast<float>(windowHeight), 0.1f, 1000.0f);
 
 #pragma endregion
@@ -184,7 +184,9 @@ bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 
 		MyObjectMgr.initialize();
 
-		NewObject("jigu", "Data\\earth.obj");
+		//NewObject("jigu", "Data\\earth.obj");
+
+		NewObject("jigu", "Data\\rp_nathan_animated_003_walking.fbx");
 
 
 #pragma endregion

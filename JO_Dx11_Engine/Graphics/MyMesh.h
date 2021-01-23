@@ -14,6 +14,8 @@ struct Vertex
 
 	DirectX::XMFLOAT3 pos;
 	DirectX::XMFLOAT2 texCoord;
+
+	// 본과 노말벡터 추가해야함
 };
 
 class MyMesh
