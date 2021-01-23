@@ -77,8 +77,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\DownMan\JO_D3D_Engine\JO_Dx11_Engine\Includes\assimp;D:\DownMan\JO_D3D_Engine\JO_Dx11_Engine\Includes;C:\Users\jO_o\source\repos\JO_Dx11_Engine\JO_Dx11_Engine\Includes\assimp;C:\Users\jO_o\source\repos\JO_Dx11_Engine\JO_Dx11_Engine\Includes;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\DownMan\JO_D3D_Engine\JO_Dx11_Engine\Libs;C:\Users\jO_o\source\repos\JO_Dx11_Engine\JO_Dx11_Engine\Libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\JoMan\JO_D3D_Engine\JO_Dx11_Engine\Includes\assimp;D:\JoMan\JO_D3D_Engine\JO_Dx11_Engine\Includes;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\JoMan\JO_D3D_Engine\JO_Dx11_Engine\Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -111,12 +111,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\DownMan\JO_D3D_Engine\JO_Dx11_Engine\Includes\assimp;D:\DownMan\JO_D3D_Engine\JO_Dx11_Engine\Includes;C:\Users\jO_o\source\repos\JO_Dx11_Engine\JO_Dx11_Engine\Includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\JoMan\JO_D3D_Engine\JO_Dx11_Engine\Includes\assimp;D:\JoMan\JO_D3D_Engine\JO_Dx11_Engine\Includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\DownMan\JO_D3D_Engine\JO_Dx11_Engine\Libs;C:\Users\jO_o\source\repos\JO_Dx11_Engine\JO_Dx11_Engine\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\JoMan\JO_D3D_Engine\JO_Dx11_Engine\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>d3d11.lib;DirectXTK.lib;DXGI.lib;D3DCompiler.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
