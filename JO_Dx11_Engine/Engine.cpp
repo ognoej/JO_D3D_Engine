@@ -54,7 +54,7 @@ bool Engine::Initialize(HINSTANCE _hInstance, LPCWSTR  _window_title, std::wstri
 	wndClass.lpszClassName = _window_title;
 	wndClass.cbSize = sizeof(WNDCLASSEX); //Need to fill in t
 	RegisterClassEx(&wndClass);
-	
+
 
 	// 윈도우 핸들 생성
 	this->handle = CreateWindow(
@@ -73,13 +73,15 @@ bool Engine::Initialize(HINSTANCE _hInstance, LPCWSTR  _window_title, std::wstri
 	ShowWindow(handle, SW_SHOW);
 
 
-	
-	if (InitDx(handle,_width,_height) == false)
+
+	if (InitDx(handle, _width, _height) == false)
 	{
 		MessageBox(nullptr, L"초기화 실패", L"오류", MB_OK);
 		return 0;
 	}
 
+	int c = sizeof(DxMgr.MyObjectMgr.GetObjects("jigu")->model->meshes);
+	int b = sizeof(DxMgr.MyObjectMgr.GetObjects("jigu")->model->meshes[0].bones);
 
 	return true;
 }

@@ -188,6 +188,7 @@ bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 
 		NewObject("jigu", "Data\\rp_nathan_animated_003_walking.fbx");
 
+		
 
 #pragma endregion
 	return true;

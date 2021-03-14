@@ -27,6 +27,8 @@ bool Object::Initialize(const std::string _name, std::string & filePath, ID3D11D
 		if (!model->Initialize(filePath, device, deviceContext, cb_vs_vertexshader))
 			return false;
 
+		
+
 		this->SetPosition(0.0f, 0.0f, 0.0f);
 		this->SetRotation(0.0f, 0.0f, 0.0f);
 		this->SetScale(1.0f, 1.0f, 1.0f);

@@ -52,6 +52,7 @@ bool MyModel::LoadModel(const std::string & filePath)
 		aiProcess_Triangulate |
 		aiProcess_ConvertToLeftHanded);
 
+
 	if (pScene == nullptr)
 		return false;
 
@@ -77,6 +78,10 @@ MyMesh MyModel::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 {// Data to fill
 	std::vector<Vertex> vertices;
 	std::vector<DWORD> indices;
+	aiBone** bones;
+	
+	// »ÀÁ¤º¸ ¾ò±â
+	bones = mesh->mBones;
 
 	//Get vertices
 	for (UINT i = 0; i < mesh->mNumVertices; i++)
@@ -110,7 +115,7 @@ MyMesh MyModel::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 	std::vector<MyTexture> diffuseTextures = LoadMaterialTextures(material, aiTextureType::aiTextureType_DIFFUSE, scene);
 	textures.insert(textures.end(), diffuseTextures.begin(), diffuseTextures.end());
 
-	return MyMesh(this->device, this->deviceContext, vertices, indices, textures);
+	return MyMesh(this->device, bones, this->deviceContext, vertices, indices, textures);
 }
 
 TextureStorageType MyModel::DetermineTextureStorageType(const aiScene * pScene, aiMaterial * pMat, unsigned int index, aiTextureType textureType)

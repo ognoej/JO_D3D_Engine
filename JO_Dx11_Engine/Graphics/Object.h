@@ -53,11 +53,10 @@ public:
 	const XMVECTOR & GetLeftVector();
 
 
-	
+	MyModel *model = nullptr;
 
 private :
 
-	MyModel *model = nullptr;
 	//MyModel model;
 	// squre 나 다각형 모델용 클래스 추가해야함
 

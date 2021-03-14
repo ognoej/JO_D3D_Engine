@@ -1,9 +1,10 @@
 #include "MyMesh.h"
 
-MyMesh::MyMesh(ID3D11Device * device, ID3D11DeviceContext * deviceContext, std::vector<Vertex>& vertices, std::vector<DWORD>& indices, std::vector<MyTexture>& textures)
+MyMesh::MyMesh(ID3D11Device * device, aiBone** _bones, ID3D11DeviceContext * deviceContext, std::vector<Vertex>& vertices, std::vector<DWORD>& indices, std::vector<MyTexture>& textures)
 {
 	this->deviceContext = deviceContext;
 	this->textures = textures;
+	this->bones = _bones;
 
 	HRESULT hr = this->vertexbuffer.Initialize(device, vertices.data(), vertices.size());
 	COM_ERROR_IF_FAILED(hr, "Failed to initialize vertex buffer for mesh.");

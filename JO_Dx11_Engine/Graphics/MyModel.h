@@ -15,10 +15,9 @@ public:
 	void Release();
 	void AddRef();
 
-
+	std::vector<MyMesh> meshes;
 
 private:
-	std::vector<MyMesh> meshes;
 	bool LoadModel(const std::string & filePath);
 	void ProcessNode(aiNode * node, const aiScene * scene);
 	MyMesh ProcessMesh(aiMesh * mesh, const aiScene * scene);
