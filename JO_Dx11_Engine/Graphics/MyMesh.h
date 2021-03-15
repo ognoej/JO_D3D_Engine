@@ -6,6 +6,8 @@
 #include <d3d11.h>
 #include <assimp/Importer.hpp>
 #include <assimp/mesh.h>
+using namespace DirectX;
+
 
 struct Vertex
 {
@@ -13,10 +15,12 @@ struct Vertex
 	Vertex(float x, float y, float z, float u, float v)
 		: pos(x, y, z), texCoord(u, v) {}
 
-	DirectX::XMFLOAT3 pos;
-	DirectX::XMFLOAT2 texCoord;
-
-	// 본과 노말벡터 추가해야함
+	XMFLOAT3 pos;			// 정점 좌표
+	XMFLOAT2 texCoord;		// 텍스쳐좌표
+	XMFLOAT3 Normal;		// 법선
+	XMFLOAT4 TangentU;		// 회전
+	XMFLOAT3 Weights;		// 뼈 가중치
+	BYTE BoneIndices[8];	// 영향 미치는 뼈 assimp 모델 기준 8개까지 불러옴
 };
 
 class MyMesh

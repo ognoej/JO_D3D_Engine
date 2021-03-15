@@ -3,7 +3,42 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include "MyMesh.h"
+#include <map>
+#include "MathHelper.h"
+
 using namespace DirectX;
+
+struct Keyframe
+{
+	Keyframe();
+	~Keyframe();
+
+	float TimePos;
+	XMFLOAT3 Translation;
+	XMFLOAT3 Scale;
+	XMFLOAT4 RotationQuat;
+};
+
+struct BoneAnimation
+{
+	float GetStartTime()const;
+	float GetEndTime()const;
+
+	void Interpolate(float t, XMFLOAT4X4& M)const;
+
+	std::vector<Keyframe> Keyframes;
+
+};
+
+struct AnimationClip
+{
+	float GetClipStartTime()const;
+	float GetClipEndTime()const;
+
+	void Interpolate(float t, std::vector<XMFLOAT4X4>& boneTransforms)const;
+
+	std::vector<BoneAnimation> BoneAnimations;
+};
 
 
 
@@ -31,7 +66,7 @@ private:
 	std::string directory = "";
 
 
-
+	// 애니메이션 변수
+	std::map<std::string, AnimationClip> mAnimations;
 
 };
-

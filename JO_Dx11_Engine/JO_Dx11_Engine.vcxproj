@@ -111,12 +111,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\JoMan\JO_D3D_Engine\JO_Dx11_Engine\Includes\assimp;D:\JoMan\JO_D3D_Engine\JO_Dx11_Engine\Includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\JoMan\JO_D3D_Engine\JO_Dx11_Engine\Utilites;D:\JoMan\JO_D3D_Engine\JO_Dx11_Engine\Includes\assimp;D:\JoMan\JO_D3D_Engine\JO_Dx11_Engine\Includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\JoMan\JO_D3D_Engine\JO_Dx11_Engine\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\JoMan\JO_D3D_Engine\JO_Dx11_Engine\Utilites;D:\JoMan\JO_D3D_Engine\JO_Dx11_Engine\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>d3d11.lib;DirectXTK.lib;DXGI.lib;D3DCompiler.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -167,6 +167,7 @@
     <ClCompile Include="Graphics\shaders.cpp" />
     <ClCompile Include="Utilites\KeyboardClass.cpp" />
     <ClCompile Include="Utilites\KeyboardEvent.cpp" />
+    <ClCompile Include="Utilites\MathHelper.cpp" />
     <ClCompile Include="Utilites\MouseClass.cpp" />
     <ClCompile Include="Utilites\MouseEvent.cpp" />
     <ClCompile Include="Utilites\MyCamera.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="Graphics\shaders.h" />
     <ClInclude Include="Utilites\KeyboardClass.h" />
     <ClInclude Include="Utilites\KeyboardEvent.h" />
+    <ClInclude Include="Utilites\MathHelper.h" />
     <ClInclude Include="Utilites\MouseClass.h" />
     <ClInclude Include="Utilites\MouseEvent.h" />
     <ClInclude Include="Utilites\MyCamera.h" />
