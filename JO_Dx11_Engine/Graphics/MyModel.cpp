@@ -70,18 +70,44 @@ bool MyModel::LoadModel(const std::string & filePath)
 	}
 
 	this->ProcessNode(pScene->mRootNode, pScene);
-	this->LoadBones(pScene);
-	this->LoadBoneHierarchy(pScene);
+
 	return true;
 }
 
 
-void MyModel::LoadBones(const aiScene * pScene)
-{
-}
 
-void MyModel::LoadBoneHierarchy(const aiScene * pScene)
+
+
+void MyModel::LoadBonesAndHierarchy(const aiMesh* mesh,const aiScene* scene, std::vector<BoneInfo>& meshBones)
 {
+	for (int i = 0; i < mesh->mNumBones; i++)
+	{
+		BoneInfo boneinfo;
+		boneinfo.BoneOffsets._11 = mesh->mBones[i]->mOffsetMatrix.a1;
+		boneinfo.BoneOffsets._12 = mesh->mBones[i]->mOffsetMatrix.a2;
+		boneinfo.BoneOffsets._13 = mesh->mBones[i]->mOffsetMatrix.a3;
+		boneinfo.BoneOffsets._14 = mesh->mBones[i]->mOffsetMatrix.a4;
+
+		boneinfo.BoneOffsets._21 = mesh->mBones[i]->mOffsetMatrix.b1;
+		boneinfo.BoneOffsets._22 = mesh->mBones[i]->mOffsetMatrix.b2;
+		boneinfo.BoneOffsets._23 = mesh->mBones[i]->mOffsetMatrix.b3;
+		boneinfo.BoneOffsets._24 = mesh->mBones[i]->mOffsetMatrix.b4;
+
+		boneinfo.BoneOffsets._31 = mesh->mBones[i]->mOffsetMatrix.c1;
+		boneinfo.BoneOffsets._32 = mesh->mBones[i]->mOffsetMatrix.c2;
+		boneinfo.BoneOffsets._33 = mesh->mBones[i]->mOffsetMatrix.c3;
+		boneinfo.BoneOffsets._34 = mesh->mBones[i]->mOffsetMatrix.c4;
+
+		boneinfo.BoneOffsets._41 = mesh->mBones[i]->mOffsetMatrix.d1;
+		boneinfo.BoneOffsets._42 = mesh->mBones[i]->mOffsetMatrix.d2;
+		boneinfo.BoneOffsets._43 = mesh->mBones[i]->mOffsetMatrix.d3;
+		boneinfo.BoneOffsets._44 = mesh->mBones[i]->mOffsetMatrix.d4;
+
+		boneinfo.BoneHierarchy = mesh->mBones[i]->mName.C_Str();
+
+		meshBones.push_back(boneinfo);
+	}
+	return;
 }
 
 
@@ -103,11 +129,13 @@ void MyModel::ProcessNode(aiNode * node, const aiScene * scene)
 
 
 MyMesh MyModel::ProcessMesh(aiMesh * mesh, const aiScene * scene)
-{// Data to fill
+{
+	
 	std::vector<Vertex> vertices;
 	std::vector<DWORD> indices;
+	std::vector<BoneInfo> meshBones;
 
-	//Get vertices
+	// 정점 & 본 불러오기 (메쉬 당)
 	for (UINT i = 0; i < mesh->mNumVertices; i++)
 	{
 		Vertex vertex;
@@ -128,7 +156,7 @@ MyMesh MyModel::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 	//	vertex.TangentU.z = mesh->mTangents[i].z;
 
 
-		// 뼈랑 웨이트는 뼈함수에서 찾아서 넣어줌
+		// 메쉬 텍스쳐 불러오기 텍스쳐 혼합을 위해 추가 텍스쳐 작업 코드 필요
 		if (mesh->mTextureCoords[0])
 		{
 			vertex.texCoord.x = (float)mesh->mTextureCoords[0][i].x;
@@ -137,6 +165,11 @@ MyMesh MyModel::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 
 		vertices.push_back(vertex);
 	}
+
+
+	//메쉬 본과 하이라키 불러오기
+	this->LoadBonesAndHierarchy(mesh, scene, meshBones);
+
 
 
 	// 정점 인덱스는 뼈에서 지정하는 인덱스와 맞춰야 하므로 Assimp인덱스를 맞춰서 저장한다.
@@ -161,7 +194,7 @@ MyMesh MyModel::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 	textures.insert(textures.end(), diffuseTextures.begin(), diffuseTextures.end());
 
 	// 불러온 메쉬 리턴
-	return MyMesh(this->device, this->deviceContext, vertices, indices, textures);
+	return MyMesh(this->device, this->deviceContext, meshBones, vertices, indices, textures);
 }
 
 TextureStorageType MyModel::DetermineTextureStorageType(const aiScene * pScene, aiMaterial * pMat, unsigned int index, aiTextureType textureType)

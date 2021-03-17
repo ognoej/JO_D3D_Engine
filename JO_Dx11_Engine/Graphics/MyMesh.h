@@ -6,6 +6,9 @@
 #include <d3d11.h>
 #include <assimp/Importer.hpp>
 #include <assimp/mesh.h>
+#include <assimp/scene.h>
+
+
 using namespace DirectX;
 #define NUM_BONES_PER_VEREX 4	// 정점 당 영향 받는 뼈 개수
 
@@ -27,15 +30,31 @@ struct Vertex
 	BYTE BoneIndices[4];	// 영향 미치는 뼈 assimp 모델 기준 8개까지 불러옴
 };
 
+
+struct BoneInfo
+{
+	std::string BoneHierarchy;
+	XMFLOAT4X4 BoneOffsets;
+	aiNode* ParentNode = nullptr;
+	aiNode* ChildNode = nullptr;
+};
+
+
+
+
 class MyMesh
 {
 public:
-	MyMesh(ID3D11Device * device, ID3D11DeviceContext * deviceContext, std::vector<Vertex> & vertices, std::vector<DWORD> & indices, std::vector<MyTexture> & textures);
+	MyMesh(ID3D11Device * device, ID3D11DeviceContext * deviceContext, std::vector<BoneInfo>& meshBones, std::vector<Vertex> & vertices, std::vector<DWORD> & indices, std::vector<MyTexture> & textures);
 	MyMesh(const MyMesh & mesh);
 	void Draw();
+	std::vector<BoneInfo> mMeshBones;
+
 private:
 	MyVertexBuffer<Vertex> vertexbuffer;
 	MyIndexBuffer indexbuffer;
 	ID3D11DeviceContext * deviceContext;
 	std::vector<MyTexture> textures;
+
+
 };

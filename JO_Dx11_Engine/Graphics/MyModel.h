@@ -41,6 +41,8 @@ struct AnimationClip
 };
 
 
+
+
 class MyModel
 {
 public:
@@ -50,19 +52,17 @@ public:
 
 
 	std::vector<MyMesh> meshes;							// Á¤Á¡ Á¤º¸
-	std::vector<int> mBoneHierarchy;					// »À °èÃþ
-	std::vector<XMFLOAT4X4> mBoneOffsets;				// »À ¿ÀÇÁ¼Â
 	std::map<std::string, AnimationClip> mAnimations;	// ¸ðµ¨ ¾Ö´Ï¸ÞÀÌ¼Ç
 
 	UINT mNumAnimationClips = 0;
 	UINT mNumBones = 0;
 	UINT mNumMeshes = 0;
 
+
 private:
 	bool LoadModel(const std::string & filePath);
 	void ProcessNode(aiNode * node, const aiScene * scene);
-	void LoadBones(const aiScene* pScene);
-	void LoadBoneHierarchy(const aiScene* pScene);
+	void LoadBonesAndHierarchy(const aiMesh* pMesh,const aiScene* scene, std::vector<BoneInfo>& meshBones);
 	MyMesh ProcessMesh(aiMesh * mesh, const aiScene * scene);
 	TextureStorageType DetermineTextureStorageType(const aiScene* pScene, aiMaterial* pMat, unsigned int index, aiTextureType textureType);
 	std::vector<MyTexture> LoadMaterialTextures(aiMaterial* pMaterial, aiTextureType textureType, const aiScene* pScene);
