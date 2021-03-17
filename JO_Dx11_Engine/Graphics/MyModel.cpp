@@ -48,17 +48,44 @@ bool MyModel::LoadModel(const std::string & filePath)
 
 	Assimp::Importer importer;
 
+
+	// Assimp 로 모델 불러오기. 인스턴싱을 위해 모델완성되면 싱글톤으로 관리 매서드 추가 필요
 	const aiScene* pScene = importer.ReadFile(filePath,
 		aiProcess_Triangulate |
 		aiProcess_ConvertToLeftHanded);
-
-
 	if (pScene == nullptr)
 		return false;
 
+
+
+	// 씬->애니메이션->채널->포지션&스케일&로테이션 키프레임에 저장
+	// 씬->본->웨이트->버텍스아이디&버텍스가중치를 Mesh->Vertives에서 찾아서 x 내가 만든 버텍스에 저장
+	// 본마다 버텍스 웨이트 갯수만큼 반복진행.
+
+
+	// 애니메이션 클립 개수 저장
+	if (pScene->HasAnimations())
+	{
+		this->mNumAnimationClips = pScene->mNumAnimations;
+	}
+
 	this->ProcessNode(pScene->mRootNode, pScene);
+	this->LoadBones(pScene);
+	this->LoadBoneHierarchy(pScene);
 	return true;
 }
+
+
+void MyModel::LoadBones(const aiScene * pScene)
+{
+}
+
+void MyModel::LoadBoneHierarchy(const aiScene * pScene)
+{
+}
+
+
+
 
 void MyModel::ProcessNode(aiNode * node, const aiScene * scene)
 {
@@ -74,24 +101,34 @@ void MyModel::ProcessNode(aiNode * node, const aiScene * scene)
 	}
 }
 
+
 MyMesh MyModel::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 {// Data to fill
 	std::vector<Vertex> vertices;
 	std::vector<DWORD> indices;
-	aiBone** bones;
-	
-	// 뼈정보 얻기
-	bones = mesh->mBones;
 
 	//Get vertices
 	for (UINT i = 0; i < mesh->mNumVertices; i++)
 	{
 		Vertex vertex;
 
+		// 위치 정보 가져오기
 		vertex.pos.x = mesh->mVertices[i].x;
 		vertex.pos.y = mesh->mVertices[i].y;
 		vertex.pos.z = mesh->mVertices[i].z;
 
+		// 법선 벡터 가져오기
+		vertex.Normal.x = mesh->mNormals[i].x;
+		vertex.Normal.y = mesh->mNormals[i].y;
+		vertex.Normal.z = mesh->mNormals[i].z;
+	
+	//	// 회전값 가져오기 오류남 코드 수정 필요
+	//	vertex.TangentU.x = mesh->mTangents[i].x;
+	//	vertex.TangentU.y = mesh->mTangents[i].y;
+	//	vertex.TangentU.z = mesh->mTangents[i].z;
+
+
+		// 뼈랑 웨이트는 뼈함수에서 찾아서 넣어줌
 		if (mesh->mTextureCoords[0])
 		{
 			vertex.texCoord.x = (float)mesh->mTextureCoords[0][i].x;
@@ -101,7 +138,8 @@ MyMesh MyModel::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 		vertices.push_back(vertex);
 	}
 
-	//Get indices
+
+	// 정점 인덱스는 뼈에서 지정하는 인덱스와 맞춰야 하므로 Assimp인덱스를 맞춰서 저장한다.
 	for (UINT i = 0; i < mesh->mNumFaces; i++)
 	{
 		aiFace face = mesh->mFaces[i];
@@ -110,12 +148,20 @@ MyMesh MyModel::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 			indices.push_back(face.mIndices[j]);
 	}
 
+
 	std::vector<MyTexture> textures;
+
+	// 현 메쉬의 머터리얼 저장. 물리맵 노말맵 따로 불러와 저장하는 코드 추가 요구됨
 	aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+
+	// 머터리얼의 텍스쳐 뽑아오기.
 	std::vector<MyTexture> diffuseTextures = LoadMaterialTextures(material, aiTextureType::aiTextureType_DIFFUSE, scene);
+
+	// 현 메쉬 텍스쳐들 추가
 	textures.insert(textures.end(), diffuseTextures.begin(), diffuseTextures.end());
 
-	return MyMesh(this->device, bones, this->deviceContext, vertices, indices, textures);
+	// 불러온 메쉬 리턴
+	return MyMesh(this->device, this->deviceContext, vertices, indices, textures);
 }
 
 TextureStorageType MyModel::DetermineTextureStorageType(const aiScene * pScene, aiMaterial * pMat, unsigned int index, aiTextureType textureType)
@@ -126,6 +172,7 @@ TextureStorageType MyModel::DetermineTextureStorageType(const aiScene * pScene, 
 	aiString path;
 	pMat->GetTexture(textureType, index, &path);
 	std::string texturePath = path.C_Str();
+
 	//Check if texture is an embedded indexed texture by seeing if the file path is an index #
 	if (texturePath[0] == '*')
 	{

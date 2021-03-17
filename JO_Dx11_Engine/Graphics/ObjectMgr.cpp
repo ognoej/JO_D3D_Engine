@@ -40,7 +40,7 @@ void ObjectMgr::DrawObjects(const XMMATRIX & viewProjectionMatrix)
 	
 }
 
-
+// 오브젝트 찾기
 Object* ObjectMgr::GetObjects(std::string _name)
 {
 

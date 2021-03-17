@@ -80,8 +80,8 @@ bool Engine::Initialize(HINSTANCE _hInstance, LPCWSTR  _window_title, std::wstri
 		return 0;
 	}
 
-	int c = sizeof(DxMgr.MyObjectMgr.GetObjects("jigu")->model->meshes);
-	int b = sizeof(DxMgr.MyObjectMgr.GetObjects("jigu")->model->meshes[0].bones);
+	//int c = sizeof(DxMgr.MyObjectMgr.GetObjects("jigu")->model->meshes);
+	//int b = sizeof(DxMgr.MyObjectMgr.GetObjects("jigu")->model->meshes[0].bones);
 
 	return true;
 }
