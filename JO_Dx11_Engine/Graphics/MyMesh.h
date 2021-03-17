@@ -35,8 +35,8 @@ struct BoneInfo
 {
 	std::string BoneHierarchy;
 	XMFLOAT4X4 BoneOffsets;
-	aiNode* ParentNode = nullptr;
-	aiNode* ChildNode = nullptr;
+	BoneInfo* ParentNode = nullptr;
+	//aiNode* ChildNode = nullptr;
 };
 
 

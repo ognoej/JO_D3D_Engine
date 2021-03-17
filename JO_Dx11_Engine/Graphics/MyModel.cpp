@@ -75,8 +75,8 @@ bool MyModel::LoadModel(const std::string & filePath)
 }
 
 
-
-
+#include <algorithm>
+using namespace std;
 
 void MyModel::LoadBonesAndHierarchy(const aiMesh* mesh,const aiScene* scene, std::vector<BoneInfo>& meshBones)
 {
@@ -105,8 +105,22 @@ void MyModel::LoadBonesAndHierarchy(const aiMesh* mesh,const aiScene* scene, std
 
 		boneinfo.BoneHierarchy = mesh->mBones[i]->mName.C_Str();
 
-		meshBones.push_back(boneinfo);
+		//std::vector<BoneInfo>::iterator iter;
+		//iter = std::find(meshBones.begin(), meshBones.end(), scene->mRootNode->FindNode(mesh->mBones[i]->mName));
+		
+		//auto it = find(meshBones.begin(), meshBones.end(), scene->mRootNode->FindNode(mesh->mBones[i]->mName));
+		//
+		//boneinfo.ParentNode = &meshBones[it - meshBones.begin()];
+		// if (it == meshBones.end())
+		// {
+		//	 meshBones.push_back(boneinfo);
+		//	 continue;
+		// }
+		//else 
+		//{
+		//}
 	}
+
 	return;
 }
 
