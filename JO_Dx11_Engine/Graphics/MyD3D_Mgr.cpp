@@ -186,9 +186,8 @@ bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 
 		//NewObject("jigu", "Data\\earth.obj");
 
-		NewObject("jigu", "Data\\rp_nathan_animated_003_walking.fbx");
-
-		
+		//NewObject("jigu", "Data\\rp_manuel_animated_001_dancing.fbx");
+		NewObject("jigu", "Data\\rp_alison_rigged_001_CAT_vray_CAMERA.fbx");
 
 #pragma endregion
 	return true;

@@ -33,9 +33,10 @@ struct Vertex
 
 struct BoneInfo
 {
-	std::string BoneHierarchy;
+	std::string BoneName;
 	XMFLOAT4X4 BoneOffsets;
-	BoneInfo* ParentNode = nullptr;
+	XMFLOAT4X4 ToParentTransform;
+	//BoneInfo* ParentNode = nullptr; // 하이라키를 대신할 부모노드
 	//aiNode* ChildNode = nullptr;
 };
 

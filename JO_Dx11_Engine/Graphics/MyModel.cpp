@@ -42,6 +42,32 @@ void MyModel::Release()
 
 
 
+void MyModel::LoadaiMatrixto4x4float(XMFLOAT4X4 & dest, aiMatrix4x4 & src)
+{
+	
+	dest._11 = src.a1;
+	dest._12 = src.a2;
+	dest._13 = src.a3;
+	dest._14 = src.a4;
+			   
+	dest._21 = src.b1;
+	dest._22 = src.b2;
+	dest._23 = src.b3;
+	dest._24 = src.b4;
+			   
+	dest._31 = src.c1;
+	dest._32 = src.c2;
+	dest._33 = src.c3;
+	dest._34 = src.c4;
+			   
+	dest._41 = src.d1;
+	dest._42 = src.d2;
+	dest._43 = src.d3;
+	dest._44 = src.d4;
+
+	return;
+}
+
 bool MyModel::LoadModel(const std::string & filePath)
 {
 	this->directory = MyString::GetDirectoryFromPath(filePath);
@@ -55,8 +81,6 @@ bool MyModel::LoadModel(const std::string & filePath)
 		aiProcess_ConvertToLeftHanded);
 	if (pScene == nullptr)
 		return false;
-
-
 
 	// 씬->애니메이션->채널->포지션&스케일&로테이션 키프레임에 저장
 	// 씬->본->웨이트->버텍스아이디&버텍스가중치를 Mesh->Vertives에서 찾아서 x 내가 만든 버텍스에 저장
@@ -75,51 +99,59 @@ bool MyModel::LoadModel(const std::string & filePath)
 }
 
 
+#include <assimp/scene.h>
+
+
 #include <algorithm>
 using namespace std;
 
 void MyModel::LoadBonesAndHierarchy(const aiMesh* mesh,const aiScene* scene, std::vector<BoneInfo>& meshBones)
 {
+
+	aiNode* rootnode = scene->mRootNode;
+
 	for (int i = 0; i < mesh->mNumBones; i++)
 	{
 		BoneInfo boneinfo;
-		boneinfo.BoneOffsets._11 = mesh->mBones[i]->mOffsetMatrix.a1;
-		boneinfo.BoneOffsets._12 = mesh->mBones[i]->mOffsetMatrix.a2;
-		boneinfo.BoneOffsets._13 = mesh->mBones[i]->mOffsetMatrix.a3;
-		boneinfo.BoneOffsets._14 = mesh->mBones[i]->mOffsetMatrix.a4;
 
-		boneinfo.BoneOffsets._21 = mesh->mBones[i]->mOffsetMatrix.b1;
-		boneinfo.BoneOffsets._22 = mesh->mBones[i]->mOffsetMatrix.b2;
-		boneinfo.BoneOffsets._23 = mesh->mBones[i]->mOffsetMatrix.b3;
-		boneinfo.BoneOffsets._24 = mesh->mBones[i]->mOffsetMatrix.b4;
+		// 뼈 오프셋 가져오기
+		LoadaiMatrixto4x4float(boneinfo.BoneOffsets, mesh->mBones[i]->mOffsetMatrix);
 
-		boneinfo.BoneOffsets._31 = mesh->mBones[i]->mOffsetMatrix.c1;
-		boneinfo.BoneOffsets._32 = mesh->mBones[i]->mOffsetMatrix.c2;
-		boneinfo.BoneOffsets._33 = mesh->mBones[i]->mOffsetMatrix.c3;
-		boneinfo.BoneOffsets._34 = mesh->mBones[i]->mOffsetMatrix.c4;
+		// 뼈 이름 가져오기
+		boneinfo.BoneName = mesh->mBones[i]->mName.data;
 
-		boneinfo.BoneOffsets._41 = mesh->mBones[i]->mOffsetMatrix.d1;
-		boneinfo.BoneOffsets._42 = mesh->mBones[i]->mOffsetMatrix.d2;
-		boneinfo.BoneOffsets._43 = mesh->mBones[i]->mOffsetMatrix.d3;
-		boneinfo.BoneOffsets._44 = mesh->mBones[i]->mOffsetMatrix.d4;
-
-		boneinfo.BoneHierarchy = mesh->mBones[i]->mName.C_Str();
-
-		//std::vector<BoneInfo>::iterator iter;
-		//iter = std::find(meshBones.begin(), meshBones.end(), scene->mRootNode->FindNode(mesh->mBones[i]->mName));
+		// 뼈 부모 트랜스폼 가져오기
+		aiNode* findnode = rootnode->FindNode(mesh->mBones[i]->mName);
+		if (findnode->mParent != nullptr)
+		{
+			LoadaiMatrixto4x4float(boneinfo.ToParentTransform, findnode->mParent->mTransformation);
+		}
 		
-		//auto it = find(meshBones.begin(), meshBones.end(), scene->mRootNode->FindNode(mesh->mBones[i]->mName));
-		//
-		//boneinfo.ParentNode = &meshBones[it - meshBones.begin()];
-		// if (it == meshBones.end())
-		// {
-		//	 meshBones.push_back(boneinfo);
-		//	 continue;
-		// }
-		//else 
-		//{
-		//}
+
+		meshBones.push_back(boneinfo);
 	}
+
+	
+	//for (int i = 1; i < mesh->mNumBones; i++)
+	//{
+	//	// 자식 노드 찾기
+	//	aiNode* findnode = rootnode->FindNode(mesh->mBones[i]->mName);
+	//	if (findnode->mParent != nullptr)
+	//	{
+	//		LoadaiMatrixto4x4float( findnode->mTransformation
+	//
+	//	}
+	//	//// 부모 노드 찾기
+	//	//for (int j = 0; j < mesh->mNumBones; j++)
+	//	//{
+	//	//	if (meshBones[j].BoneName == parentnodeName)
+	//	//	{
+	//	//		meshBones[i].ParentNode = &meshBones[j];
+	//	//		break;
+	//	//	}
+	//	//}
+	//
+	//}
 
 	return;
 }

@@ -60,6 +60,7 @@ public:
 
 
 private:
+	void LoadaiMatrixto4x4float(XMFLOAT4X4 &dest, aiMatrix4x4 &src);
 	bool LoadModel(const std::string & filePath);
 	void ProcessNode(aiNode * node, const aiScene * scene);
 	void LoadBonesAndHierarchy(const aiMesh* pMesh,const aiScene* scene, std::vector<BoneInfo>& meshBones);
