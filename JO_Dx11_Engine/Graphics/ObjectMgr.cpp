@@ -14,6 +14,14 @@ void ObjectMgr::initialize()
 	return;
 }
 
+void ObjectMgr::UpdateObjList(float dt)
+{
+	for (int i = 0; i < ObjectList.size; i++)
+	{
+		ObjectList[i].UpdateObj(dt);
+	}
+}
+
 // const string  ¼öÁ¤
 bool ObjectMgr::AddObject(const std::string _objectname, std::string & filePath, ID3D11Device * device, ID3D11DeviceContext * deviceContext, MyConstBuffer<CB_VS_vertexshader>& cb_vs_vertexshader)
 {

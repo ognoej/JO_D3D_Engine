@@ -12,6 +12,8 @@ private:
 public:
 	bool Initialize(const std::string _name, std::string & filePath, ID3D11Device * device, ID3D11DeviceContext * deviceContext, MyConstBuffer<CB_VS_vertexshader> & cb_vs_vertexshader);
 
+
+	void UpdateObj(float dt = 0);
 	//~Object();
 	void Draw(const XMMATRIX & viewProjectionMatrix);
 
@@ -53,11 +55,13 @@ public:
 	const XMVECTOR & GetLeftVector();
 
 
+	const void GetFinalTransform(aiAnimation& anim, float anitime, XMMATRIX& NodeMatrix);
+
 	MyModel *model = nullptr;
 
 private :
 
-	//MyModel model;
+	// MyModel model;
 	// squre 나 다각형 모델용 클래스 추가해야함
 
 	XMVECTOR posVector;

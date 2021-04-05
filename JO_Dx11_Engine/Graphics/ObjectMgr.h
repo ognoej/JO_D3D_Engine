@@ -9,6 +9,7 @@ private :
 public :
 	//~ObjectMgr();
 	void initialize();
+	void UpdateObjList(float dt = 0);
 	bool AddObject(const std::string _objectname, std::string & filePath, ID3D11Device * device, ID3D11DeviceContext * deviceContext, MyConstBuffer<CB_VS_vertexshader> & cb_vs_vertexshader);
 	void DrawObjects(const XMMATRIX & viewProjectionMatrix);
 	Object* GetObjects(std::string _name);

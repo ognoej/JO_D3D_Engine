@@ -22,7 +22,9 @@ public:
 
 	~MyD3D_Mgr();
 	bool Initialize(HWND hwnd, int width, int height);
-	void Render();
+
+	void Update(float dt = 0);
+	void Render(float dt = 0);
 
 	bool NewObject(std::string objname, std::string filepath);
 

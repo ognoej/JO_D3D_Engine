@@ -173,7 +173,7 @@ bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 
 #pragma region 카메라 기본설정
 
-		cameraMgr.SetPosition(0.0f, 100.0f, -150.0f);
+		cameraMgr.SetPosition(0.0f, 80.0f, -150.0f);
 		cameraMgr.SetProjectionValues(90.0f, static_cast<float>(windowWidth) / static_cast<float>(windowHeight), 0.1f, 1000.0f);
 
 #pragma endregion
@@ -186,15 +186,22 @@ bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 
 		//NewObject("jigu", "Data\\earth.obj");
 
-		//NewObject("jigu", "Data\\rp_manuel_animated_001_dancing.fbx");
-		NewObject("jigu", "Data\\rp_alison_rigged_001_CAT_vray_CAMERA.fbx");
+		NewObject("jigu", "Data\\rp_nathan_animated_003_walking.fbx");
+		//NewObject("jigu", "Data\\Character Running.fbx");
 
 #pragma endregion
 	return true;
 
 }
 
-void MyD3D_Mgr::Render()
+void MyD3D_Mgr::Update(float dt)
+{
+
+	MyObjectMgr.UpdateObjList(dt);
+
+}
+
+void MyD3D_Mgr::Render(float dt = 0)
 {	
 
 	if (deviceContext == nullptr) return;
@@ -228,6 +235,7 @@ bool MyD3D_Mgr::NewObject(std::string objname, std::string filepath)
 	 MyObjectMgr.AddObject(objname, filepath, this->device.Get(), this->deviceContext.Get(), this->cb_vs_vertexshader);	
 	 
 	 MyObjectMgr.SetObjects("jigu");
+	 MyObjectMgr.GetObjects("jigu")->AdjustRotation(XMFLOAT3(0, 0, 0));
 
 	 return true;
 

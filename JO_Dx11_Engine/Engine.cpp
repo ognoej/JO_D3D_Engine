@@ -14,7 +14,6 @@ LRESULT CALLBACK MessageHandler(HWND _hwnd, UINT _uMsg, WPARAM _wParam, LPARAM _
 	return(DefWindowProc(_hwnd, _uMsg, _wParam, _lParam));
 }
 
-
 bool Engine::Initialize(HINSTANCE _hInstance, LPCWSTR  _window_title, std::wstring _window_class, int _width, int _height)
 {
 
@@ -120,7 +119,7 @@ void Engine::Update(float _delayTime)
 	float dt = TimeMgr.GetMilisecondsElapsed();
 	TimeMgr.Restart();
 
-	DxMgr.MyObjectMgr.GetObjects("jigu")->AdjustRotation(0.0f, 0.0001f*dt, 0.0f);
+	//DxMgr.MyObjectMgr.GetObjects("jigu")->AdjustRotation(0.0f, 0.0001f*dt, 0.0f);
 	//DxMgr.MyObjectMgr.findobj->AdjustRotation(0.0f, 0.1f, 0.0f);
 }
 

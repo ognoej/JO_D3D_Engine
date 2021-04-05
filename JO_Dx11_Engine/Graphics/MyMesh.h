@@ -35,7 +35,7 @@ struct BoneInfo
 {
 	std::string BoneName;
 	XMFLOAT4X4 BoneOffsets;
-	XMFLOAT4X4 ToParentTransform;
+	XMFLOAT4X4 FinalTransform;
 	//BoneInfo* ParentNode = nullptr; // 하이라키를 대신할 부모노드
 	//aiNode* ChildNode = nullptr;
 };

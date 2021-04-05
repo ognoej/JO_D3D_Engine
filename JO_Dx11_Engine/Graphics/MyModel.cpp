@@ -119,19 +119,18 @@ void MyModel::LoadBonesAndHierarchy(const aiMesh* mesh,const aiScene* scene, std
 
 		// 뼈 이름 가져오기
 		boneinfo.BoneName = mesh->mBones[i]->mName.data;
+	
 
-		// 뼈 부모 트랜스폼 가져오기
-		aiNode* findnode = rootnode->FindNode(mesh->mBones[i]->mName);
-		if (findnode->mParent != nullptr)
-		{
-			LoadaiMatrixto4x4float(boneinfo.ToParentTransform, findnode->mParent->mTransformation);
-		}
-		
-
+		//// 뼈 부모 트랜스폼 가져오기
+		//aiNode* findnode = rootnode->FindNode(mesh->mBones[i]->mName);
+		//if (findnode->mParent != nullptr)
+		//{
+		//	LoadaiMatrixto4x4float(boneinfo.ToParentTransform, findnode->mParent->mTransformation);
+		//}
+	
 		meshBones.push_back(boneinfo);
 	}
 
-	
 	//for (int i = 1; i < mesh->mNumBones; i++)
 	//{
 	//	// 자식 노드 찾기
