@@ -16,7 +16,7 @@ void ObjectMgr::initialize()
 
 void ObjectMgr::UpdateObjList(float dt)
 {
-	for (int i = 0; i < ObjectList.size; i++)
+	for (int i = 0; i < ObjectList.size(); i++)
 	{
 		ObjectList[i].UpdateObj(dt);
 	}

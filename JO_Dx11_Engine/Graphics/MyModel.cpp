@@ -76,7 +76,7 @@ bool MyModel::LoadModel(const std::string & filePath)
 
 
 	// Assimp 로 모델 불러오기. 인스턴싱을 위해 모델완성되면 싱글톤으로 관리 매서드 추가 필요
-	const aiScene* pScene = importer.ReadFile(filePath,
+	pScene = importer.ReadFile(filePath,
 		aiProcess_Triangulate |
 		aiProcess_ConvertToLeftHanded);
 	if (pScene == nullptr)
@@ -90,12 +90,70 @@ bool MyModel::LoadModel(const std::string & filePath)
 	// 애니메이션 클립 개수 저장
 	if (pScene->HasAnimations())
 	{
-		this->mNumAnimationClips = pScene->mNumAnimations;
+		LoadAnimation(pScene);
 	}
+
+	this->mAnimations;
 
 	this->ProcessNode(pScene->mRootNode, pScene);
 
 	return true;
+}
+
+
+
+void MyModel::LoadAnimation(const aiScene* pScene)
+{
+	this->mNumAnimationClips = pScene->mNumAnimations;
+	
+
+	for (int i = 0; i < mNumAnimationClips; i++)
+	{
+		AnimationClip aniclip;
+		float ticktime = 0;
+
+		for (int j = 0; j < pScene->mAnimations[i]->mNumChannels; j++)
+		{
+			BoneAnimation boneani;
+
+
+			for (int k = 0; k < pScene->mAnimations[i]->mChannels[j]->mNumPositionKeys; k++)
+			{				
+
+				Keyframe bonekeyframe;
+				bonekeyframe.Translation.x = pScene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mValue.x;
+				bonekeyframe.Translation.y = pScene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mValue.y;
+				bonekeyframe.Translation.z = pScene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mValue.z;
+
+
+				bonekeyframe.Scale.x = pScene->mAnimations[i]->mChannels[j]->mScalingKeys[k].mValue.x;
+				bonekeyframe.Scale.y = pScene->mAnimations[i]->mChannels[j]->mScalingKeys[k].mValue.y;
+				bonekeyframe.Scale.z = pScene->mAnimations[i]->mChannels[j]->mScalingKeys[k].mValue.z;
+
+
+				bonekeyframe.RotationQuat.x = pScene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mValue.x;
+				bonekeyframe.RotationQuat.y = pScene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mValue.y;
+				bonekeyframe.RotationQuat.z = pScene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mValue.z;
+				bonekeyframe.RotationQuat.w = pScene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mValue.w;
+				
+				if(sizeof( bonekeyframe)==1)
+				{
+					continue;
+				}
+
+				bonekeyframe.TimePos = ticktime;
+				boneani.Keyframes.push_back(bonekeyframe);
+			}
+
+			ticktime += pScene->mAnimations[i]->mTicksPerSecond;
+
+			aniclip.BoneAnimations.push_back(boneani);
+
+		}
+
+		std::string aniname(pScene->mAnimations[i]->mName.C_Str());
+		this->mAnimations.insert(make_pair(aniname, aniclip));
+	}
 }
 
 
@@ -225,6 +283,8 @@ MyMesh MyModel::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 		for (UINT j = 0; j < face.mNumIndices; j++)
 			indices.push_back(face.mIndices[j]);
 	}
+
+
 
 
 	std::vector<MyTexture> textures;

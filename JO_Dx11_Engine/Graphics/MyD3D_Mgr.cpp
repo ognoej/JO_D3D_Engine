@@ -201,7 +201,7 @@ void MyD3D_Mgr::Update(float dt)
 
 }
 
-void MyD3D_Mgr::Render(float dt = 0)
+void MyD3D_Mgr::Render(float dt)
 {	
 
 	if (deviceContext == nullptr) return;

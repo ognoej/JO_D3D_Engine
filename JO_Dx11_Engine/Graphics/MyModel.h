@@ -26,6 +26,8 @@ struct BoneAnimation
 
 	void Interpolate(float t, XMFLOAT4X4& M)const;
 
+
+	//뼈 하나당 키프레임 포지션값
 	std::vector<Keyframe> Keyframes;
 
 };
@@ -37,6 +39,7 @@ struct AnimationClip
 
 	void Interpolate(float t, std::vector<XMFLOAT4X4>& boneTransforms)const;
 
+	//뼈 갯수만큼 본 애니메이션
 	std::vector<BoneAnimation> BoneAnimations;
 };
 
@@ -60,8 +63,12 @@ public:
 
 
 private:
+	const aiScene* pScene;
+
 	void LoadaiMatrixto4x4float(XMFLOAT4X4 &dest, aiMatrix4x4 &src);
 	bool LoadModel(const std::string & filePath);
+	void LoadAnimation(const aiScene* pScene);
+
 	void ProcessNode(aiNode * node, const aiScene * scene);
 	void LoadBonesAndHierarchy(const aiMesh* pMesh,const aiScene* scene, std::vector<BoneInfo>& meshBones);
 	MyMesh ProcessMesh(aiMesh * mesh, const aiScene * scene);
