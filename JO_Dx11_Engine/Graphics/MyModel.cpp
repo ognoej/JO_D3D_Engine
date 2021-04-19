@@ -101,7 +101,6 @@ bool MyModel::LoadModel(const std::string & filePath)
 }
 
 
-
 void MyModel::LoadAnimation(const aiScene* pScene)
 {
 	this->mNumAnimationClips = pScene->mNumAnimations;
@@ -154,6 +153,45 @@ void MyModel::LoadAnimation(const aiScene* pScene)
 		std::string aniname(pScene->mAnimations[i]->mName.C_Str());
 		this->mAnimations.insert(make_pair(aniname, aniclip));
 	}
+}
+
+void MyModel::ReadNodeHeirarchy(float AnimationTime, aiNode * pScene, XMFLOAT4X4 identity)
+{
+
+
+}
+
+
+XMFLOAT4X4 float4x4idendity()
+{
+	XMFLOAT4X4 V = {
+		1.f, 0.f, 0.f, 0.f,
+		0.f, 1.f, 0.f, 0.f,
+		0.f, 0.f, 1.f, 0.f,
+		0.f, 0.f, 0.f, 1.f
+	};
+	return V;
+}
+
+
+// 뼈 트랜스폼 갱신
+void MyModel::BoneTransform(float TimeInSeconds, std::vector<XMFLOAT4X4>& Transforms)
+{
+		XMFLOAT4X4 identity = float4x4idendity();
+
+		float TicksPerSecond = pScene->mAnimations[0]->mTicksPerSecond != 0 ?
+			pScene->mAnimations[0]->mTicksPerSecond : 25.0f;
+		float TimeInTicks = TimeInSeconds * TicksPerSecond;
+		float AnimationTime = fmod(TimeInTicks, pScene->mAnimations[0]->mDuration);
+
+		ReadNodeHeirarchy(AnimationTime, pScene->mRootNode, identity);
+
+		Transforms.resize(mNumBones);
+
+		for (UINT i = 0; i < mNumBones; i++) {
+			Transforms[i] = Boneinfoes[i].FinalTransform;
+		}
+		return;
 }
 
 
@@ -285,7 +323,7 @@ MyMesh MyModel::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 	}
 
 
-
+	Boneinfoes = meshBones;
 
 	std::vector<MyTexture> textures;
 
@@ -299,7 +337,7 @@ MyMesh MyModel::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 	textures.insert(textures.end(), diffuseTextures.begin(), diffuseTextures.end());
 
 	// 불러온 메쉬 리턴
-	return MyMesh(this->device, this->deviceContext, meshBones, vertices, indices, textures);
+	return MyMesh(this->device, this->deviceContext, vertices, indices, textures);
 }
 
 TextureStorageType MyModel::DetermineTextureStorageType(const aiScene * pScene, aiMaterial * pMat, unsigned int index, aiTextureType textureType)

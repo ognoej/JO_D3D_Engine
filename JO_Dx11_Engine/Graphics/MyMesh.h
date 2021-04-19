@@ -31,25 +31,16 @@ struct Vertex
 };
 
 
-struct BoneInfo
-{
-	std::string BoneName;
-	XMFLOAT4X4 BoneOffsets;
-	XMFLOAT4X4 FinalTransform;
-	//BoneInfo* ParentNode = nullptr; // 하이라키를 대신할 부모노드
-	//aiNode* ChildNode = nullptr;
-};
-
 
 
 
 class MyMesh
 {
 public:
-	MyMesh(ID3D11Device * device, ID3D11DeviceContext * deviceContext, std::vector<BoneInfo>& meshBones, std::vector<Vertex> & vertices, std::vector<DWORD> & indices, std::vector<MyTexture> & textures);
+	MyMesh(ID3D11Device * device, ID3D11DeviceContext * deviceContext, std::vector<Vertex> & vertices, std::vector<DWORD> & indices, std::vector<MyTexture> & textures);
 	MyMesh(const MyMesh & mesh);
 	void Draw();
-	std::vector<BoneInfo> mMeshBones;
+	//std::vector<BoneInfo> mMeshBones;
 
 private:
 	MyVertexBuffer<Vertex> vertexbuffer;
