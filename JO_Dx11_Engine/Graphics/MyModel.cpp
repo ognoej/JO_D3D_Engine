@@ -41,6 +41,15 @@ void MyModel::Release()
 }
 
 
+XMFLOAT4X4 MyModel::aiMatrixtoXMFLOAT4X4(aiMatrix4x4 _src)
+{
+	XMFLOAT4X4 dest;
+	LoadaiMatrixto4x4float(dest, _src);
+	return dest;
+}
+
+
+
 
 void MyModel::LoadaiMatrixto4x4float(XMFLOAT4X4 & dest, aiMatrix4x4 & src)
 {
@@ -86,6 +95,23 @@ bool MyModel::LoadModel(const std::string & filePath)
 	// 씬->본->웨이트->버텍스아이디&버텍스가중치를 Mesh->Vertives에서 찾아서 x 내가 만든 버텍스에 저장
 	// 본마다 버텍스 웨이트 갯수만큼 반복진행.
 
+	/*
+	
+	
+	본 이름 = 애니메이션 채널명 ( + 채널명스케일 + 채널명로테이션 + 채널명 트렌슬레이션 )
+	해당 본 이름의 스케일 로테이션 트렌슬레이션 합체 시켜서 채널명에 합해야함
+	빈 이름의 채널명은 존재하면 안되는 노드 (잘못된 파일) FBX에서 주로 나타남
+	OBJ는 클립이 따로없음. 키프레임 애니메이션을 수행함. 별도의 키프레임 파일이 존재하며 매우 용량을 많이 쳐먹음
+	FBX 나 md5는 뼈애니메이션을 들고있음
+	
+
+	
+	
+	
+	
+	
+	
+	*/
 
 	// 애니메이션 클립 개수 저장
 	if (pScene->HasAnimations())
@@ -155,9 +181,135 @@ void MyModel::LoadAnimation(const aiScene* pScene)
 	}
 }
 
-void MyModel::ReadNodeHeirarchy(float AnimationTime, aiNode * pScene, XMFLOAT4X4 identity)
-{
 
+const aiNodeAnim* MyModel::FindNodeAnim(const aiAnimation* pAnimation, std::string NodeName)
+{
+	aiNodeAnim* sibal = pAnimation->mChannels[0];
+	return sibal;
+}
+
+XMFLOAT4X4 XMFLOAT4X4Multifly(XMFLOAT4X4 a, XMFLOAT4X4 b)
+{
+	
+	XMFLOAT4X4 result;
+	result._11 = a._11 * b._11 + a._11 * b._21 + a._13 * b._31 + a._14 * b._41;
+	result._12 = a._11 * b._12 + a._11 * b._22 + a._13 * b._32 + a._14 * b._42;
+	result._13 = a._11 * b._13 + a._11 * b._23 + a._13 * b._33 + a._14 * b._43;
+	result._14 = a._11 * b._14 + a._11 * b._24 + a._13 * b._34 + a._14 * b._44;
+	result._21 = a._21 * b._11 + a._21 * b._21 + a._23 * b._31 + a._24 * b._41;
+	result._22 = a._21 * b._12 + a._21 * b._22 + a._23 * b._32 + a._24 * b._42;
+	result._23 = a._21 * b._13 + a._21 * b._23 + a._23 * b._33 + a._24 * b._43;
+	result._24 = a._21 * b._14 + a._21 * b._24 + a._23 * b._34 + a._24 * b._44;
+	result._31 = a._31 * b._11 + a._31 * b._21 + a._33 * b._31 + a._34 * b._41;
+	result._32 = a._31 * b._12 + a._31 * b._22 + a._33 * b._32 + a._34 * b._42;
+	result._33 = a._31 * b._13 + a._31 * b._23 + a._33 * b._33 + a._34 * b._43;
+	result._34 = a._31 * b._14 + a._31 * b._24 + a._33 * b._34 + a._34 * b._44;
+	result._41 = a._41 * b._11 + a._41 * b._21 + a._43 * b._31 + a._44 * b._41;
+	result._42 = a._41 * b._12 + a._41 * b._22 + a._43 * b._32 + a._44 * b._42;
+	result._43 = a._41 * b._13 + a._41 * b._23 + a._43 * b._33 + a._44 * b._43;
+	result._44 = a._41 * b._14 + a._41 * b._24 + a._43 * b._34 + a._44 * b._44;
+
+	return result;
+
+}
+
+
+XMFLOAT4X4 scalingMatrix(float _x, float _y, float _z)
+{
+	XMFLOAT4X4 result = {
+		_x , 0 , 0 , 0,
+		0 , _y , 0 , 0,
+		0 , 0 , _z , 0,
+		0 , 0 , 0 ,  1,
+	};
+
+
+	return result;
+}
+
+
+XMFLOAT4X4 translationMatrix(float _x, float _y, float _z)
+{
+	XMFLOAT4X4 result = {
+		1 , 0 , 0 , _x,
+		0 , 1 , 0 , _y,
+		0 , 0 , 1 , _z,
+		0 , 0 , 0 ,  1,
+	};
+
+
+	return result;
+}
+
+void loadai3x3matrixtoXMFLOAT4X4(XMFLOAT4X4 &_dest, aiMatrix3x3 _src)
+{
+	_dest._11 = _src.a1;
+	_dest._12 = _src.a2;
+	_dest._13 = _src.a3;
+	_dest._14 = 0;
+	_dest._21 = _src.b1;
+	_dest._22 = _src.b2;
+	_dest._23 = _src.b3;
+	_dest._24 = 0;
+	_dest._31 = _src.c1;
+	_dest._32 = _src.c2;
+	_dest._33 = _src.c3;
+	_dest._34 = 0;
+	_dest._41 = 0 ;
+	_dest._42 = 0 ;
+	_dest._43 = 0 ;
+	_dest._44 = 1 ;
+	
+
+	return;
+
+}
+
+
+void MyModel::ReadNodeHeirarchy(float AnimationTime, aiNode * pNode, XMFLOAT4X4 ParentTransform)
+{
+	std::string NodeName(pNode->mName.data);
+
+	const aiAnimation* pAnimation = pScene->mAnimations[0];
+
+	
+	XMFLOAT4X4 NodeTransformation(aiMatrixtoXMFLOAT4X4(pNode->mTransformation));
+
+	const aiNodeAnim* pNodeAnim = FindNodeAnim(pAnimation, NodeName);
+
+	if (pNodeAnim) {
+		// Interpolate scaling and generate scaling transformation matrix
+		aiVector3D Scaling;
+		//CalcInterpolatedScaling(Scaling, AnimationTime, pNodeAnim);
+		XMFLOAT4X4 ScalingM = scalingMatrix(Scaling.x, Scaling.y, Scaling.z);
+		
+
+		// Interpolate rotation and generate rotation transformation matrix
+		aiQuaternion RotationQ;
+		//CalcInterpolatedRotation(RotationQ, AnimationTime, pNodeAnim);
+		XMFLOAT4X4 RotationM;
+		loadai3x3matrixtoXMFLOAT4X4(RotationM, RotationQ.GetMatrix());
+
+		// Interpolate translation and generate translation transformation matrix
+		aiVector3D Translation;
+		//CalcInterpolatedPosition(Translation, AnimationTime, pNodeAnim);
+		XMFLOAT4X4 TranslationM = translationMatrix(Translation.x, Translation.y, Translation.z);
+
+		// Combine the above transformations
+		NodeTransformation = XMFLOAT4X4Multifly(XMFLOAT4X4Multifly(TranslationM , RotationM), ScalingM);
+	}
+
+	XMFLOAT4X4 GlobalTransformation = XMFLOAT4X4Multifly (ParentTransform , NodeTransformation);
+
+	if (m_BoneMapping.find(NodeName) != m_BoneMapping.end()) {
+		UINT BoneIndex = m_BoneMapping[NodeName];
+		Boneinfoes[BoneIndex].FinalTransform = XMFLOAT4X4Multifly(XMFLOAT4X4Multifly(m_GlobalInverseTransform , GlobalTransformation),
+			Boneinfoes[BoneIndex].BoneOffsets);
+	}
+
+	for (UINT i = 0; i < pNode->mNumChildren; i++) {
+		ReadNodeHeirarchy(AnimationTime, pNode->mChildren[i], GlobalTransformation);
+	}
 
 }
 
@@ -184,7 +336,7 @@ void MyModel::BoneTransform(float TimeInSeconds, std::vector<XMFLOAT4X4>& Transf
 		float TimeInTicks = TimeInSeconds * TicksPerSecond;
 		float AnimationTime = fmod(TimeInTicks, pScene->mAnimations[0]->mDuration);
 
-		ReadNodeHeirarchy(AnimationTime, pScene->mRootNode, identity);
+		//ReadNodeHeirarchy(AnimationTime, pScene->mRootNode, identity);
 
 		Transforms.resize(mNumBones);
 
