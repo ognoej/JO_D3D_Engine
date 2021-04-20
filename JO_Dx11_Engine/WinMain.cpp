@@ -15,22 +15,76 @@ int APIENTRY WinMain(
 	LPSTR		_cmdParam,
 	int			_cmdShow)
 {
-
-	MyTimer TimeMgr;
 	Engine JEngine;
+
+	if (!JEngine.Initialize(_hInst, WIN_NAME, L"MainWindow", WIN_WIDTH, WIN_HEIGHT))
+	{
+		return 0;
 	
-	TimeMgr.Start();
-
-	if (JEngine.Initialize(_hInst, WIN_NAME, L"MainWindow", WIN_WIDTH, WIN_HEIGHT))
-	{	
-
-		while (JEngine.ProcessMessages()==true)
-		{
-			TimeMgr.Tick();
-			JEngine.Update(TimeMgr);
-			JEngine.Render(TimeMgr);
-		}
 	}
+	else
+	{
+		JEngine.Run();
+	}
+
+	////try
+	////{
+	//	Engine JEngine;
+	//	//JEngine.jengine = &JEngine;
+	//	if (!JEngine.Initialize(_hInst, WIN_NAME, L"MainWindow", WIN_WIDTH, WIN_HEIGHT))
+	//		return 0;
+	//
+	// JEngine.Run();
+	////}
+	//catch
+	//{
+	//
+	//}
+	//catch (DxException& e)
+	//{
+	//	MessageBox(nullptr, e.ToString().c_str(), L"HR Failed", MB_OK);
+	//	return 0;
+	//}
+
+	// Engine JEngine;
+	// bool      mAppPaused = false; 
+	// 
+	// if (!JEngine.Initialize(_hInst, WIN_NAME, L"MainWindow", WIN_WIDTH, WIN_HEIGHT))
+	// {
+	// 	return 0;
+	// 
+	// }
+	// else
+	// {
+	// 	JEngine.Run();
+	// }
+
+		//while (msg.message != WM_QUIT)
+		//{
+		//	// If there are Window messages then process them.
+		//	if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE))
+		//	{
+		//		TranslateMessage(&msg);
+		//		DispatchMessage(&msg);
+		//	}
+		//	// Otherwise, do animation/game stuff.
+		//	else
+		//	{
+		//		TimeMgr.Tick();
+		//
+		//		if (!mAppPaused)
+		//		{
+		//			TimeMgr.Tick();
+		//			JEngine.Update(TimeMgr);
+		//			JEngine.Render(TimeMgr);
+		//		}
+		//		else
+		//		{
+		//			Sleep(100);
+		//		}
+		//	}
+		//}
+
 
 	return 0;
 }

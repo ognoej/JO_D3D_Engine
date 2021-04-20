@@ -63,9 +63,10 @@ public:
 	bool Initialize(const std::string & filePath, ID3D11Device * device, ID3D11DeviceContext * deviceContext, MyConstBuffer<CB_VS_vertexshader> & cb_vs_vertexshader);
 	void Draw(const XMMATRIX & worldMatrix, const XMMATRIX & viewProjectionMatrix);
 	void Release();
-	void BoneTransform(string nowanimation, float dt);
+	void BoneTransform(string nowanimation, float dt, std::vector<XMFLOAT4X4>& finaltransforms);
 
-	std::vector<XMFLOAT4X4> finaltransforms;
+	
+	float loadingtime = 0.f;
 
 	std::vector<MyMesh> meshes;							// 정점 정보
 	std::map<std::string, AnimationClip> mAnimations;	// 모델 애니메이션

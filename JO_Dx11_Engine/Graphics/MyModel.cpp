@@ -184,8 +184,15 @@ void MyModel::LoadAnimation(const aiScene* pScene)
 
 const aiNodeAnim* MyModel::FindNodeAnim(const aiAnimation* pAnimation, std::string NodeName)
 {
-	aiNodeAnim* sibal = pAnimation->mChannels[0];
-	return sibal;
+	
+	for (int i = 0; i < pAnimation->mNumChannels; i++)
+	{
+		if (pAnimation->mChannels[i]->mNodeName.data == NodeName)
+		{
+			return pAnimation->mChannels[i];
+		}
+	}
+
 }
 
 XMFLOAT4X4 XMFLOAT4X4Multifly(XMFLOAT4X4 a, XMFLOAT4X4 b)
@@ -272,44 +279,46 @@ void MyModel::ReadNodeHeirarchy(float AnimationTime, aiNode * pNode, XMFLOAT4X4 
 
 	const aiAnimation* pAnimation = pScene->mAnimations[0];
 
-	
+	// 노드 위치  == 월드좌표에서 오브젝트의 위치
 	XMFLOAT4X4 NodeTransformation(aiMatrixtoXMFLOAT4X4(pNode->mTransformation));
 
 	const aiNodeAnim* pNodeAnim = FindNodeAnim(pAnimation, NodeName);
 
-	if (pNodeAnim) {
-		// Interpolate scaling and generate scaling transformation matrix
-		aiVector3D Scaling;
-		//CalcInterpolatedScaling(Scaling, AnimationTime, pNodeAnim);
-		XMFLOAT4X4 ScalingM = scalingMatrix(Scaling.x, Scaling.y, Scaling.z);
-		
 
-		// Interpolate rotation and generate rotation transformation matrix
-		aiQuaternion RotationQ;
-		//CalcInterpolatedRotation(RotationQ, AnimationTime, pNodeAnim);
-		XMFLOAT4X4 RotationM;
-		loadai3x3matrixtoXMFLOAT4X4(RotationM, RotationQ.GetMatrix());
-
-		// Interpolate translation and generate translation transformation matrix
-		aiVector3D Translation;
-		//CalcInterpolatedPosition(Translation, AnimationTime, pNodeAnim);
-		XMFLOAT4X4 TranslationM = translationMatrix(Translation.x, Translation.y, Translation.z);
-
-		// Combine the above transformations
-		NodeTransformation = XMFLOAT4X4Multifly(XMFLOAT4X4Multifly(TranslationM , RotationM), ScalingM);
-	}
-
-	XMFLOAT4X4 GlobalTransformation = XMFLOAT4X4Multifly (ParentTransform , NodeTransformation);
-
-	if (m_BoneMapping.find(NodeName) != m_BoneMapping.end()) {
-		UINT BoneIndex = m_BoneMapping[NodeName];
-		Boneinfoes[BoneIndex].FinalTransform = XMFLOAT4X4Multifly(XMFLOAT4X4Multifly(m_GlobalInverseTransform , GlobalTransformation),
-			Boneinfoes[BoneIndex].BoneOffsets);
-	}
-
-	for (UINT i = 0; i < pNode->mNumChildren; i++) {
-		ReadNodeHeirarchy(AnimationTime, pNode->mChildren[i], GlobalTransformation);
-	}
+	pNodeAnim;
+	//if (pNodeAnim) {
+	//	// Interpolate scaling and generate scaling transformation matrix
+	//	aiVector3D Scaling;
+	//	//CalcInterpolatedScaling(Scaling, AnimationTime, pNodeAnim);
+	//	XMFLOAT4X4 ScalingM = scalingMatrix(Scaling.x, Scaling.y, Scaling.z);
+	//	
+	//
+	//	// Interpolate rotation and generate rotation transformation matrix
+	//	aiQuaternion RotationQ;
+	//	//CalcInterpolatedRotation(RotationQ, AnimationTime, pNodeAnim);
+	//	XMFLOAT4X4 RotationM;
+	//	loadai3x3matrixtoXMFLOAT4X4(RotationM, RotationQ.GetMatrix());
+	//
+	//	// Interpolate translation and generate translation transformation matrix
+	//	aiVector3D Translation;
+	//	//CalcInterpolatedPosition(Translation, AnimationTime, pNodeAnim);
+	//	XMFLOAT4X4 TranslationM = translationMatrix(Translation.x, Translation.y, Translation.z);
+	//
+	//	// Combine the above transformations
+	//	NodeTransformation = XMFLOAT4X4Multifly(XMFLOAT4X4Multifly(TranslationM , RotationM), ScalingM);
+	//}
+	//
+	//XMFLOAT4X4 GlobalTransformation = XMFLOAT4X4Multifly (ParentTransform , NodeTransformation);
+	//
+	//if (m_BoneMapping.find(NodeName) != m_BoneMapping.end()) {
+	//	UINT BoneIndex = m_BoneMapping[NodeName];
+	//	Boneinfoes[BoneIndex].FinalTransform = XMFLOAT4X4Multifly(XMFLOAT4X4Multifly(m_GlobalInverseTransform , GlobalTransformation),
+	//		Boneinfoes[BoneIndex].BoneOffsets);
+	//}
+	//
+	//for (UINT i = 0; i < pNode->mNumChildren; i++) {
+	//	ReadNodeHeirarchy(AnimationTime, pNode->mChildren[i], GlobalTransformation);
+	//}
 
 }
 
@@ -327,18 +336,39 @@ XMFLOAT4X4 float4x4idendity()
 
 
 // 뼈 트랜스폼 갱신
-void MyModel::BoneTransform(string nowanimation, float dt)
+void MyModel::BoneTransform(string nowanimation, float dt, std::vector<XMFLOAT4X4>& finaltransforms)
 {
-		XMFLOAT4X4 identity = float4x4idendity();
 
+		// 애니메이션 정보 확인하는 칸 만들어야함
 		// animations[0]을 차후에 nowanimation과 이름 대조로 찾아내서 사용해야함.
 
-		float TicksPerSecond = pScene->mAnimations[0]->mTicksPerSecond != 0 ?
-			pScene->mAnimations[0]->mTicksPerSecond : 25.0f;
+		//////////////////////////////////////////
+
+
+	if (loadingtime < 3.0f)
+	{
+		loadingtime += dt;
+		return;
+	}
+
+
+		XMFLOAT4X4 identity = float4x4idendity();
+
+		
+		float TicksPerSecond =0.f ;
+		
+		if (pScene->mAnimations[0]->mTicksPerSecond != 0)
+		{
+			TicksPerSecond = pScene->mAnimations[0]->mTicksPerSecond;
+		}
+		else
+		{
+			TicksPerSecond = 25.0f;
+		}
 		float TimeInTicks = dt * TicksPerSecond;
 		float AnimationTime = fmod(TimeInTicks, pScene->mAnimations[0]->mDuration);
 
-		//ReadNodeHeirarchy(AnimationTime, pScene->mRootNode, identity);
+		ReadNodeHeirarchy(AnimationTime, pScene->mRootNode, identity);
 
 		finaltransforms.resize(mNumBones);
 

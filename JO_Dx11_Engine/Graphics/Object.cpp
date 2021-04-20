@@ -42,9 +42,8 @@ bool Object::Initialize(const std::string _name, std::string & filePath, ID3D11D
 void Object::UpdateObj(float dt)
 {
 
-	
-
-
+	if (nowanimation != "");
+	GetFinalTransform(dt);
 
 }
 
@@ -295,7 +294,9 @@ const XMVECTOR & Object::GetLeftVector()
 const void Object::GetFinalTransform(float dt)
 {
 
-	model->BoneTransform(nowanimation,dt);
+	
+
+	model->BoneTransform(nowanimation,dt,finaltransforms);
 
 	return void();
 }

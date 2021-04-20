@@ -56,7 +56,7 @@ public:
 
 
 	const void GetFinalTransform(float dt);
-
+	std::vector<XMFLOAT4X4> finaltransforms;
 	string nowanimation = "defulat";
 
 
