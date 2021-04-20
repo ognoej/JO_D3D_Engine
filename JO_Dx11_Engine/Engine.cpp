@@ -18,7 +18,7 @@ bool Engine::Initialize(HINSTANCE _hInstance, LPCWSTR  _window_title, std::wstri
 {
 
 
-	TimeMgr.Start();
+	//TimeMgr.Start();
 
 	// 윈도우 초기화
 	this->hInstance = _hInstance;
