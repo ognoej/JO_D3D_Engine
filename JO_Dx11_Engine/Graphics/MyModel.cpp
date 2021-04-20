@@ -331,6 +331,8 @@ void MyModel::BoneTransform(string nowanimation, float dt)
 {
 		XMFLOAT4X4 identity = float4x4idendity();
 
+		// animations[0]을 차후에 nowanimation과 이름 대조로 찾아내서 사용해야함.
+
 		float TicksPerSecond = pScene->mAnimations[0]->mTicksPerSecond != 0 ?
 			pScene->mAnimations[0]->mTicksPerSecond : 25.0f;
 		float TimeInTicks = dt * TicksPerSecond;
