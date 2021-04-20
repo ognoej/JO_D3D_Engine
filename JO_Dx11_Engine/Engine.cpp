@@ -114,16 +114,19 @@ bool Engine::ProcessMessages()
 	return true;
 }
 
-void Engine::Update(float _delayTime)
+void Engine::Update(MyTimer& TimeMgr)
 {
-	float dt = TimeMgr.GetMilisecondsElapsed();
-	TimeMgr.Restart();
+	//float dt = TimeMgr.GetMilisecondsElapsed();
+	//TimeMgr.Restart();
+
+
+
 
 	//DxMgr.MyObjectMgr.GetObjects("jigu")->AdjustRotation(0.0f, 0.._1101f*dt, 0.0f);
 	//DxMgr.MyObjectMgr.findobj->AdjustRotation(0.0f, 0.1f, 0.0f);
 }
 
-void Engine::Render(float _delayTime)
+void Engine::Render(MyTimer& TimeMgr)
 {
 	DxMgr.Render();
 }

@@ -1,6 +1,8 @@
 #include <Windows.h>
 #include <windowsx.h>
 #include "Engine.h"
+#include "MyTimer.h"
+
 
 #define	WIN_NAME	L"JO_Engine"
 #define WIN_WIDTH	800
@@ -14,14 +16,19 @@ int APIENTRY WinMain(
 	int			_cmdShow)
 {
 
+	MyTimer TimeMgr;
 	Engine JEngine;
 	
+	TimeMgr.Start();
+
 	if (JEngine.Initialize(_hInst, WIN_NAME, L"MainWindow", WIN_WIDTH, WIN_HEIGHT))
-	{		
+	{	
+
 		while (JEngine.ProcessMessages()==true)
 		{
-			JEngine.Update();
-			JEngine.Render();
+			TimeMgr.Tick();
+			JEngine.Update(TimeMgr);
+			JEngine.Render(TimeMgr);
 		}
 	}
 
