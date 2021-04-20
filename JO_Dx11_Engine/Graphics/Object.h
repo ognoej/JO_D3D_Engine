@@ -4,7 +4,7 @@
 #include "MyModel.h"
 
 using namespace DirectX;
-
+using namespace std;
 
 class Object
 {
@@ -55,9 +55,14 @@ public:
 	const XMVECTOR & GetLeftVector();
 
 
-	const void GetFinalTransform(aiAnimation& anim, float anitime, XMMATRIX& NodeMatrix);
+	const void GetFinalTransform(float dt);
 
+	string nowanimation = "defulat";
+
+
+	//인스턴싱 하려면 모델정보빼고 모델에서 업데이트되는거 다 오브젝트로 가져와야댐. 본트랜스폼 등 
 	MyModel *model = nullptr;
+
 
 private :
 

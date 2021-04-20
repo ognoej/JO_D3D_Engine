@@ -292,9 +292,10 @@ const XMVECTOR & Object::GetLeftVector()
 	return this->vec_left;
 }
 
-const void Object::GetFinalTransform(aiAnimation & anim, float anitime, XMMATRIX & NodeMatrix)
+const void Object::GetFinalTransform(float dt)
 {
 
+	model->BoneTransform(nowanimation,dt);
 
 	return void();
 }

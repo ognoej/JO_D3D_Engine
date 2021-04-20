@@ -327,21 +327,21 @@ XMFLOAT4X4 float4x4idendity()
 
 
 // »À Æ®·£½ºÆû °»½Å
-void MyModel::BoneTransform(float TimeInSeconds, std::vector<XMFLOAT4X4>& Transforms)
+void MyModel::BoneTransform(string nowanimation, float dt)
 {
 		XMFLOAT4X4 identity = float4x4idendity();
 
 		float TicksPerSecond = pScene->mAnimations[0]->mTicksPerSecond != 0 ?
 			pScene->mAnimations[0]->mTicksPerSecond : 25.0f;
-		float TimeInTicks = TimeInSeconds * TicksPerSecond;
+		float TimeInTicks = dt * TicksPerSecond;
 		float AnimationTime = fmod(TimeInTicks, pScene->mAnimations[0]->mDuration);
 
 		//ReadNodeHeirarchy(AnimationTime, pScene->mRootNode, identity);
 
-		Transforms.resize(mNumBones);
+		finaltransforms.resize(mNumBones);
 
 		for (UINT i = 0; i < mNumBones; i++) {
-			Transforms[i] = Boneinfoes[i].FinalTransform;
+			finaltransforms[i] = Boneinfoes[i].FinalTransform;
 		}
 		return;
 }

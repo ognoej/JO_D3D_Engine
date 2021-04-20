@@ -7,6 +7,7 @@
 #include <SpriteFont.h>
 #include "ObjectMgr.h"
 #include "..\Utilites\MyCamera.h"
+#include "MyTimer.h"
 
 
 
@@ -23,8 +24,8 @@ public:
 	~MyD3D_Mgr();
 	bool Initialize(HWND hwnd, int width, int height);
 
-	void Update(float dt = 0);
-	void Render(float dt = 0);
+	void Update(MyTimer& TimeMgr);
+	void Render(MyTimer& TimeMgr);
 
 	bool NewObject(std::string objname, std::string filepath);
 

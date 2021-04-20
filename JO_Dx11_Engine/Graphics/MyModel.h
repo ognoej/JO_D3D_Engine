@@ -6,6 +6,8 @@
 #include <map>
 #include "MathHelper.h"
 
+using namespace std;
+
 using namespace DirectX;
 
 struct Keyframe
@@ -61,8 +63,9 @@ public:
 	bool Initialize(const std::string & filePath, ID3D11Device * device, ID3D11DeviceContext * deviceContext, MyConstBuffer<CB_VS_vertexshader> & cb_vs_vertexshader);
 	void Draw(const XMMATRIX & worldMatrix, const XMMATRIX & viewProjectionMatrix);
 	void Release();
-	void BoneTransform(float TimeInSeconds, std::vector<XMFLOAT4X4>& Transforms);
+	void BoneTransform(string nowanimation, float dt);
 
+	std::vector<XMFLOAT4X4> finaltransforms;
 
 	std::vector<MyMesh> meshes;							// 정점 정보
 	std::map<std::string, AnimationClip> mAnimations;	// 모델 애니메이션

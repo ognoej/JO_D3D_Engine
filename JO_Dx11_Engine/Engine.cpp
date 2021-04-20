@@ -128,7 +128,7 @@ void Engine::Update(MyTimer& TimeMgr)
 
 void Engine::Render(MyTimer& TimeMgr)
 {
-	DxMgr.Render();
+	DxMgr.Render(TimeMgr);
 }
 
 bool Engine::InitDx(HWND _hWnd,int _width,int _height)

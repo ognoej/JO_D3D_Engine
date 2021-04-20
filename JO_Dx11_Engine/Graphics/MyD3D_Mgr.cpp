@@ -193,14 +193,14 @@ bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 
 }
 
-void MyD3D_Mgr::Update(float dt)
+void MyD3D_Mgr::Update(MyTimer& TimeMgr)
 {
 
-	MyObjectMgr.UpdateObjList(dt);
+	MyObjectMgr.UpdateObjList(TimeMgr.DeltaTime());
 
 }
 
-void MyD3D_Mgr::Render(float dt)
+void MyD3D_Mgr::Render(MyTimer& TimeMgr)
 {	
 
 	if (deviceContext == nullptr) return;
