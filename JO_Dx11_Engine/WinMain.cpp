@@ -20,7 +20,6 @@ int APIENTRY WinMain(
 	if (!JEngine.Initialize(_hInst, WIN_NAME, L"MainWindow", WIN_WIDTH, WIN_HEIGHT))
 	{
 		return 0;
-	
 	}
 	else
 	{

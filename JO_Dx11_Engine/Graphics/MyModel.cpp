@@ -1,21 +1,29 @@
 #include "MyModel.h"
 
+MyModel::MyModel(const std::string & filePath, ID3D11Device * device, ID3D11DeviceContext * deviceContext, MyConstBuffer<CB_VS_vertexshader>& cb_vs_vertexshader)
+{
+	Initialize(filePath, device, deviceContext, cb_vs_vertexshader);
+}
+
 bool MyModel::Initialize(const std::string & filePath, ID3D11Device * device, ID3D11DeviceContext * deviceContext, MyConstBuffer<CB_VS_vertexshader>& cb_vs_vertexshader)
 {
 	this->device = device;
 	this->deviceContext = deviceContext;
 	this->cb_vs_vertexshader = &cb_vs_vertexshader;
 
-	try
-	{
-		if (!this->LoadModel(filePath))
-			return false;
-	}
-	catch (MyErrorCheck & exception)
-	{
-		MyErrorCheck::Log(exception);
-		return false;
-	}
+	LoadModel(filePath);
+	//if (!this->LoadModel(filePath))
+	//	return false;
+	//try
+	//{
+	//	if (!this->LoadModel(filePath))
+	//		return false;
+	//}
+	//catch (MyErrorCheck & exception)
+	//{
+	//	MyErrorCheck::Log(exception);
+	//	return false;
+	//}
 
 	return true;
 }
@@ -77,19 +85,21 @@ void MyModel::LoadaiMatrixto4x4float(XMFLOAT4X4 & dest, aiMatrix4x4 & src)
 	return;
 }
 
-bool MyModel::LoadModel(const std::string & filePath)
+void MyModel::LoadModel(const std::string & filePath)
 {
 	this->directory = MyString::GetDirectoryFromPath(filePath);
 
 	Assimp::Importer importer;
 
 
+	pScene = new aiScene;
+
 	// Assimp 로 모델 불러오기. 인스턴싱을 위해 모델완성되면 싱글톤으로 관리 매서드 추가 필요
 	pScene = importer.ReadFile(filePath,
 		aiProcess_Triangulate |
 		aiProcess_ConvertToLeftHanded);
 	if (pScene == nullptr)
-		return false;
+		return ;
 
 	// 씬->애니메이션->채널->포지션&스케일&로테이션 키프레임에 저장
 	// 씬->본->웨이트->버텍스아이디&버텍스가중치를 Mesh->Vertives에서 찾아서 x 내가 만든 버텍스에 저장
@@ -113,17 +123,21 @@ bool MyModel::LoadModel(const std::string & filePath)
 	
 	*/
 
-	// 애니메이션 클립 개수 저장
-	if (pScene->HasAnimations())
-	{
-		LoadAnimation(pScene);
-	}
+	//// 애니메이션 클립 개수 저장
+	//if (pScene->HasAnimations())
+	//{
+	//	LoadAnimation(pScene);
+	//}
+	//
+	//this->mAnimations;
 
-	this->mAnimations;
+	pScene->mRootNode;
 
 	this->ProcessNode(pScene->mRootNode, pScene);
 
-	return true;
+	pScene->mRootNode;
+
+	return;
 }
 
 
@@ -275,7 +289,12 @@ void loadai3x3matrixtoXMFLOAT4X4(XMFLOAT4X4 &_dest, aiMatrix3x3 _src)
 
 void MyModel::ReadNodeHeirarchy(float AnimationTime, aiNode * pNode, XMFLOAT4X4 ParentTransform)
 {
-	std::string NodeName(pNode->mName.data);
+	
+	std::string NodeName = "";
+	NodeName = (pNode->mName.data);
+
+
+
 
 	const aiAnimation* pAnimation = pScene->mAnimations[0];
 
@@ -345,11 +364,11 @@ void MyModel::BoneTransform(string nowanimation, float dt, std::vector<XMFLOAT4X
 		//////////////////////////////////////////
 
 
-	if (loadingtime < 3.0f)
-	{
-		loadingtime += dt;
-		return;
-	}
+	//if (loadingtime < 3.0f)
+	//{
+	//	loadingtime += dt;
+	//	return;
+	//}
 
 
 		XMFLOAT4X4 identity = float4x4idendity();
@@ -388,7 +407,7 @@ using namespace std;
 void MyModel::LoadBonesAndHierarchy(const aiMesh* mesh,const aiScene* scene, std::vector<BoneInfo>& meshBones)
 {
 
-	aiNode* rootnode = scene->mRootNode;
+	//aiNode* rootnode = scene->mRootNode;
 
 	for (int i = 0; i < mesh->mNumBones; i++)
 	{
@@ -440,16 +459,16 @@ void MyModel::LoadBonesAndHierarchy(const aiMesh* mesh,const aiScene* scene, std
 
 void MyModel::ProcessNode(aiNode * node, const aiScene * scene)
 {
-	for (UINT i = 0; i < node->mNumMeshes; i++)
+	for (UINT i = 0; i < scene->mNumMeshes; i++)
 	{
-		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+		aiMesh* mesh = scene->mMeshes[i];
 		meshes.push_back(this->ProcessMesh(mesh, scene));
 	}
 
-	for (UINT i = 0; i < node->mNumChildren; i++)
-	{
-		this->ProcessNode(node->mChildren[i], scene);
-	}
+	//for (UINT i = 0; i < node->mNumChildren; i++)
+	//{
+	//	this->ProcessNode(node->mChildren[i], scene);
+	//}
 }
 
 

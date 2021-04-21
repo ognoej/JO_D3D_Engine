@@ -233,8 +233,8 @@ bool MyD3D_Mgr::NewObject(std::string objname, std::string filepath)
 
 	 MyObjectMgr.AddObject(objname, filepath, this->device.Get(), this->deviceContext.Get(), this->cb_vs_vertexshader);	
 	 
-	 MyObjectMgr.SetObjects("jigu");
-	 MyObjectMgr.GetObjects("jigu")->AdjustRotation(XMFLOAT3(0, 0, 0));
+	// MyObjectMgr.SetObjects("jigu");
+	// MyObjectMgr.GetObjects("jigu")->AdjustRotation(XMFLOAT3(0, 0, 0));
 
 	 return true;
 

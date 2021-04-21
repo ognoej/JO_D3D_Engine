@@ -21,12 +21,16 @@ bool Object::Initialize(const std::string _name, std::string & filePath, ID3D11D
 	}
 	else
 	{
-		model = new MyModel;
+		//리턴만하면 루트 위치가 바뀜
+
+		model = new MyModel(filePath, device, deviceContext, cb_vs_vertexshader);
+		model->pScene;
 		this->ObjectName = _name;
 		//model = new MyModel;
-		if (!model->Initialize(filePath, device, deviceContext, cb_vs_vertexshader))
-			return false;
+		//if (!model->Initialize(filePath, device, deviceContext, cb_vs_vertexshader))
+		//	return false;
 
+		model->pScene;
 
 		this->SetPosition(0.0f, 0.0f, 0.0f);
 		this->SetRotation(0.0f, 0.0f, 0.0f);
@@ -34,6 +38,10 @@ bool Object::Initialize(const std::string _name, std::string & filePath, ID3D11D
 		this->SetRev(0.0f, 0.0f, 0.0f);
 
 		this->UpdateWorldMatrix();
+
+		GetFinalTransform(3.0f);
+
+
 		return true;
 	}
 
@@ -42,8 +50,8 @@ bool Object::Initialize(const std::string _name, std::string & filePath, ID3D11D
 void Object::UpdateObj(float dt)
 {
 
-	if (nowanimation != "");
-	GetFinalTransform(dt);
+	//if (nowanimation != "");
+	//GetFinalTransform(dt);
 
 }
 

@@ -60,6 +60,7 @@ struct BoneInfo
 class MyModel
 {
 public:
+	MyModel(const std::string & filePath, ID3D11Device * device, ID3D11DeviceContext * deviceContext, MyConstBuffer<CB_VS_vertexshader> & cb_vs_vertexshader);
 	bool Initialize(const std::string & filePath, ID3D11Device * device, ID3D11DeviceContext * deviceContext, MyConstBuffer<CB_VS_vertexshader> & cb_vs_vertexshader);
 	void Draw(const XMMATRIX & worldMatrix, const XMMATRIX & viewProjectionMatrix);
 	void Release();
@@ -77,15 +78,15 @@ public:
 	UINT mNumBones = 0;
 	UINT mNumMeshes = 0;
 
+	const aiScene* pScene;
 
 private:
-	const aiScene* pScene;
 	XMFLOAT4X4 m_GlobalInverseTransform;
 
 
 	std::map<std::string, int > m_BoneMapping;
 	void LoadaiMatrixto4x4float(XMFLOAT4X4 &dest, aiMatrix4x4 &src);
-	bool LoadModel(const std::string & filePath);
+	void LoadModel(const std::string & filePath);
 	void LoadAnimation(const aiScene* pScene);
 	XMFLOAT4X4 aiMatrixtoXMFLOAT4X4(aiMatrix4x4 _src);
 	const aiNodeAnim* FindNodeAnim(const aiAnimation* pAnimation, std::string NodeName);
