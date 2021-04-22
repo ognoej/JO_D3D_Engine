@@ -21,15 +21,19 @@ bool  modelMgr::LoadaiScene(std::string _fullpath, std::string _modelname)
 	const aiScene* pScene = new aiScene;
 
 	// Assimp 로 모델 불러오기. 인스턴싱을 위해 모델완성되면 싱글톤으로 관리 매서드 추가 필요
-	pScene = importer.ReadFile(_fullpath,
+	//pScene = 
+		importer.ReadFile(_fullpath,
 		aiProcess_Triangulate |
 		aiProcess_ConvertToLeftHanded);
+
+	
+
 	if (pScene == nullptr)
 	{
 		return false;
 	}
 
-	m_aiScenes.insert(std::make_pair(_modelname, pScene));
+	m_aiScenes.insert(std::make_pair(_modelname, importer.GetOrphanedScene()));
 
 	return true;
 }

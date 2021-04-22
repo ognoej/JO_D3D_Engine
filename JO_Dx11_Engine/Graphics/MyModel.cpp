@@ -1,5 +1,5 @@
 #include "MyModel.h"
-
+#include "../modelMgr.h"
 
 MyModel::MyModel(const std::string & filePath, ID3D11Device * device, ID3D11DeviceContext * deviceContext, MyConstBuffer<CB_VS_vertexshader>& cb_vs_vertexshader)
 {
@@ -88,19 +88,19 @@ void MyModel::LoadaiMatrixto4x4float(XMFLOAT4X4 & dest, aiMatrix4x4 & src)
 
 void MyModel::LoadModel(const std::string & filePath)
 {
-	this->directory = MyString::GetDirectoryFromPath(filePath);
+	// this->directory = MyString::GetDirectoryFromPath(filePath);
 
-	Assimp::Importer importer;
+	// Assimp::Importer importer;
 
 
-	pScene = new aiScene;
-
-	// Assimp 로 모델 불러오기. 인스턴싱을 위해 모델완성되면 싱글톤으로 관리 매서드 추가 필요
-	pScene = importer.ReadFile(filePath,
-		aiProcess_Triangulate |
-		aiProcess_ConvertToLeftHanded);
-	if (pScene == nullptr)
-		return ;
+	            //  pScene = new aiScene;
+	            //  
+	            //  // Assimp 로 모델 불러오기. 인스턴싱을 위해 모델완성되면 싱글톤으로 관리 매서드 추가 필요
+	            //  pScene = importer.ReadFile(filePath,
+	            //  	aiProcess_Triangulate |
+	            //  	aiProcess_ConvertToLeftHanded);
+	            //  if (pScene == nullptr)
+	            //  	return ;
 
 	// 씬->애니메이션->채널->포지션&스케일&로테이션 키프레임에 저장
 	// 씬->본->웨이트->버텍스아이디&버텍스가중치를 Mesh->Vertives에서 찾아서 x 내가 만든 버텍스에 저장
@@ -131,6 +131,9 @@ void MyModel::LoadModel(const std::string & filePath)
 	//}
 	//
 	//this->mAnimations;
+	aiSceneMgr.LoadaiScene(filePath,"jigu");
+	pScene = aiSceneMgr.FindaiScene("jigu");
+
 
 	pScene->mRootNode;
 

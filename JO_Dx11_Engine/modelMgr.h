@@ -18,7 +18,7 @@ private:
 	void Release();
 
 private:
-	std::map<std::string,const aiScene*>	m_aiScenes;
+	std::map<std::string,const aiScene*>	m_aiScenes; 
 	HWND							m_hWnd;
 
 public:
@@ -30,7 +30,7 @@ public:
 	//aiScene*	CreateaiScene(int _width, int _height, std::string *_imgName = nullptr);
 
 	const aiScene*	FindaiScene(std::string _modelname);
-	void	Release();
+//	void	Release();
 
 	std::string directory = "";
 
