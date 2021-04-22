@@ -5,6 +5,7 @@
 #include "MyMesh.h"
 #include <map>
 #include "MathHelper.h"
+#include "../Singleton.h"
 
 using namespace std;
 

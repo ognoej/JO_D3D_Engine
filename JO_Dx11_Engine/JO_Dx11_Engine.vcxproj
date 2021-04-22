@@ -165,6 +165,7 @@
     <ClCompile Include="Graphics\Object.cpp" />
     <ClCompile Include="Graphics\ObjectMgr.cpp" />
     <ClCompile Include="Graphics\shaders.cpp" />
+    <ClCompile Include="modelMgr.cpp" />
     <ClCompile Include="Utilites\KeyboardClass.cpp" />
     <ClCompile Include="Utilites\KeyboardEvent.cpp" />
     <ClCompile Include="Utilites\MathHelper.cpp" />
@@ -189,6 +190,8 @@
     <ClInclude Include="Graphics\Object.h" />
     <ClInclude Include="Graphics\ObjectMgr.h" />
     <ClInclude Include="Graphics\shaders.h" />
+    <ClInclude Include="modelMgr.h" />
+    <ClInclude Include="Singleton.h" />
     <ClInclude Include="Utilites\KeyboardClass.h" />
     <ClInclude Include="Utilites\KeyboardEvent.h" />
     <ClInclude Include="Utilites\MathHelper.h" />

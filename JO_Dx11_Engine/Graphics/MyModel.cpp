@@ -1,5 +1,6 @@
 #include "MyModel.h"
 
+
 MyModel::MyModel(const std::string & filePath, ID3D11Device * device, ID3D11DeviceContext * deviceContext, MyConstBuffer<CB_VS_vertexshader>& cb_vs_vertexshader)
 {
 	Initialize(filePath, device, deviceContext, cb_vs_vertexshader);
@@ -137,7 +138,7 @@ void MyModel::LoadModel(const std::string & filePath)
 
 	pScene->mRootNode;
 
-	return;
+	//return;
 }
 
 

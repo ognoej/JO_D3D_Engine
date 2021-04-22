@@ -90,6 +90,9 @@
     <ClCompile Include="Utilites\MathHelper.cpp">
       <Filter>소스 파일\Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="modelMgr.cpp">
+      <Filter>소스 파일\DxGraphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -154,6 +157,12 @@
     </ClInclude>
     <ClInclude Include="Utilites\MathHelper.h">
       <Filter>헤더 파일\Utilites</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>소스 파일\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="modelMgr.h">
+      <Filter>헤더 파일\DxGraphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
