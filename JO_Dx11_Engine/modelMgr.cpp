@@ -22,6 +22,9 @@ bool  modelMgr::LoadaiScene(std::string _fullpath, std::string _modelname)
 
 	// Assimp 로 모델 불러오기. 인스턴싱을 위해 모델완성되면 싱글톤으로 관리 매서드 추가 필요
 	//pScene = 
+	// ReadFile 한 후에 임포터는 importer::GetOrphanedScene()으로 마지막에 리드한 파일의 권한을 넘겨주고 해제시켜야함.
+	// 그렇지 않으면 임포터가 할당 해제되면서 읽어온 파일도 릴리즈 하고 없어지게됨. 출처 Assimp홈페이지
+
 		importer.ReadFile(_fullpath,
 		aiProcess_Triangulate |
 		aiProcess_ConvertToLeftHanded);

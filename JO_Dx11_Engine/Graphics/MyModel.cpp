@@ -211,6 +211,8 @@ const aiNodeAnim* MyModel::FindNodeAnim(const aiAnimation* pAnimation, std::stri
 		}
 	}
 
+	return nullptr;
+
 }
 
 XMFLOAT4X4 XMFLOAT4X4Multifly(XMFLOAT4X4 a, XMFLOAT4X4 b)
@@ -289,6 +291,32 @@ void loadai3x3matrixtoXMFLOAT4X4(XMFLOAT4X4 &_dest, aiMatrix3x3 _src)
 	return;
 
 }
+void MyModel::interpolateNode(const aiNodeAnim * pNodeAnim, float AnimationTime, XMFLOAT4X4 & ScalingM, XMFLOAT4X4 & RotationM, XMFLOAT4X4 & TranslationM, XMFLOAT4X4& NodeTransformation)
+{
+	if (pNodeAnim != nullptr) {
+		// Interpolate scaling and generate scaling transformation matrix
+		aiVector3D Scaling;
+		CalcInterpolatedScaling(Scaling, AnimationTime, pNodeAnim);
+		ScalingM = scalingMatrix(Scaling.x, Scaling.y, Scaling.z);
+
+
+		// Interpolate rotation and generate rotation transformation matrix
+		aiQuaternion RotationQ;
+		//CalcInterpolatedRotation(RotationQ, AnimationTime, pNodeAnim);
+		RotationM;
+		loadai3x3matrixtoXMFLOAT4X4(RotationM, RotationQ.GetMatrix());
+
+		// Interpolate translation and generate translation transformation matrix
+		aiVector3D Translation;
+		//CalcInterpolatedPosition(Translation, AnimationTime, pNodeAnim);
+		TranslationM = translationMatrix(Translation.x, Translation.y, Translation.z);
+
+		// Combine the above transformations
+		NodeTransformation = XMFLOAT4X4Multifly(XMFLOAT4X4Multifly(TranslationM, RotationM), ScalingM);
+	}
+
+}
+
 
 
 void MyModel::ReadNodeHeirarchy(float AnimationTime, aiNode * pNode, XMFLOAT4X4 ParentTransform)
@@ -305,45 +333,179 @@ void MyModel::ReadNodeHeirarchy(float AnimationTime, aiNode * pNode, XMFLOAT4X4 
 	// 노드 위치  == 월드좌표에서 오브젝트의 위치
 	XMFLOAT4X4 NodeTransformation(aiMatrixtoXMFLOAT4X4(pNode->mTransformation));
 
-	const aiNodeAnim* pNodeAnim = FindNodeAnim(pAnimation, NodeName);
+	const aiNodeAnim* pNodeAnim = nullptr;
+	pNodeAnim = FindNodeAnim(pAnimation, NodeName);
+	XMFLOAT4X4 ScalingM;
+	XMFLOAT4X4 RotationM;
+	XMFLOAT4X4 TranslationM;
 
+	//interpolateNode(pNodeAnim, AnimationTime, ScalingM, RotationM, TranslationM, NodeTransformation);
 
-	pNodeAnim;
-	//if (pNodeAnim) {
-	//	// Interpolate scaling and generate scaling transformation matrix
-	//	aiVector3D Scaling;
-	//	//CalcInterpolatedScaling(Scaling, AnimationTime, pNodeAnim);
-	//	XMFLOAT4X4 ScalingM = scalingMatrix(Scaling.x, Scaling.y, Scaling.z);
-	//	
-	//
-	//	// Interpolate rotation and generate rotation transformation matrix
-	//	aiQuaternion RotationQ;
-	//	//CalcInterpolatedRotation(RotationQ, AnimationTime, pNodeAnim);
-	//	XMFLOAT4X4 RotationM;
-	//	loadai3x3matrixtoXMFLOAT4X4(RotationM, RotationQ.GetMatrix());
-	//
-	//	// Interpolate translation and generate translation transformation matrix
-	//	aiVector3D Translation;
-	//	//CalcInterpolatedPosition(Translation, AnimationTime, pNodeAnim);
-	//	XMFLOAT4X4 TranslationM = translationMatrix(Translation.x, Translation.y, Translation.z);
-	//
-	//	// Combine the above transformations
-	//	NodeTransformation = XMFLOAT4X4Multifly(XMFLOAT4X4Multifly(TranslationM , RotationM), ScalingM);
-	//}
-	//
-	//XMFLOAT4X4 GlobalTransformation = XMFLOAT4X4Multifly (ParentTransform , NodeTransformation);
-	//
-	//if (m_BoneMapping.find(NodeName) != m_BoneMapping.end()) {
-	//	UINT BoneIndex = m_BoneMapping[NodeName];
-	//	Boneinfoes[BoneIndex].FinalTransform = XMFLOAT4X4Multifly(XMFLOAT4X4Multifly(m_GlobalInverseTransform , GlobalTransformation),
-	//		Boneinfoes[BoneIndex].BoneOffsets);
-	//}
-	//
-	//for (UINT i = 0; i < pNode->mNumChildren; i++) {
-	//	ReadNodeHeirarchy(AnimationTime, pNode->mChildren[i], GlobalTransformation);
-	//}
+	///////////////
+	//// 보간 완성 시켜야함 
+	 pNodeAnim;
+	 if (pNodeAnim != nullptr ) {
+	 	// Interpolate scaling and generate scaling transformation matrix
+	 	aiVector3D Scaling;
+	 	CalcInterpolatedScaling(Scaling, AnimationTime, pNodeAnim);
+	 	XMFLOAT4X4 ScalingM = scalingMatrix(Scaling.x, Scaling.y, Scaling.z);
+	 	
+	 
+	 	// Interpolate rotation and generate rotation transformation matrix
+	 	aiQuaternion RotationQ;
+	 	CalcInterpolatedRotation(RotationQ, AnimationTime, pNodeAnim);
+	 	XMFLOAT4X4 RotationM;
+	 	loadai3x3matrixtoXMFLOAT4X4(RotationM, RotationQ.GetMatrix());
+	 
+	 	// Interpolate translation and generate translation transformation matrix
+	 	aiVector3D Translation;
+	 	CalcInterpolatedPosition(Translation, AnimationTime, pNodeAnim);
+	 	XMFLOAT4X4 TranslationM = translationMatrix(Translation.x, Translation.y, Translation.z);
+	 
+	 	// Combine the above transformations
+	 	NodeTransformation = XMFLOAT4X4Multifly(XMFLOAT4X4Multifly(TranslationM , RotationM), ScalingM);
+	 }
+	 
+	pNodeAnim = nullptr;
+
+	//////////////
+
+	//m_BoneMapping[0];
+
+	XMFLOAT4X4 GlobalTransformation = XMFLOAT4X4Multifly (ParentTransform , NodeTransformation);
+
+	auto it = m_BoneMapping.find(NodeName);
+	if (it != m_BoneMapping.end())
+	{
+		UINT BoneIndex = m_BoneMapping[NodeName];
+		Boneinfoes[BoneIndex].FinalTransform = XMFLOAT4X4Multifly(XMFLOAT4X4Multifly(m_GlobalInverseTransform , GlobalTransformation),
+			Boneinfoes[BoneIndex].BoneOffsets);
+	}
+	
+	for (UINT i = 0; i < pNode->mNumChildren; i++) {
+		ReadNodeHeirarchy(AnimationTime, pNode->mChildren[i], GlobalTransformation);
+	}
 
 }
+
+void MyModel::CalcInterpolatedScaling(aiVector3D& Out, float AnimationTime, const aiNodeAnim* pNodeAnim)
+{
+	// we need at least two values to interpolate...
+	if (pNodeAnim->mNumScalingKeys == 1) {
+		Out = pNodeAnim->mScalingKeys[0].mValue;
+		return;
+	}
+
+	UINT ScalingIndex = FindKeyIndex(AnimationTime, pNodeAnim);
+	UINT NextScalingIndex = (ScalingIndex + 1);
+	assert(NextScalingIndex < pNodeAnim->mNumScalingKeys);
+	float DeltaTime = pNodeAnim->mScalingKeys[NextScalingIndex].mTime - pNodeAnim->mScalingKeys[ScalingIndex].mTime;
+	float Factor = (AnimationTime - (float)pNodeAnim->mScalingKeys[ScalingIndex].mTime) / DeltaTime;
+	assert(Factor >= 0.0f && Factor <= 1.0f);
+	const aiVector3D& StartScailingQ = pNodeAnim->mScalingKeys[ScalingIndex].mValue;
+	const aiVector3D& EndScailingnQ = pNodeAnim->mScalingKeys[NextScalingIndex].mValue;
+	CalcInterpolatedValueFromKey(Out, StartScailingQ, EndScailingnQ, Factor);
+	Out = Out.Normalize();
+
+}
+
+unsigned int MyModel::FindKeyIndex(float AnimationTime, const aiNodeAnim* pNodeAnim)
+{
+	assert(pNodeAnim->mNumScalingKeys > 0);
+
+	for (UINT i = 0; i < pNodeAnim->mNumScalingKeys - 1; i++) {
+		if (AnimationTime < (float)pNodeAnim->mScalingKeys[i + 1].mTime) {
+			return i;
+		}
+	}
+
+	assert(0);
+}
+
+void MyModel::CalcInterpolatedValueFromKey(aiVector3D& Out, aiVector3D startValue, aiVector3D endValue, float Factor)
+{
+	Out.x = startValue.x + (endValue.x - startValue.x) * Factor;
+	Out.y = startValue.y + (endValue.y - startValue.y) * Factor;
+	Out.z = startValue.z + (endValue.z - startValue.z) * Factor;
+
+	return;
+}
+
+
+
+void MyModel::CalcInterpolatedRotation(aiQuaternion& Out, float AnimationTime, const aiNodeAnim* pNodeAnim)
+{
+	// we need at least two values to interpolate...
+	if (pNodeAnim->mNumRotationKeys == 1) {
+		Out = pNodeAnim->mRotationKeys[0].mValue;
+		return;
+	}
+
+	UINT RotationIndex = FindRotation(AnimationTime, pNodeAnim);
+	UINT NextRotationIndex = (RotationIndex + 1);
+	assert(NextRotationIndex < pNodeAnim->mNumRotationKeys);
+	float DeltaTime = pNodeAnim->mRotationKeys[NextRotationIndex].mTime - pNodeAnim->mRotationKeys[RotationIndex].mTime;
+	float Factor = (AnimationTime - (float)pNodeAnim->mRotationKeys[RotationIndex].mTime) / DeltaTime;
+	assert(Factor >= 0.0f && Factor <= 1.0f);
+	const aiQuaternion& StartRotationQ = pNodeAnim->mRotationKeys[RotationIndex].mValue;
+	const aiQuaternion& EndRotationQ = pNodeAnim->mRotationKeys[NextRotationIndex].mValue;
+	aiQuaternion::Interpolate(Out, StartRotationQ, EndRotationQ, Factor);
+	Out = Out.Normalize();
+}
+
+
+UINT MyModel::FindRotation(float AnimationTime, const aiNodeAnim* pNodeAnim)
+{
+	assert(pNodeAnim->mNumRotationKeys > 0);
+
+	for (UINT i = 0; i < pNodeAnim->mNumRotationKeys - 1; i++) {
+		if (AnimationTime < (float)pNodeAnim->mRotationKeys[i + 1].mTime) {
+			return i;
+		}
+	}
+
+	assert(0);
+}
+
+
+///
+
+void MyModel::CalcInterpolatedPosition(aiVector3D& Out, float AnimationTime, const aiNodeAnim* pNodeAnim)
+{
+	// we need at least two values to interpolate...
+	if (pNodeAnim->mNumScalingKeys == 1) {
+		Out = pNodeAnim->mPositionKeys[0].mValue;
+		return;
+	}
+
+	UINT PositionIndex = FindPosition(AnimationTime, pNodeAnim);
+	UINT NextPositionIndex = (PositionIndex + 1);
+	assert(NextPositionIndex < pNodeAnim->mNumPositionKeys);
+	float DeltaTime = pNodeAnim->mPositionKeys[NextPositionIndex].mTime - pNodeAnim->mPositionKeys[PositionIndex].mTime;
+	float Factor = (AnimationTime - (float)pNodeAnim->mPositionKeys[PositionIndex].mTime) / DeltaTime;
+	assert(Factor >= 0.0f && Factor <= 1.0f);
+	const aiVector3D& StartPositionQ = pNodeAnim->mPositionKeys[PositionIndex].mValue;
+	const aiVector3D& EndPositionQ = pNodeAnim->mPositionKeys[NextPositionIndex].mValue;
+	CalcInterpolatedValueFromKey(Out, StartPositionQ, EndPositionQ, Factor);
+	Out = Out.Normalize();
+
+}
+
+
+unsigned int MyModel::FindPosition(float AnimationTime, const aiNodeAnim* pNodeAnim)
+{
+	assert(pNodeAnim->mNumPositionKeys > 0);
+
+	for (UINT i = 0; i < pNodeAnim->mNumPositionKeys - 1; i++) {
+		if (AnimationTime < (float)pNodeAnim->mPositionKeys[i + 1].mTime) {
+			return i;
+		}
+	}
+
+	assert(0);
+}
+
+
 
 
 XMFLOAT4X4 float4x4idendity()
@@ -391,6 +553,8 @@ void MyModel::BoneTransform(string nowanimation, float dt, std::vector<XMFLOAT4X
 		float TimeInTicks = dt * TicksPerSecond;
 		float AnimationTime = fmod(TimeInTicks, pScene->mAnimations[0]->mDuration);
 
+		m_GlobalInverseTransform = aiMatrixtoXMFLOAT4X4(pScene->mRootNode->mTransformation);
+
 		ReadNodeHeirarchy(AnimationTime, pScene->mRootNode, identity);
 
 		finaltransforms.resize(mNumBones);
@@ -408,7 +572,7 @@ void MyModel::BoneTransform(string nowanimation, float dt, std::vector<XMFLOAT4X
 #include <algorithm>
 using namespace std;
 
-void MyModel::LoadBonesAndHierarchy(const aiMesh* mesh,const aiScene* scene, std::vector<BoneInfo>& meshBones)
+void MyModel::LoadBonesAndHierarchy(const aiMesh* mesh,const aiScene* scene, std::vector<BoneInfo>& meshBones, std::map<std::string,int>& m_BoneMapping)
 {
 
 	//aiNode* rootnode = scene->mRootNode;
@@ -423,6 +587,7 @@ void MyModel::LoadBonesAndHierarchy(const aiMesh* mesh,const aiScene* scene, std
 		// 뼈 이름 가져오기
 		boneinfo.BoneName = mesh->mBones[i]->mName.data;
 	
+		m_BoneMapping.insert(std::make_pair(mesh->mBones[i]->mName.data, i));
 
 		//// 뼈 부모 트랜스폼 가져오기
 		//aiNode* findnode = rootnode->FindNode(mesh->mBones[i]->mName);
@@ -516,7 +681,7 @@ MyMesh MyModel::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 
 
 	//메쉬 본과 하이라키 불러오기
-	this->LoadBonesAndHierarchy(mesh, scene, meshBones);
+	this->LoadBonesAndHierarchy(mesh, scene, meshBones, m_BoneMapping);
 
 
 

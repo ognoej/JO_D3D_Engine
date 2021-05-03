@@ -21,7 +21,7 @@ bool Object::Initialize(const std::string _name, std::string & filePath, ID3D11D
 	}
 	else
 	{
-		//리턴만하면 루트 위치가 바뀜
+		//리턴만하면 루트 위치가 바뀜 
 
 		// model = new MyModel(filePath, device, deviceContext, cb_vs_vertexshader);
 		model = new MyModel(filePath, device, deviceContext, cb_vs_vertexshader);
@@ -303,7 +303,6 @@ const XMVECTOR & Object::GetLeftVector()
 const void Object::GetFinalTransform(float dt)
 {
 
-	
 
 	model->BoneTransform(nowanimation,dt,finaltransforms);
 

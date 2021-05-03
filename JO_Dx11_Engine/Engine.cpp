@@ -334,10 +334,11 @@ int Engine::Run()
 		// Otherwise, do animation/game stuff.
 		else
 		{
-			TimeMgr.Tick();
 
 			if (!mAppPaused)
 			{
+
+				TimeMgr.Tick();
 				//CalculateFrameStats();
 				Update(TimeMgr);
 				Render(TimeMgr);

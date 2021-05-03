@@ -65,6 +65,12 @@ public:
 	bool Initialize(const std::string & filePath, ID3D11Device * device, ID3D11DeviceContext * deviceContext, MyConstBuffer<CB_VS_vertexshader> & cb_vs_vertexshader);
 	void Draw(const XMMATRIX & worldMatrix, const XMMATRIX & viewProjectionMatrix);
 	void Release();
+	void CalcInterpolatedPosition(aiVector3D & Out, float AnimationTime, const aiNodeAnim * pNodeAnim);
+	unsigned int FindPosition(float AnimationTime, const aiNodeAnim * pNodeAnim);
+	unsigned int FindKeyIndex(float AnimationTime, const aiNodeAnim * pNodeAnim);
+	void CalcInterpolatedValueFromKey(aiVector3D & Out, aiVector3D startValue, aiVector3D endValue, float Factor);
+	void CalcInterpolatedRotation(aiQuaternion & Out, float AnimationTime, const aiNodeAnim * pNodeAnim);
+	UINT FindRotation(float AnimationTime, const aiNodeAnim * pNodeAnim);
 	void BoneTransform(string nowanimation, float dt, std::vector<XMFLOAT4X4>& finaltransforms);
 
 	
@@ -92,12 +98,20 @@ private:
 	XMFLOAT4X4 aiMatrixtoXMFLOAT4X4(aiMatrix4x4 _src);
 	const aiNodeAnim* FindNodeAnim(const aiAnimation* pAnimation, std::string NodeName);
 
+	//void interpolateNode(aiNodeAnim * pNodeAnim, float AnimationTime, XMFLOAT4X4 & ScalingM, XMFLOAT4X4 & destrot, XMFLOAT4X4 & desttrans);
+
+	void interpolateNode(const aiNodeAnim * pNodeAnim, float AnimationTime, XMFLOAT4X4 & ScalingM, XMFLOAT4X4 & RotationM, XMFLOAT4X4 & desttrans, XMFLOAT4X4 & NodeTransformation);
+
 	void ReadNodeHeirarchy(float AnimationTime, aiNode* pScene, XMFLOAT4X4 identity);
+
+	void CalcInterpolatedScaling(aiVector3D & Out, float AnimationTime, const aiNodeAnim * pNodeAnim);
 	
 
 	
+	void LoadBonesAndHierarchy(const aiMesh * mesh, const aiScene * scene, std::vector<BoneInfo>& meshBones, std::map<std::string, int>& m_BoneMapping);
+
 	void ProcessNode(aiNode * node, const aiScene * scene);
-	void LoadBonesAndHierarchy(const aiMesh* pMesh,const aiScene* scene, std::vector<BoneInfo>& meshBones);
+	//void LoadBonesAndHierarchy(const aiMesh* pMesh,const aiScene* scene, std::vector<BoneInfo>& meshBones);
 	MyMesh ProcessMesh(aiMesh * mesh, const aiScene * scene);
 	TextureStorageType DetermineTextureStorageType(const aiScene* pScene, aiMaterial* pMat, unsigned int index, aiTextureType textureType);
 	std::vector<MyTexture> LoadMaterialTextures(aiMaterial* pMaterial, aiTextureType textureType, const aiScene* pScene);
