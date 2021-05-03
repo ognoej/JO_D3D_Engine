@@ -26,8 +26,8 @@ struct Vertex
 	XMFLOAT2 texCoord;		// 텍스쳐좌표
 	XMFLOAT3 Normal;		// 법선
 	XMFLOAT4 TangentU;		// 회전
-	XMFLOAT3 Weights;		// 뼈 가중치 마지막 가중치는 1-나머지가중치로 계산할 수 있으므로 생략하여 저장공간 줄임 x,y,z를 하나의 가중치로 계산
-	BYTE BoneIndices[4];	// 영향 미치는 뼈 assimp 모델 기준 8개까지 불러옴
+	float Weights[4];		// 뼈 가중치 마지막 가중치는 1-나머지가중치로 계산할 수 있으므로 생략하여 저장공간 줄임 x,y,z를 하나의 가중치로 계산
+	int BoneIndices[4];	// 영향 미치는 뼈 assimp 모델 기준 8개까지 불러옴
 };
 
 

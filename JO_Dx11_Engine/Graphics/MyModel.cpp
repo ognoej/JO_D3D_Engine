@@ -86,6 +86,8 @@ void MyModel::LoadaiMatrixto4x4float(XMFLOAT4X4 & dest, aiMatrix4x4 & src)
 	return;
 }
 
+
+// 로드모델 오버로드 ( 스트링 네임으로 인스턴싱 가능하게 만들기 )
 void MyModel::LoadModel(const std::string & filePath)
 {
 	// this->directory = MyString::GetDirectoryFromPath(filePath);
@@ -350,7 +352,6 @@ void MyModel::ReadNodeHeirarchy(float AnimationTime, aiNode * pNode, XMFLOAT4X4 
 	 	CalcInterpolatedScaling(Scaling, AnimationTime, pNodeAnim);
 	 	XMFLOAT4X4 ScalingM = scalingMatrix(Scaling.x, Scaling.y, Scaling.z);
 	 	
-	 
 	 	// Interpolate rotation and generate rotation transformation matrix
 	 	aiQuaternion RotationQ;
 	 	CalcInterpolatedRotation(RotationQ, AnimationTime, pNodeAnim);
@@ -675,13 +676,44 @@ MyMesh MyModel::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 			vertex.texCoord.x = (float)mesh->mTextureCoords[0][i].x;
 			vertex.texCoord.y = (float)mesh->mTextureCoords[0][i].y;
 		}
+		for (int i = 0; i < 4; i++)
+		{
+			vertex.BoneIndices[i] = 0;
+		}
 
 		vertices.push_back(vertex);
 	}
 
 
 	//메쉬 본과 하이라키 불러오기
-	this->LoadBonesAndHierarchy(mesh, scene, meshBones, m_BoneMapping);
+	this->LoadBonesAndHierarchy(mesh, scene, Boneinfoes, m_BoneMapping);
+
+
+
+	// 본이 영향을 미치는 정점 전부에 해당 본의 아이디와 무게 넣기
+	// 할일 : 정점에 뼈 웨이트 넣기
+
+	for (int i = 0; i < mesh->mNumBones; i++)
+	{
+		for (int j = 0; j < mesh->mBones[i]->mNumWeights; j++)
+		{
+
+			for (int k = 0; k < 4; k++)
+			{
+				if (vertices[mesh->mBones[i]->mWeights[j].mVertexId].BoneIndices[k] == 0)
+				{
+					vertices[mesh->mBones[i]->mWeights[j].mVertexId].BoneIndices[k] = i;
+					vertices[mesh->mBones[i]->mWeights[j].mVertexId].Weights[k] = mesh->mBones[i]->mWeights[j].mWeight;
+					//break;
+				}
+			}
+		}
+	}
+
+
+
+
+
 
 
 
@@ -695,7 +727,10 @@ MyMesh MyModel::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 	}
 
 
-	Boneinfoes = meshBones;
+	//Boneinfoes = meshBones;
+
+
+
 
 	std::vector<MyTexture> textures;
 
