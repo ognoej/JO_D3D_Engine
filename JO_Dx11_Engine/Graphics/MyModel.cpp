@@ -698,33 +698,16 @@ MyMesh MyModel::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 	// 메쉬마다 포함된 정점과 영향받는 정점의 인덱스가 다르므로 하나로 맞춰줘야함.
 
 
-	// bonewieght 이중벡터 구현
-	// boneid 이중벡터 구현
 
-
-
-	
-
-	
-	int numBones = 0;
 	for (int i = 0; i < mesh->mNumBones; i++)
 	{
-		unsigned int boneIndex = numBones++;
-
 		for (int j = 0; j < mesh->mBones[i]->mNumWeights; j++)
 		{
 			unsigned int vertexId = mesh->mBones[i]->mWeights[j].mVertexId;
 			float weight = mesh->mBones[i]->mWeights[j].mWeight;
 
-			// 정점은 최대 8개의 Bone의 영향을 받게 됨
-			// 2개의 4차원 벡터를 이용하여 값을 저장
 			for (int k = 0; k < 4; k++)
 			{
-				// // 벡터의 인덱스
-				// unsigned int vectorId = k / 4;
-				// // 각 벡터의 원소 인덱스
-				// unsigned int elementId = k % 4;
-
 
 				if (vertices[vertexId].Weights[k] == 0.0f)
 				{
@@ -742,23 +725,6 @@ MyMesh MyModel::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 
 	vertices[8000].Weights;
 
-	/*
-	for (int i = 0; i < mesh->mNumBones; i++)
-	{
-		for (int j = 0; j < mesh->mBones[i]->mNumWeights; j++)
-		{
-			for (int k = 0; k < 4; k++)
-			{
-				if (vertices[mesh->mBones[i]->mWeights[j].mVertexId].BoneIndices[k] == 0)
-				{
-					vertices[mesh->mBones[i]->mWeights[j].mVertexId].BoneIndices[k] = i;
-					vertices[mesh->mBones[i]->mWeights[j].mVertexId].Weights[k] = mesh->mBones[i]->mWeights[j].mWeight;
-					break; 
-				}
-			}
-		}
-	}
-	//*/
 
 	// 정점 인덱스는 뼈에서 지정하는 인덱스와 맞춰야 하므로 Assimp인덱스를 맞춰서 저장한다.
 	for (UINT i = 0; i < mesh->mNumFaces; i++)
