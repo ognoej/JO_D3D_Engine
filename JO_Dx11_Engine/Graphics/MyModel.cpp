@@ -644,7 +644,7 @@ void MyModel::ProcessNode(aiNode * node, const aiScene * scene)
 
 MyMesh MyModel::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 {
-	
+
 	std::vector<Vertex> vertices;
 	std::vector<DWORD> indices;
 	std::vector<BoneInfo> meshBones;
@@ -663,14 +663,14 @@ MyMesh MyModel::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 		vertex.Normal.x = mesh->mNormals[i].x;
 		vertex.Normal.y = mesh->mNormals[i].y;
 		vertex.Normal.z = mesh->mNormals[i].z;
-	
-	//	// 회전값 가져오기 오류남 코드 수정 필요
-	//	vertex.TangentU.x = mesh->mTangents[i].x;
-	//	vertex.TangentU.y = mesh->mTangents[i].y;
-	//	vertex.TangentU.z = mesh->mTangents[i].z;
+
+		//	// 회전값 가져오기 오류남 코드 수정 필요
+		//	vertex.TangentU.x = mesh->mTangents[i].x;
+		//	vertex.TangentU.y = mesh->mTangents[i].y;
+		//	vertex.TangentU.z = mesh->mTangents[i].z;
 
 
-		// 메쉬 텍스쳐 불러오기 텍스쳐 혼합을 위해 추가 텍스쳐 작업 코드 필요
+			// 메쉬 텍스쳐 불러오기 텍스쳐 혼합을 위해 추가 텍스쳐 작업 코드 필요
 		if (mesh->mTextureCoords[0])
 		{
 			vertex.texCoord.x = (float)mesh->mTextureCoords[0][i].x;
@@ -679,6 +679,7 @@ MyMesh MyModel::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 		for (int i = 0; i < 4; i++)
 		{
 			vertex.BoneIndices[i] = 0;
+			vertex.Weights[i] = 0;
 		}
 
 		vertices.push_back(vertex);
@@ -693,29 +694,71 @@ MyMesh MyModel::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 	// 본이 영향을 미치는 정점 전부에 해당 본의 아이디와 무게 넣기
 	// 할일 : 정점에 뼈 웨이트 넣기
 
+	// 버텍스 ID 전체 버텍스 행렬에서 찾을 수 있는 절대 vertex ID 를 계산해야함.
+	// 메쉬마다 포함된 정점과 영향받는 정점의 인덱스가 다르므로 하나로 맞춰줘야함.
+
+
+	// bonewieght 이중벡터 구현
+	// boneid 이중벡터 구현
+
+
+
+	
+
+	
+	int numBones = 0;
+	for (int i = 0; i < mesh->mNumBones; i++)
+	{
+		unsigned int boneIndex = numBones++;
+
+		for (int j = 0; j < mesh->mBones[i]->mNumWeights; j++)
+		{
+			unsigned int vertexId = mesh->mBones[i]->mWeights[j].mVertexId;
+			float weight = mesh->mBones[i]->mWeights[j].mWeight;
+
+			// 정점은 최대 8개의 Bone의 영향을 받게 됨
+			// 2개의 4차원 벡터를 이용하여 값을 저장
+			for (int k = 0; k < 4; k++)
+			{
+				// // 벡터의 인덱스
+				// unsigned int vectorId = k / 4;
+				// // 각 벡터의 원소 인덱스
+				// unsigned int elementId = k % 4;
+
+
+				if (vertices[vertexId].Weights[k] == 0.0f)
+				{
+					vertices[vertexId].BoneIndices[k] = i;
+					vertices[vertexId].Weights[k] = weight;
+					break;
+				}
+			}
+
+		}
+	}
+
+
+	vertices[8883].Weights;
+
+	vertices[8000].Weights;
+
+	/*
 	for (int i = 0; i < mesh->mNumBones; i++)
 	{
 		for (int j = 0; j < mesh->mBones[i]->mNumWeights; j++)
 		{
-
 			for (int k = 0; k < 4; k++)
 			{
 				if (vertices[mesh->mBones[i]->mWeights[j].mVertexId].BoneIndices[k] == 0)
 				{
 					vertices[mesh->mBones[i]->mWeights[j].mVertexId].BoneIndices[k] = i;
 					vertices[mesh->mBones[i]->mWeights[j].mVertexId].Weights[k] = mesh->mBones[i]->mWeights[j].mWeight;
-					//break;
+					break; 
 				}
 			}
 		}
 	}
-
-
-
-
-
-
-
+	//*/
 
 	// 정점 인덱스는 뼈에서 지정하는 인덱스와 맞춰야 하므로 Assimp인덱스를 맞춰서 저장한다.
 	for (UINT i = 0; i < mesh->mNumFaces; i++)
