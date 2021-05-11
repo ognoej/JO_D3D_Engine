@@ -7,6 +7,9 @@ struct VS_INPUT
 {
     float3 inPos : POSITION;
     float2 inTexCoord : TEXCOORD;
+	float3 Normal : NORMAL;
+	float4 Weights : WEIGHTS;
+	uint4  BoneIndices : BONEINDICES;
 };
 
 struct VS_OUTPUT

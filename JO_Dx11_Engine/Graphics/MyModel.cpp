@@ -683,10 +683,11 @@ MyMesh MyModel::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 			vertex.texCoord.x = (float)mesh->mTextureCoords[0][i].x;
 			vertex.texCoord.y = (float)mesh->mTextureCoords[0][i].y;
 		}
+
+		vertex.Weights = { 0, 0, 0, 0 };
 		for (int i = 0; i < 4; i++)
 		{
 			vertex.BoneIndices[i] = 0;
-			vertex.Weights[i] = 0;
 		}
 
 		vertices.push_back(vertex);
@@ -713,15 +714,27 @@ MyMesh MyModel::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 			unsigned int vertexId = mesh->mBones[i]->mWeights[j].mVertexId;
 			float weight = mesh->mBones[i]->mWeights[j].mWeight;
 
-			for (int k = 0; k < 4; k++)
-			{
 
-				if (vertices[vertexId].Weights[k] == 0.0f)
-				{
-					vertices[vertexId].BoneIndices[k] = i;
-					vertices[vertexId].Weights[k] = weight;
-					break;
-				}
+			if (vertices[vertexId].Weights.x == 0.0f)
+			{
+				vertices[vertexId].BoneIndices[0] = i;
+				vertices[vertexId].Weights.x = weight;
+				
+			}
+			else if (vertices[vertexId].Weights.y == 0.0f)
+			{
+				vertices[vertexId].BoneIndices[1] = i;
+				vertices[vertexId].Weights.y = weight;
+			}
+			else if (vertices[vertexId].Weights.z == 0.0f)
+			{
+				vertices[vertexId].BoneIndices[2] = i;
+				vertices[vertexId].Weights.z = weight;
+			}
+			else if (vertices[vertexId].Weights.w == 0.0f)
+			{
+				vertices[vertexId].BoneIndices[3] = i;
+				vertices[vertexId].Weights.w = weight;
 			}
 
 		}
