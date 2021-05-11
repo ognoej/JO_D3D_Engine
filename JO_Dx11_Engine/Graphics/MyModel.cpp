@@ -28,12 +28,19 @@ bool MyModel::Initialize(const std::string & filePath, ID3D11Device * device, ID
 
 	return true;
 }
+using namespace DirectX;
 
 void MyModel::Draw(const XMMATRIX & worldMatrix, const XMMATRIX & viewProjectionMatrix)
 {
-	//Update Constant buffer with WVP Matrix
-	this->cb_vs_vertexshader->data.mat = worldMatrix * viewProjectionMatrix; //Calculate World-View-Projection Matrix
-	this->cb_vs_vertexshader->data.mat = XMMatrixTranspose(this->cb_vs_vertexshader->data.mat);
+
+	// 버텍스 상수버퍼 업데이트
+	// mat을 여기서 갱신해줘도 되지만 쉐이더로 넘겨줘서 계산시켜도됨
+	// vs로 넘겨줘야 할것 
+	// 1. 오브젝트 당 글로벌 인버스 트랜스폼 (루트 Transpose)
+	// 2. 텍스쳐 트랜스폼은 픽셀 쉐이더에 
+	// 3. 본 파이널 트랜스폼
+	this->cb_vs_vertexshader->data.mat = worldMatrix * viewProjectionMatrix;
+	this->cb_vs_vertexshader->data.mat = XMMatrixTranspose(this->cb_vs_vertexshader->data.mat); 
 	this->cb_vs_vertexshader->ApplyChanges();
 	this->deviceContext->VSSetConstantBuffers(0, 1, this->cb_vs_vertexshader->GetAddressOf());
 
@@ -685,7 +692,7 @@ MyMesh MyModel::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 		vertices.push_back(vertex);
 	}
 
-
+	 
 	//메쉬 본과 하이라키 불러오기
 	this->LoadBonesAndHierarchy(mesh, scene, Boneinfoes, m_BoneMapping);
 

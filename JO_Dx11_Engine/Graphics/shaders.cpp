@@ -1,5 +1,6 @@
 #include "shaders.h"
 
+// blob 으로 읽는 방식을 사용함 blob은 바이너리로 읽어들이는 파일 객체 집합 binary large object
 bool VertexShader::Initialize(Microsoft::WRL::ComPtr<ID3D11Device>& device, std::wstring shaderpath, D3D11_INPUT_ELEMENT_DESC * layoutDesc, UINT numElements)
 {
 
