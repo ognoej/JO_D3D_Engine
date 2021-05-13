@@ -5,8 +5,8 @@
 
 
 #define	WIN_NAME	L"JO_Engine"
-#define WIN_WIDTH	800
-#define	WIN_HEIGHT	450
+#define WIN_WIDTH	400
+#define	WIN_HEIGHT	500
 
 
 int APIENTRY WinMain(

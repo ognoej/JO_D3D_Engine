@@ -1,7 +1,8 @@
 cbuffer mycBuffer : register(b0)
 {
     float4x4 mat;
-}; 
+};
+
 
 struct VS_INPUT
 {

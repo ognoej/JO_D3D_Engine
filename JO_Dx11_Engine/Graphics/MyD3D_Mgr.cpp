@@ -9,9 +9,11 @@ MyD3D_Mgr::~MyD3D_Mgr()
 
 bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 {
-
 		this->windowWidth = width;
 		this->windowHeight = height;
+
+		//this->windowWidth = width;
+		//this->windowHeight = height;
 
 #pragma region DX 초기화작업
 
@@ -178,7 +180,8 @@ bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 
 #pragma region 카메라 기본설정
 
-		cameraMgr.SetPosition(0.0f, 80.0f, -200.0f);
+		cameraMgr.SetPosition(0.0f, 100.0f, -200.0f);
+		//cameraMgr.SetRotation(20.0f, 5.0f, 0.0f);
 		cameraMgr.SetProjectionValues(90.0f, static_cast<float>(windowWidth) / static_cast<float>(windowHeight), 0.1f, 1000.0f);
 
 #pragma endregion
