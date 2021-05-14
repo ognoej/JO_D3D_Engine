@@ -1506,7 +1506,7 @@ DECLARE_INTERFACE_(ID3DX11Effect, IUnknown)
 	STDMETHOD_(ID3DX11EffectConstantBuffer*, GetConstantBufferByName)(THIS_ LPCSTR Name) PURE;
 
 	STDMETHOD_(ID3DX11EffectVariable*, GetVariableByIndex)(THIS_ UINT Index) PURE;
-	STDMETHOD_(ID3DX11EffectVariable*, GetVariableByName)(THIS_ LPCSTR Name) PURE;
+	STDMETHOD_(ID3DX11EffectVariable*,GetVariableByName )(THIS_ LPCSTR Name) PURE;
 	STDMETHOD_(ID3DX11EffectVariable*, GetVariableBySemantic)(THIS_ LPCSTR Semantic) PURE;
 
 	STDMETHOD_(ID3DX11EffectGroup*, GetGroupByIndex)(THIS_ UINT Index) PURE;

@@ -195,6 +195,7 @@
     <ClInclude Include="Graphics\shaders.h" />
     <ClInclude Include="modelMgr.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="Utilheaders.h" />
     <ClInclude Include="Utilites\KeyboardClass.h" />
     <ClInclude Include="Utilites\KeyboardEvent.h" />
     <ClInclude Include="Utilites\MathHelper.h" />

@@ -4,6 +4,7 @@
 #define SafeDelete(x) { delete x; x = 0; }
 #include <string>
 #include "d3d11effect.h"
+#include "Utilheaders.h"
 
 class EffectMgr
 {

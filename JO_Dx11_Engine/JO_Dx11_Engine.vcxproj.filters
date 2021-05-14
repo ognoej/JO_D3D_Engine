@@ -173,6 +173,9 @@
     <ClInclude Include="d3d11effect.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Utilheaders.h">
+      <Filter>헤더 파일\Utilites</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="pixelshader.hlsl">
