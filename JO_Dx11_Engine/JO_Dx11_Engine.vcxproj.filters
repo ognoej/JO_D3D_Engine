@@ -93,6 +93,9 @@
     <ClCompile Include="modelMgr.cpp">
       <Filter>소스 파일\DxGraphics</Filter>
     </ClCompile>
+    <ClCompile Include="EffectMgr.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -163,6 +166,12 @@
     </ClInclude>
     <ClInclude Include="modelMgr.h">
       <Filter>헤더 파일\DxGraphics</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectMgr.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11effect.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
