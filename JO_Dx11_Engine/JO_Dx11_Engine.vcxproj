@@ -207,6 +207,9 @@
     <ClInclude Include="Utilites\MyTimer.h" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="FX\SsaoNormalDepth.fx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </FxCompile>
     <FxCompile Include="pixelshader.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>

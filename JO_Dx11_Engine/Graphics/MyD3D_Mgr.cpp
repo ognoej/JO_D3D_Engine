@@ -141,7 +141,7 @@ bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 
 
 		// 오브젝트마다 레이아웃 설정 변경할 수 있는 코드 필요
-		// 쉐이더 레이아웃 설정
+		// 쉐이더 레이아웃 설정 Skinnedmesh layout
 		D3D11_INPUT_ELEMENT_DESC layout[] =
 		{
 			{"POSITION", 0, DXGI_FORMAT::DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_CLASSIFICATION::D3D11_INPUT_PER_VERTEX_DATA, 0  },
@@ -152,6 +152,9 @@ bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 		};
 
 		UINT numElements = ARRAYSIZE(layout);
+
+
+		
 
 
 

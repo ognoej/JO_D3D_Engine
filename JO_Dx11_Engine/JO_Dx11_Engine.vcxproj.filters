@@ -190,5 +190,8 @@
     <FxCompile Include="vertexshader.hlsl">
       <Filter>소스 파일\DxGraphics\shaders</Filter>
     </FxCompile>
+    <FxCompile Include="FX\SsaoNormalDepth.fx">
+      <Filter>소스 파일\DxGraphics\shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
