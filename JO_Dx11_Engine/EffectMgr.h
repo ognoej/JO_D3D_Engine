@@ -5,12 +5,13 @@
 #include <string>
 #include "d3d11effect.h"
 #include "Utilheaders.h"
+#include "d3d11shader.h"
 
 class Effect
 {
 public:
 	Effect(ID3D11Device* device, const std::wstring& filename);
-	virtual ~Effect();
+	//virtual ~Effect();
 
 private:
 	Effect(const Effect& rhs);
@@ -22,33 +23,18 @@ protected:
 };
 
 
-#pragma region 접근용 전역 Effects 클래스
-class Effects
-{
-public:
-	static void InitAll(ID3D11Device* device);
-	static void DestroyAll();
-
-	//static BasicEffect* BasicFX;
-	//static NormalMapEffect* NormalMapFX;
-	//static BuildShadowMapEffect* BuildShadowMapFX;
-	static SsaoNormalDepthEffect* SsaoNormalDepthFX; // 일단 스킨메쉬만
-	//static SsaoEffect* SsaoFX;
-	//static SsaoBlurEffect* SsaoBlurFX;
-	//static SkyEffect* SkyFX;
-	//static DebugTexEffect* DebugTexFX;
-};
-#pragma endregion
-
-
-
 // SkinnedMesh 용 이펙트
 #pragma region SsaoNormalDepthEffect
 class SsaoNormalDepthEffect : public Effect
 {
 public:
 	SsaoNormalDepthEffect(ID3D11Device* device, const std::wstring& filename);
-	~SsaoNormalDepthEffect();
+
+
+
+
+
+	//~SsaoNormalDepthEffect();
 
 	void SetWorldView(CXMMATRIX M) { WorldView->SetMatrix(reinterpret_cast<const float*>(&M)); }
 	void SetWorldInvTransposeView(CXMMATRIX M) { WorldInvTransposeView->SetMatrix(reinterpret_cast<const float*>(&M)); }
@@ -72,6 +58,29 @@ public:
 	ID3DX11EffectShaderResourceVariable* DiffuseMap;
 };
 #pragma endregion
+
+
+#pragma region 접근용 전역 Effects 클래스
+class Effects
+{
+public:
+	static void InitAll(ID3D11Device* device);
+	//static void DestroyAll();
+
+	static SsaoNormalDepthEffect* SsaoNormalDepthFX;// 일단 스킨메쉬만
+	//static BasicEffect* BasicFX;
+	//static NormalMapEffect* NormalMapFX;
+	//static BuildShadowMapEffect* BuildShadowMapFX;
+	//static SsaoEffect* SsaoFX;
+	//static SsaoBlurEffect* SsaoBlurFX;
+	//static SkyEffect* SkyFX;
+	//static DebugTexEffect* DebugTexFX;
+};
+#pragma endregion
+
+
+
+
 
 
 // 나머지 이펙트

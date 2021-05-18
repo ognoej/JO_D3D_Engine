@@ -8,6 +8,7 @@
 #include "ObjectMgr.h"
 #include "..\Utilites\MyCamera.h"
 #include "MyTimer.h"
+#include "../EffectMgr.h"
 
 
 

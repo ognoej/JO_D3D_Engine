@@ -18,7 +18,11 @@ Effect::Effect(ID3D11Device * device, const std::wstring & filename)
 		0, device, &mFX));
 }
 
+
+SsaoNormalDepthEffect* Effects::SsaoNormalDepthFX = 0;
+
 void Effects::InitAll(ID3D11Device * device)
+
 {
 
 	// Skinnedmesh용 노말맵 쉐이더 (컴파일 완료)
@@ -33,4 +37,10 @@ void Effects::InitAll(ID3D11Device * device)
 	SkyFX = new SkyEffect(device, L"FX/Sky.fxo");
 	DebugTexFX = new DebugTexEffect(device, L"FX/DebugTexture.fxo");
 	*/
+}
+
+SsaoNormalDepthEffect::SsaoNormalDepthEffect(ID3D11Device * device, const std::wstring & filename)
+:Effect(device, filename)
+{
+
 }

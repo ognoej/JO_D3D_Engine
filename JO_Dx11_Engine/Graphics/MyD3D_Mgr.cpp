@@ -9,6 +9,8 @@ MyD3D_Mgr::~MyD3D_Mgr()
 
 bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 {
+
+
 		this->windowWidth = width;
 		this->windowHeight = height;
 
@@ -59,11 +61,17 @@ bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 			nullptr,								//	결정된 dx레벨 저장 변수
 			this->deviceContext.GetAddressOf());	//	문맥장치
 
+
+
+		Effects::InitAll(this->device.Get());
+
+
 		if (FAILED(hr))
 		{
 			MessageBoxA(nullptr, "Failed to create device and swapchain.", "FAILED", MB_OK);
 			return false;
 		}
+
 
 		//	랜더타켓용 버퍼 얻기
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> backBuffer;
@@ -154,8 +162,7 @@ bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 		UINT numElements = ARRAYSIZE(layout);
 
 
-		
-
+	
 
 
 		//쉐이더 등록
@@ -188,7 +195,6 @@ bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 		cameraMgr.SetProjectionValues(90.0f, static_cast<float>(windowWidth) / static_cast<float>(windowHeight), 0.1f, 1000.0f);
 
 #pragma endregion
-
 
 
 #pragma region OBJ관리
