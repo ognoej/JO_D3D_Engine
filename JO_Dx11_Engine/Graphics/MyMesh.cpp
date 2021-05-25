@@ -27,6 +27,8 @@ MyMesh::MyMesh(const MyMesh & mesh)
 	this->mvertices = mesh.mvertices;
 }
 
+
+// cpu에서 파이널트랜스폼 적용해보기 코드
 void MyMesh::meshupdate(std::vector<XMMATRIX> finaltrans, ID3D11Device * device)
 {
 
@@ -34,6 +36,8 @@ void MyMesh::meshupdate(std::vector<XMMATRIX> finaltrans, ID3D11Device * device)
 		{
 		
 			XMFLOAT3 posP = { 0, 0, 0 };
+
+			XMFLOAT4 holy(mvertices[i].pos.x, mvertices[i].pos.y, mvertices[i].pos.z,1);
 			
 			float posx = mvertices[i].pos.x * finaltrans[this->mvertices[i].BoneIndices[0]].r->m128_f32[0];
 			float posy = mvertices[i].pos.y * finaltrans[this->mvertices[i].BoneIndices[0]].r->m128_f32[1];
