@@ -4,6 +4,8 @@
 #include "..\Utilites\MyErrorCheck.h"
 #include <wrl/client.h>
 
+
+// skinned mesh  Àü¿ë 
 struct CB_VS_vertexshader
 {
 	DirectX::XMMATRIX mat;

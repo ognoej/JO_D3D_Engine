@@ -25,6 +25,20 @@ bool MyModel::Initialize(const std::string & filePath, ID3D11Device * device, ID
 	//	MyErrorCheck::Log(exception);
 	//	return false;
 	//}
+	
+	for (int i = 0; i < this->Boneinfoes.size(); i++)
+	{
+		auto shit = XMLoadFloat4x4(&Boneinfoes[i].FinalTransform);
+		this->mfinaltransform.push_back(shit);
+	}
+
+	for (int i = 0; i < meshes.size(); i++)
+	{
+		meshes[i].meshupdate(mfinaltransform, this->device);
+	}
+
+
+
 
 	return true;
 }
@@ -32,6 +46,22 @@ using namespace DirectX;
 
 void MyModel::Draw(const XMMATRIX & worldMatrix, const XMMATRIX & viewProjectionMatrix)
 {
+
+
+	// 임시 업데이트 
+
+	
+	//for (int i = 0; i < 4; ++i)
+	//{
+	//	posL += weight[i]* mul(float4(input.inPos,1.0f), gBoneTransforms[input.BoneIndices[i]]).xyz;
+	//}
+
+
+	//output.outPosition = mul(float4(posL, 1.0f), mat);
+
+
+
+
 
 	// 버텍스 상수버퍼 업데이트
 	// mat을 여기서 갱신해줘도 되지만 쉐이더로 넘겨줘서 계산시켜도됨
@@ -42,11 +72,15 @@ void MyModel::Draw(const XMMATRIX & worldMatrix, const XMMATRIX & viewProjection
 	this->cb_vs_vertexshader->data.mat = worldMatrix * viewProjectionMatrix;
 	this->cb_vs_vertexshader->data.mat = XMMatrixTranspose(this->cb_vs_vertexshader->data.mat); 
 
-	this->cb_vs_vertexshader->data.gWorldView = XMMatrixTranspose(worldMatrix); // XMmatrix => hlsl 행렬로 방향 바꾸기
-	this->cb_vs_vertexshader->data.gWorldViewProj = XMMatrixTranspose(worldMatrix * viewProjectionMatrix);
+	this->cb_vs_vertexshader->data.gWorldView = worldMatrix;
+	this->cb_vs_vertexshader->data.gWorldView = XMMatrixTranspose(this->cb_vs_vertexshader->data.gWorldView);
+
+	this->cb_vs_vertexshader->data.gWorldView = worldMatrix * viewProjectionMatrix; // XMmatrix => hlsl 행렬로 방향 바꾸기
+	this->cb_vs_vertexshader->data.gWorldViewProj = XMMatrixTranspose(this->cb_vs_vertexshader->data.gWorldViewProj);
 
 	for (int i = 0; i < 69; i++)
 	{
+		//this->cb_vs_vertexshader->data.gBoneTransforms[i] = XMLoadFloat4x4(&Boneinfoes[i].FinalTransform);
 		this->cb_vs_vertexshader->data.gBoneTransforms[i] = XMMatrixTranspose(XMLoadFloat4x4(&Boneinfoes[i].FinalTransform));
 	}
 
@@ -79,6 +113,15 @@ XMFLOAT4X4 MyModel::aiMatrixtoXMFLOAT4X4(aiMatrix4x4 _src)
 
 
 
+
+void MyModel::updatemodel()
+{
+
+	
+
+
+
+}
 
 void MyModel::LoadaiMatrixto4x4float(XMFLOAT4X4 & dest, aiMatrix4x4 & src)
 {
@@ -324,13 +367,13 @@ void MyModel::interpolateNode(const aiNodeAnim * pNodeAnim, float AnimationTime,
 
 		// Interpolate rotation and generate rotation transformation matrix
 		aiQuaternion RotationQ;
-		//CalcInterpolatedRotation(RotationQ, AnimationTime, pNodeAnim);
+		CalcInterpolatedRotation(RotationQ, AnimationTime, pNodeAnim);
 		RotationM;
 		loadai3x3matrixtoXMFLOAT4X4(RotationM, RotationQ.GetMatrix());
 
 		// Interpolate translation and generate translation transformation matrix
 		aiVector3D Translation;
-		//CalcInterpolatedPosition(Translation, AnimationTime, pNodeAnim);
+		CalcInterpolatedPosition(Translation, AnimationTime, pNodeAnim);
 		TranslationM = translationMatrix(Translation.x, Translation.y, Translation.z);
 
 		// Combine the above transformations
@@ -753,10 +796,13 @@ MyMesh MyModel::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 		}
 	}
 
+	vertices[5].Weights;
 
 	vertices[8883].Weights;
+	vertices[8883].BoneIndices;
 
 	vertices[8000].Weights;
+	vertices[8000].BoneIndices;
 
 
 	// 정점 인덱스는 뼈에서 지정하는 인덱스와 맞춰야 하므로 Assimp인덱스를 맞춰서 저장한다.

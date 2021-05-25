@@ -6,10 +6,15 @@ MyMesh::MyMesh(ID3D11Device * device, ID3D11DeviceContext * deviceContext,std::v
 	this->textures = textures;
 	//this->bones = _bones;
 
-	HRESULT hr = this->vertexbuffer.Initialize(device, vertices.data(), vertices.size());
-	COM_ERROR_IF_FAILED(hr, "Failed to initialize vertex buffer for mesh.");
+	this->mdevice = device;
+	//this->mvertices = vertices;
 
-	hr = this->indexbuffer.Initialize(device, indices.data(), indices.size());
+	this->mvertices.clear();
+
+	mvertices.assign(vertices.begin(), vertices.end());
+
+
+	HRESULT hr = this->indexbuffer.Initialize(device, indices.data(), indices.size());
 	COM_ERROR_IF_FAILED(hr, "Failed to initialize index buffer for mesh.");
 }
 
@@ -19,6 +24,71 @@ MyMesh::MyMesh(const MyMesh & mesh)
 	this->indexbuffer = mesh.indexbuffer;
 	this->vertexbuffer = mesh.vertexbuffer;
 	this->textures = mesh.textures;
+	this->mvertices = mesh.mvertices;
+}
+
+void MyMesh::meshupdate(std::vector<XMMATRIX> finaltrans, ID3D11Device * device)
+{
+
+		for (int i = 0; i < this->mvertices.size(); i++)
+		{
+		
+			XMFLOAT3 posP = { 0, 0, 0 };
+			
+			float posx = mvertices[i].pos.x * finaltrans[this->mvertices[i].BoneIndices[0]].r->m128_f32[0];
+			float posy = mvertices[i].pos.y * finaltrans[this->mvertices[i].BoneIndices[0]].r->m128_f32[1];
+			float posz = mvertices[i].pos.z * finaltrans[this->mvertices[i].BoneIndices[0]].r->m128_f32[2];
+
+			XMFLOAT3 tempos = { posx, posy, posz };
+
+			posP.x += (this->mvertices[i].Weights.x * tempos.x);
+			posP.y += (this->mvertices[i].Weights.x * tempos.y);
+			posP.z += (this->mvertices[i].Weights.x * tempos.z);
+
+
+			posx = mvertices[i].pos.x * finaltrans[this->mvertices[i].BoneIndices[1]].r->m128_f32[0];
+			posy = mvertices[i].pos.y * finaltrans[this->mvertices[i].BoneIndices[1]].r->m128_f32[1];
+			posz = mvertices[i].pos.z * finaltrans[this->mvertices[i].BoneIndices[1]].r->m128_f32[2];
+
+			tempos = { posx, posy, posz };
+
+			posP.x += (this->mvertices[i].Weights.y * tempos.x);
+			posP.y += (this->mvertices[i].Weights.y * tempos.y);
+			posP.z += (this->mvertices[i].Weights.y * tempos.z);
+
+
+			posx = mvertices[i].pos.x * finaltrans[this->mvertices[i].BoneIndices[2]].r->m128_f32[0];
+			posy = mvertices[i].pos.y * finaltrans[this->mvertices[i].BoneIndices[2]].r->m128_f32[1];
+			posz = mvertices[i].pos.z * finaltrans[this->mvertices[i].BoneIndices[2]].r->m128_f32[2];
+
+			tempos = { posx, posy, posz };
+
+			posP.x += (this->mvertices[i].Weights.z * tempos.x);
+			posP.y += (this->mvertices[i].Weights.z * tempos.y);
+			posP.z += (this->mvertices[i].Weights.z * tempos.z);
+
+			posx = mvertices[i].pos.x * finaltrans[this->mvertices[i].BoneIndices[3]].r->m128_f32[0];
+			posy = mvertices[i].pos.y * finaltrans[this->mvertices[i].BoneIndices[3]].r->m128_f32[1];
+			posz = mvertices[i].pos.z * finaltrans[this->mvertices[i].BoneIndices[3]].r->m128_f32[2];
+
+			tempos = { posx, posy, posz };
+
+			posP.x += (this->mvertices[i].Weights.w * tempos.x);
+			posP.y += (this->mvertices[i].Weights.w * tempos.y);
+			posP.z += (this->mvertices[i].Weights.w * tempos.z);
+
+
+			mvertices[i].pos = posP;
+		}
+
+		mvertices;
+		HRESULT hr = this->vertexbuffer.Initialize(device, mvertices.data(), mvertices.size());
+		//COM_ERROR_IF_FAILED(hr, "Failed to initialize vertex buffer for mesh.");
+		
+	//output.outPosition = mul(float4(posL, 1.0f), mat);
+	
+
+		
 }
 
 void MyMesh::Draw()

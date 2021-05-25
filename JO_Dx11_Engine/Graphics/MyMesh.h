@@ -25,9 +25,8 @@ struct Vertex
 	XMFLOAT3 pos;			// 정점 좌표
 	XMFLOAT2 texCoord;		// 텍스쳐좌표
 	XMFLOAT3 Normal;		// 법선
-	//XMFLOAT4 TangentU;		// 회전
 	XMFLOAT4 Weights;		// 뼈 가중치 마지막 가중치는 1-나머지가중치로 계산할 수 있으므로 생략하여 저장공간 줄임 x,y,z를 하나의 가중치로 계산
-	BYTE BoneIndices[4];		// 영향 미치는 뼈 assimp 모델 기준 8개까지 불러옴
+	UINT BoneIndices[4];		// 영향 미치는 뼈 assimp 모델 기준 8개까지 불러옴
 };
 
 
@@ -39,14 +38,20 @@ class MyMesh
 public:
 	MyMesh(ID3D11Device * device, ID3D11DeviceContext * deviceContext, std::vector<Vertex> & vertices, std::vector<DWORD> & indices, std::vector<MyTexture> & textures);
 	MyMesh(const MyMesh & mesh);
+
+	void meshupdate(std::vector<XMMATRIX> finaltrans, ID3D11Device * device);
+
 	void Draw();
 	//std::vector<BoneInfo> mMeshBones;
 
 private:
+	std::vector<Vertex> mvertices;
 	MyVertexBuffer<Vertex> vertexbuffer;
 	MyIndexBuffer indexbuffer;
 	ID3D11DeviceContext * deviceContext;
 	std::vector<MyTexture> textures;
+
+	ID3D11Device * mdevice;
 
 
 };

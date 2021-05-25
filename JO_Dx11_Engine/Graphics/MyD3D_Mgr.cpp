@@ -150,19 +150,17 @@ bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 
 		// 오브젝트마다 레이아웃 설정 변경할 수 있는 코드 필요
 		// 쉐이더 레이아웃 설정 Skinnedmesh layout
-		D3D11_INPUT_ELEMENT_DESC layout[] =
+		D3D11_INPUT_ELEMENT_DESC layout[5] =
 		{
 			{"POSITION", 0, DXGI_FORMAT::DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_CLASSIFICATION::D3D11_INPUT_PER_VERTEX_DATA, 0  },
 			{"TEXCOORD", 0, DXGI_FORMAT::DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_CLASSIFICATION::D3D11_INPUT_PER_VERTEX_DATA, 0  },
-			{"NORMAL",      0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 20, D3D11_INPUT_PER_VERTEX_DATA, 0},
-			{"WEIGHTS",      0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0},
-			{"BONEINDICES",  0, DXGI_FORMAT_R8G8B8A8_UINT,   0, 48, D3D11_INPUT_PER_VERTEX_DATA, 0}
+			{"NORMAL",      0, DXGI_FORMAT::DXGI_FORMAT_R32G32B32_FLOAT, 0, 20, D3D11_INPUT_CLASSIFICATION::D3D11_INPUT_PER_VERTEX_DATA, 0},
+			{"WEIGHTS",      0, DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 32, D3D11_INPUT_CLASSIFICATION::D3D11_INPUT_PER_VERTEX_DATA, 0},
+			{"BONEINDICES",  0, DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UINT,   0, 48, D3D11_INPUT_CLASSIFICATION::D3D11_INPUT_PER_VERTEX_DATA, 0}
 		};
 
 		UINT numElements = ARRAYSIZE(layout);
 
-
-	
 
 
 		//쉐이더 등록
@@ -175,6 +173,15 @@ bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 			//픽셀
 		if (!pixelshader.Initialize(this->device, shaderfolder+ L"pixelshader.cso"))
 			return false;
+
+
+
+			//버텍스
+	//if (!vertexshader.Initialize(this->device, L"vertexshader.hlsl", layout, numElements))
+	//	return false;
+	////픽셀
+	//if (!pixelshader.Initialize(this->device, shaderfolder + L"pixelshader.hlsl"))
+	//	return false;
 
 
 		// 상수버퍼 초기화

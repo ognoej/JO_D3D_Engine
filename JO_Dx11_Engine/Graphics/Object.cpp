@@ -51,6 +51,40 @@ bool Object::Initialize(const std::string _name, std::string & filePath, ID3D11D
 void Object::UpdateObj(float dt)
 {
 
+	
+	this->model->updatemodel();
+	
+
+	
+
+
+
+	//for (int i = 0; i < this->mvertices.size(); i++)
+	//{
+	//	XMMATRIX posL = XMMatrixIdentity();
+	//	XMMATRIX tempos = XMMatrixIdentity();
+	//	XMVector3Transform(XMLoadFloat3(&this->mvertices[i].pos), tempos);
+	//
+	//
+	//		posL += this->mvertices[i].Weights.x * (tempos* finaltrans[this->mvertices[i].BoneIndices[0]]);
+	//		posL += this->mvertices[i].Weights.y * (tempos* finaltrans[this->mvertices[i].BoneIndices[1]]);
+	//		posL += this->mvertices[i].Weights.z * (tempos* finaltrans[this->mvertices[i].BoneIndices[2]]);
+	//		posL += this->mvertices[i].Weights.w * (tempos* finaltrans[this->mvertices[i].BoneIndices[3]]);
+	//
+	//		XMVECTOR temvec = { 0, 0, 0, 0 };
+	//
+	//}
+
+
+
+
+
+
+
+
+
+
+
 	//if (nowanimation != "");
 	//GetFinalTransform(dt);
 

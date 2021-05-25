@@ -80,12 +80,15 @@ public:
 	std::map<std::string, AnimationClip> mAnimations;	// 모델 애니메이션
 	std::vector<BoneInfo> Boneinfoes;
 
+	std::vector<XMMATRIX> mfinaltransform;
+
 
 	UINT mNumAnimationClips = 0;
 	UINT mNumBones = 0;
 	UINT mNumMeshes = 0;
 
 	const aiScene* pScene;
+	void updatemodel();
 
 private:
 	XMFLOAT4X4 m_GlobalInverseTransform;
