@@ -1,6 +1,9 @@
 cbuffer mycBuffer : register(b0)
 {
     float4x4 mat;
+	float4x4 gWorldView;
+	float4x4 gWorldViewProj;
+	float4x4 gBoneTransforms[69];
 };
 
 

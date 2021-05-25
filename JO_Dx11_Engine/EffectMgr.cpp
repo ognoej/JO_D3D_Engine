@@ -24,7 +24,7 @@ SsaoNormalDepthEffect* Effects::SsaoNormalDepthFX = 0;
 void Effects::InitAll(ID3D11Device * device)
 
 {
-
+	
 	// Skinnedmesh용 노말맵 쉐이더 (컴파일 완료)
 	SsaoNormalDepthFX = new SsaoNormalDepthEffect(device, L"FX/SsaoNormalDepth.fxo");
 

@@ -7,6 +7,9 @@
 struct CB_VS_vertexshader
 {
 	DirectX::XMMATRIX mat;
+	DirectX::XMMATRIX gWorldView;
+	DirectX::XMMATRIX gWorldViewProj;
+	DirectX::XMMATRIX gBoneTransforms[69];
 };
 
 struct CB_PS_pixelshader

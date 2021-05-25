@@ -41,7 +41,20 @@ void MyModel::Draw(const XMMATRIX & worldMatrix, const XMMATRIX & viewProjection
 	// 3. 본 파이널 트랜스폼
 	this->cb_vs_vertexshader->data.mat = worldMatrix * viewProjectionMatrix;
 	this->cb_vs_vertexshader->data.mat = XMMatrixTranspose(this->cb_vs_vertexshader->data.mat); 
-	this->cb_vs_vertexshader->ApplyChanges();
+
+	this->cb_vs_vertexshader->data.gWorldView = XMMatrixTranspose(worldMatrix); // XMmatrix => hlsl 행렬로 방향 바꾸기
+	this->cb_vs_vertexshader->data.gWorldViewProj = XMMatrixTranspose(worldMatrix * viewProjectionMatrix);
+
+	for (int i = 0; i < 69; i++)
+	{
+		this->cb_vs_vertexshader->data.gBoneTransforms[i] = XMMatrixTranspose(XMLoadFloat4x4(&Boneinfoes[i].FinalTransform));
+	}
+
+
+	this->cb_vs_vertexshader->ApplyChanges(); // 변화 적용
+
+
+
 	this->deviceContext->VSSetConstantBuffers(0, 1, this->cb_vs_vertexshader->GetAddressOf());
 
 	for (int i = 0; i < meshes.size(); i++)
