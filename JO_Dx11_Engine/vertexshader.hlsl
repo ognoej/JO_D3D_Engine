@@ -35,14 +35,12 @@ VS_OUTPUT main(VS_INPUT input)
 	//weight[3] = input.Weights.w;
 	//
 	//
-	//
-	//
-	//
 	//for (int i = 0; i < 4; ++i)
 	//{
 	//	posL += weight[i]* mul(float4(input.inPos,1.0f), gBoneTransforms[input.BoneIndices[i]]).xyz;
 	//}
-
+	
+	//posL = input.inPos;
 
 	//output.outPosition = mul(float4(posL, 1.0f), mat);
 

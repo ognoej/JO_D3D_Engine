@@ -38,9 +38,11 @@ bool Object::Initialize(const std::string _name, std::string & filePath, ID3D11D
 		this->SetScale(1.0f, 1.0f, 1.0f);
 		this->SetRev(0.0f, 0.0f, 0.0f);
 
+		GetFinalTransform(3.0f);
+
+
 		this->UpdateWorldMatrix();
 
-		GetFinalTransform(3.0f);
 
 
 		return true;
@@ -54,9 +56,8 @@ void Object::UpdateObj(float dt)
 	
 	this->model->updatemodel();
 	
-
 	
-
+	//GetFinalTransform(3.0f);
 
 
 	//for (int i = 0; i < this->mvertices.size(); i++)

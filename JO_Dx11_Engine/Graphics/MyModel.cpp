@@ -26,19 +26,11 @@ bool MyModel::Initialize(const std::string & filePath, ID3D11Device * device, ID
 	//	return false;
 	//}
 	
-	for (int i = 0; i < this->Boneinfoes.size(); i++)
-	{
-		auto shit = XMLoadFloat4x4(&Boneinfoes[i].FinalTransform);
-		this->mfinaltransform.push_back(shit);
-	}
-
-	for (int i = 0; i < meshes.size(); i++)
-	{
-	//	meshes[i].meshupdate(mfinaltransform, this->device);
-	}
-
-
-
+	//for (int i = 0; i < this->Boneinfoes.size(); i++)
+	//{
+	//	auto shit = XMLoadFloat4x4(&Boneinfoes[i].FinalTransform);
+	//	this->mfinaltransform.push_back(shit);
+	//}
 
 	return true;
 }
@@ -58,9 +50,6 @@ void MyModel::Draw(const XMMATRIX & worldMatrix, const XMMATRIX & viewProjection
 
 
 	//output.outPosition = mul(float4(posL, 1.0f), mat);
-
-
-
 
 
 	// 버텍스 상수버퍼 업데이트
@@ -400,15 +389,13 @@ void MyModel::ReadNodeHeirarchy(float AnimationTime, aiNode * pNode, XMFLOAT4X4 
 
 	const aiNodeAnim* pNodeAnim = nullptr;
 	pNodeAnim = FindNodeAnim(pAnimation, NodeName);
-	XMFLOAT4X4 ScalingM;
-	XMFLOAT4X4 RotationM;
-	XMFLOAT4X4 TranslationM;
 
 	//interpolateNode(pNodeAnim, AnimationTime, ScalingM, RotationM, TranslationM, NodeTransformation);
 
 	///////////////
 	//// 보간 완성 시켜야함 
 	 pNodeAnim;
+
 	 if (pNodeAnim != nullptr ) {
 	 	// Interpolate scaling and generate scaling transformation matrix
 	 	aiVector3D Scaling;
