@@ -6,15 +6,19 @@ MyMesh::MyMesh(ID3D11Device * device, ID3D11DeviceContext * deviceContext,std::v
 	this->textures = textures;
 	//this->bones = _bones;
 
-	this->mdevice = device;
+
+	//this->mdevice = device;
 	//this->mvertices = vertices;
+	//this->mvertices.clear();
 
-	this->mvertices.clear();
+	//mvertices.assign(vertices.begin(), vertices.end());
 
-	mvertices.assign(vertices.begin(), vertices.end());
+	HRESULT hr = this->vertexbuffer.Initialize(device, vertices.data(), vertices.size());
+	COM_ERROR_IF_FAILED(hr, "Failed to initialize vertex buffer for mesh.");
 
 
-	HRESULT hr = this->indexbuffer.Initialize(device, indices.data(), indices.size());
+
+	hr = this->indexbuffer.Initialize(device, indices.data(), indices.size());
 	COM_ERROR_IF_FAILED(hr, "Failed to initialize index buffer for mesh.");
 }
 

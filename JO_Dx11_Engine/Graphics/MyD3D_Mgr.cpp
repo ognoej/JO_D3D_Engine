@@ -167,9 +167,16 @@ bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 		std::wstring shaderfolder = L"";
 
 
-			//버텍스
-		if (!vertexshader.Initialize(this->device, shaderfolder+  L"vertexshader.cso", layout, numElements))
+
+
+
+		if (!vertexshader.Initialize(this->device, shaderfolder + L"vertexshader.hlsl", layout, numElements))
 			return false;
+
+
+			//버텍스
+		//if (!vertexshader.Initialize(this->device, shaderfolder+  L"vertexshader.cso", layout, numElements))
+		//	return false;
 			//픽셀
 		if (!pixelshader.Initialize(this->device, shaderfolder+ L"pixelshader.cso"))
 			return false;

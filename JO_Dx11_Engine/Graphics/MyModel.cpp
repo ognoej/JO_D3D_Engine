@@ -34,7 +34,7 @@ bool MyModel::Initialize(const std::string & filePath, ID3D11Device * device, ID
 
 	for (int i = 0; i < meshes.size(); i++)
 	{
-		meshes[i].meshupdate(mfinaltransform, this->device);
+	//	meshes[i].meshupdate(mfinaltransform, this->device);
 	}
 
 

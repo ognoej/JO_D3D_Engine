@@ -4,15 +4,28 @@
 bool VertexShader::Initialize(Microsoft::WRL::ComPtr<ID3D11Device>& device, std::wstring shaderpath, D3D11_INPUT_ELEMENT_DESC * layoutDesc, UINT numElements)
 {
 
+	HRESULT hr = D3DCompileFromFile(
+		L"vertexshader.hlsl",					//	파일명
+		nullptr, nullptr,
+		"main",						//	정점 셰이더 함수명
+		"vs_5_0",						//	셰이더 모델 버전
+		D3DCOMPILE_ENABLE_STRICTNESS,	//	컴파일 방법
+		0,								//	옵션 정보, 0
+		&shader_buffer,
+		nullptr);							//	에러 내용 확인
 
-	HRESULT hr = D3DReadFileToBlob(shaderpath.c_str(), this->shader_buffer.GetAddressOf());
-	if (FAILED(hr))
-	{
-		std::wstring errorMsg = L"Failed to load shader: ";
-		errorMsg += shaderpath;
-		//ErrorLogger::Log(hr, errorMsg);
-		return false;
-	}
+
+
+
+
+	//HRESULT hr = D3DReadFileToBlob(shaderpath.c_str(), this->shader_buffer.GetAddressOf());
+	//if (FAILED(hr))
+	//{
+	//	std::wstring errorMsg = L"Failed to load shader: ";
+	//	errorMsg += shaderpath;
+	//	//ErrorLogger::Log(hr, errorMsg);
+	//	return false;
+	//}
 
 	hr = device->CreateVertexShader(this->shader_buffer->GetBufferPointer(), this->shader_buffer->GetBufferSize(), NULL, this->shader.GetAddressOf());
 	if (FAILED(hr))
