@@ -23,7 +23,7 @@ class AssimpModel;
 
 
 
-// 확인 필요
+// 확인 필요 DirectX와 Opengl 오더 다름
 XMMATRIX toMat4(aiMatrix4x4* ai)
 {
 	XMFLOAT4X4 temp;
