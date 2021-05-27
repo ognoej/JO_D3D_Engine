@@ -25,6 +25,7 @@ bool MyModel::Initialize(const std::string & filePath, ID3D11Device * device, ID
 	//	MyErrorCheck::Log(exception);
 	//	return false;
 	//}
+
 	
 	//for (int i = 0; i < this->Boneinfoes.size(); i++)
 	//{
@@ -72,6 +73,7 @@ void MyModel::Draw(const XMMATRIX & worldMatrix, const XMMATRIX & viewProjection
 		//this->cb_vs_vertexshader->data.gBoneTransforms[i] = XMLoadFloat4x4(&Boneinfoes[i].FinalTransform);
 		this->cb_vs_vertexshader->data.gBoneTransforms[i] = XMMatrixTranspose(XMLoadFloat4x4(&Boneinfoes[i].FinalTransform));
 	}
+
 
 
 	this->cb_vs_vertexshader->ApplyChanges(); // 변화 적용
@@ -195,6 +197,20 @@ void MyModel::LoadModel(const std::string & filePath)
 
 	pScene->mRootNode;
 
+	Assimp::Interpolator<aiQuaternion> lerp;
+
+
+
+	// discret 장면 하나하나가 channel
+	// channel마다 뼈 갯수만큼 포지션 로테 스케일 있는데 로테 스케일은 안변하면 하나의 채널만 있음
+	pScene->mAnimations[0]->mChannels[0]->mNumPositionKeys;
+	pScene->mAnimations[0]->mChannels[0]->mNumRotationKeys;
+
+	pScene->mAnimations[0]->mChannels[5]->mPositionKeys;
+
+	pScene->mAnimations[0]->mChannels[50]->mNumPositionKeys; 
+	pScene->mAnimations[0]->mChannels[50]->mNumRotationKeys;
+	pScene->mAnimations[0]->mNumChannels;
 	//return;
 }
 
@@ -318,7 +334,6 @@ XMFLOAT4X4 translationMatrix(float _x, float _y, float _z)
 		0 , 0 , 0 ,  1,
 	};
 
-
 	return result;
 }
 
@@ -351,19 +366,31 @@ void MyModel::interpolateNode(const aiNodeAnim * pNodeAnim, float AnimationTime,
 		// Interpolate scaling and generate scaling transformation matrix
 		aiVector3D Scaling;
 		CalcInterpolatedScaling(Scaling, AnimationTime, pNodeAnim);
-		ScalingM = scalingMatrix(Scaling.x, Scaling.y, Scaling.z);
+		//ScalingM = scalingMatrix(Scaling.x, Scaling.y, Scaling.z);
 
+
+		XMStoreFloat4x4(&ScalingM, DirectX::XMMatrixScaling(Scaling.x, Scaling.y, Scaling.z));
 
 		// Interpolate rotation and generate rotation transformation matrix
 		aiQuaternion RotationQ;
 		CalcInterpolatedRotation(RotationQ, AnimationTime, pNodeAnim);
 		RotationM;
-		loadai3x3matrixtoXMFLOAT4X4(RotationM, RotationQ.GetMatrix());
+		//loadai3x3matrixtoXMFLOAT4X4(RotationM, RotationQ.GetMatrix());
+
+		//XMStoreFloat4x4(&ScalingM, DirectX::XMMatrixScaling(Scaling.x, Scaling.y, Scaling.z));
+		//XMVECTOR rotemp = { RotationQ.x,RotationQ.y,RotationQ.z,RotationQ.w };
+		//XMStoreFloat4x4(&RotationM, DirectX::XMMatrixRotationQuaternion(rotemp));
+		//XMStoreFloat4x4(&TranslationM, DirectX::XMMatrixTranslation(Translation.x, Translation.y, Translation.z));
+
 
 		// Interpolate translation and generate translation transformation matrix
 		aiVector3D Translation;
 		CalcInterpolatedPosition(Translation, AnimationTime, pNodeAnim);
-		TranslationM = translationMatrix(Translation.x, Translation.y, Translation.z);
+		//TranslationM = translationMatrix(Translation.x, Translation.y, Translation.z);
+
+
+		XMStoreFloat4x4(&TranslationM, DirectX::XMMatrixTranslation(Translation.x, Translation.y, Translation.z));
+
 
 		// Combine the above transformations
 		NodeTransformation = XMFLOAT4X4Multifly(XMFLOAT4X4Multifly(TranslationM, RotationM), ScalingM);
@@ -379,7 +406,7 @@ void MyModel::ReadNodeHeirarchy(float AnimationTime, aiNode * pNode, XMFLOAT4X4 
 	std::string NodeName = "";
 	NodeName = (pNode->mName.data);
 
-
+	
 
 
 	const aiAnimation* pAnimation = pScene->mAnimations[0];
@@ -396,25 +423,35 @@ void MyModel::ReadNodeHeirarchy(float AnimationTime, aiNode * pNode, XMFLOAT4X4 
 	//// 보간 완성 시켜야함 
 	 pNodeAnim;
 
+	
 	 if (pNodeAnim != nullptr ) {
 	 	// Interpolate scaling and generate scaling transformation matrix
 	 	aiVector3D Scaling;
 	 	CalcInterpolatedScaling(Scaling, AnimationTime, pNodeAnim);
-	 	XMFLOAT4X4 ScalingM = scalingMatrix(Scaling.x, Scaling.y, Scaling.z);
-	 	
+
+		XMFLOAT4X4 ScalingM;// = scalingMatrix(Scaling.x, Scaling.y, Scaling.z);
+		XMStoreFloat4x4(&ScalingM, DirectX::XMMatrixScaling(Scaling.x, Scaling.y, Scaling.z));
 	 	// Interpolate rotation and generate rotation transformation matrix
+
+
+
 	 	aiQuaternion RotationQ;
 	 	CalcInterpolatedRotation(RotationQ, AnimationTime, pNodeAnim);
+
 	 	XMFLOAT4X4 RotationM;
-	 	loadai3x3matrixtoXMFLOAT4X4(RotationM, RotationQ.GetMatrix());
-	 
+	 	//loadai3x3matrixtoXMFLOAT4X4(RotationM, RotationQ.GetMatrix());
+
+		XMVECTOR rotemp = { RotationQ.x,RotationQ.y,RotationQ.z,RotationQ.w };
+		XMStoreFloat4x4(&RotationM, DirectX::XMMatrixRotationQuaternion(rotemp));
+
 	 	// Interpolate translation and generate translation transformation matrix
 	 	aiVector3D Translation;
 	 	CalcInterpolatedPosition(Translation, AnimationTime, pNodeAnim);
-	 	XMFLOAT4X4 TranslationM = translationMatrix(Translation.x, Translation.y, Translation.z);
-	 
+		XMFLOAT4X4 TranslationM;// = translationMatrix(Translation.x, Translation.y, Translation.z);
+
+		XMStoreFloat4x4(&TranslationM, DirectX::XMMatrixTranslation(Translation.x, Translation.y, Translation.z));
 	 	// Combine the above transformations
-	 	NodeTransformation = XMFLOAT4X4Multifly(XMFLOAT4X4Multifly(TranslationM , RotationM), ScalingM);
+		NodeTransformation = XMFLOAT4X4Multifly({ XMFLOAT4X4Multifly(TranslationM , RotationM) }, ScalingM);
 	 }
 	 
 	pNodeAnim = nullptr;
@@ -586,7 +623,7 @@ void MyModel::BoneTransform(string nowanimation, float dt, std::vector<XMFLOAT4X
 	//	loadingtime += dt;
 	//	return;
 	//}
-
+	
 
 		XMFLOAT4X4 identity = float4x4idendity();
 

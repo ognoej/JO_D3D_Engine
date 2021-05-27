@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AssimpModel.cpp" />
     <ClCompile Include="d3d11effect.cpp" />
     <ClCompile Include="EffectMgr.cpp" />
     <ClCompile Include="Engine.cpp" />
@@ -181,6 +182,7 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AssimpModel.h" />
     <ClInclude Include="d3d11effect.h" />
     <ClInclude Include="EffectMgr.h" />
     <ClInclude Include="Engine.h" />

@@ -40,7 +40,7 @@ VS_OUTPUT main(VS_INPUT input)
 	//	posL += weight[i]* mul(float4(input.inPos,1.0f), gBoneTransforms[input.BoneIndices[i]]).xyz;
 	//}
 	
-	//posL = input.inPos;
+	// posL = input.inPos;
 
 	//output.outPosition = mul(float4(posL, 1.0f), mat);
 
