@@ -10,6 +10,7 @@
 #include "MyTimer.h"
 #include "../EffectMgr.h"
 
+#include "../AssimpModel.h"
 
 
 using namespace Microsoft::WRL;
@@ -19,7 +20,7 @@ class MyD3D_Mgr
 private:
 	MyCamera cameraMgr;
 
-
+	AssimpModel* assimpmodel = nullptr;
 public:
 
 	~MyD3D_Mgr();

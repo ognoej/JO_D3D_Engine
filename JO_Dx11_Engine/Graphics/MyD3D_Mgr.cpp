@@ -193,6 +193,17 @@ bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 
 
 
+#pragma region 어씸프모델로더
+
+		AssimpModel * assimpmodeltemp = new AssimpModel();
+		ModelLoder modloder;
+		modloder.loadModel("Data\\rp_nathan_animated_003_walking.fbx", assimpmodeltemp, this->device.Get());
+
+		assimpmodeltemp;
+
+#pragma endregion
+
+
 #pragma region 카메라 기본설정
 
 		cameraMgr.SetPosition(0.0f, 100.0f, -200.0f);
