@@ -26,6 +26,11 @@ public:
 	~MyD3D_Mgr();
 	bool Initialize(HWND hwnd, int width, int height);
 
+
+
+	//테스트용 모델
+	AssimpModel * assimpmodeltemp = nullptr;
+	
 	void Update(MyTimer& TimeMgr);
 	void Render(MyTimer& TimeMgr);
 

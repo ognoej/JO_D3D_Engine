@@ -14,7 +14,9 @@
 #include "assimp/postprocess.h"
 #include <Windows.h>
 #include "../Graphics/MyTexture.h"
-
+#include "Graphics/MyConstBuffer.h"
+#include "Graphics/MyVertexBuffer.h"
+#include "Graphics/MyIndexBuffer.h"
 
 
 using namespace DirectX;
@@ -23,11 +25,27 @@ using namespace DirectX;
 class AssimpModel;
 
 
+struct Vertexassimp
+{
+	Vertexassimp() {}
+	Vertexassimp(float x, float y, float z, float u, float v)
+		: pos(x, y, z), uvs(u, v) {}
+
+	// 버텍스 쉐이더에서 MIPS4를 최대한 활용할 수 있도록 XMFLOLAT 형식의 자료형을 최대한 활용하는 것이 좋다.
+
+	XMFLOAT3 pos;			// 정점 좌표
+	XMFLOAT2 uvs;			// 텍스쳐좌표
+	XMFLOAT3 normals;		// 법선
+	XMFLOAT4 weights;		// 뼈 가중치 마지막 가중치는 1-나머지가중치로 계산할 수 있으므로 생략하여 저장공간 줄임 x,y,z를 하나의 가중치로 계산
+	XMFLOAT4 boneID;		// 영향 미치는 뼈 assimp 모델 기준 8개까지 불러옴
+};
+
+
 
 struct Mesh
 {
 	std::vector <XMFLOAT3> vertices;
-	std::vector <unsigned int> indices;
+	std::vector <DWORD> indices;
 	std::vector <XMFLOAT2> uvs;
 	std::vector <XMFLOAT3> normals;
 	std::vector <XMFLOAT4> weights;
@@ -39,8 +57,17 @@ struct Mesh
 	int posAttribute, texAttribute, weightAttribute, boneAttribute; // 루트서명
 	UINT modelID, viewID, projectionID, transID, modelTransID; // object id
 
+	unsigned int numVertices;
 	int width, height;
 	std::vector<MyTexture> image;
+	std::vector<Vertexassimp> vertives;
+
+	MyVertexBuffer<Vertexassimp> vertexbuffer;
+	MyIndexBuffer indexbuffer;
+
+public : 
+	void Draw(ID3D11DeviceContext * deviceContext);
+	void makebuffers(ID3D11Device* device);
 };
 
 struct Animation
@@ -79,7 +106,6 @@ struct Animation
 };
 
 
-
 class AssimpModel
 {
 public:
@@ -96,11 +122,14 @@ public:
 
 
 		ID3D11Device * device = nullptr;
+		ID3D11DeviceContext * deviceContext = nullptr;
+		MyConstBuffer<CB_VS_vertexshader> * cb_vs_vertexshader = nullptr;
 
 
 		XMMATRIX modelTrans;
 		//UINT modelTransID; moved to mesh
 		void setModelTrans(XMMATRIX);
+
 
 
 		std::string rootPath;
@@ -111,7 +140,7 @@ public:
 		bool modelLoaded;
 		AssimpModel();
 		void setShader(const char* vertfp, const char* fragfp);
-		void init();
+		void init(ID3D11Device* _device, ID3D11DeviceContext* _devicecontext);
 		void render(float dt,XMMATRIX _world, XMMATRIX _viewproj);
 
 		//std::vector<MyTexture> textures;

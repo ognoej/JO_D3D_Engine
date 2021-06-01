@@ -195,10 +195,11 @@ bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 
 #pragma region ¾î¾ÂÇÁ¸ðµ¨·Î´õ
 
-		AssimpModel * assimpmodeltemp = new AssimpModel();
+		assimpmodeltemp = new AssimpModel();
 		ModelLoder modloder;
 		modloder.loadModel("Data\\rp_nathan_animated_003_walking.fbx", assimpmodeltemp, this->device.Get());
 
+		assimpmodel->init(this->device.Get(), this->deviceContext.Get());
 		assimpmodeltemp->meshes[0].vertices[0];
 		assimpmodeltemp->meshes[0].vertices[1];
 
@@ -262,7 +263,8 @@ void MyD3D_Mgr::Render(MyTimer& TimeMgr)
 	this->deviceContext->VSSetShader(vertexshader.GetShader(), NULL, 0);
 	this->deviceContext->PSSetShader(pixelshader.GetShader(), NULL, 0);
 
-	this->MyObjectMgr.DrawObjects(cameraMgr.GetViewMatrix()*cameraMgr.GetProjectionMatrix());
+ //	this->MyObjectMgr.DrawObjects(cameraMgr.GetViewMatrix()*cameraMgr.GetProjectionMatrix());
+	//assimpmodeltemp->render(2.0f, cameraMgr.GetViewMatrix(), cameraMgr.GetProjectionMatrix());
 
 	//this->deviceContext->Draw(0,0);
 	this->swapchain->Present(0, NULL);

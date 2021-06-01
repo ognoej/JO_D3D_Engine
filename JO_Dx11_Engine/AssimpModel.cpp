@@ -19,7 +19,7 @@ void Animation::buildBoneTree(const aiScene * scene, aiNode * node, BoneNode * b
 		// found the node
 		if (m->boneID.find(node->mName.data) != m->boneID.end())
 		{
-			std::cout << "Found a bone node: " << node->mName.data << std::endl;
+			//std::cout << "Found a bone node: " << node->mName.data << std::endl;
 			BoneNode tempNode;
 			tempNode.name = node->mName.data;
 			tempNode.parent = bNode;
@@ -108,7 +108,8 @@ void AssimpModel::updateBoneTree(double timeInTicks, Animation::BoneNode * node,
 		*	DirectX::XMMatrixTranslation(translation.x, translation.y, translation.z)
 		*	parentTransform ;
 
-	animations[currentAnim].boneTrans[boneID[node->name]] = finalModel * animations[currentAnim].boneOffset[node->name];
+	//순서 바꿔야함 오프셋 * 파이널
+	animations[currentAnim].boneTrans[boneID[node->name]] = animations[currentAnim].boneOffset[node->name] * finalModel;
 
 	// loop through every child and use this bone's transformations as the parent transform
 	for (int x = 0; x < node->children.size(); x++)
@@ -208,7 +209,7 @@ void AssimpModel::setShader(const char * vertfp, const char * fragfp)
 	//shader = loadShader(vfp, ffp);
 }
 
-void AssimpModel::init()
+void AssimpModel::init(ID3D11Device* _device, ID3D11DeviceContext* _devicecontext)
 {
 	if (!modelLoaded)
 	{
@@ -216,114 +217,53 @@ void AssimpModel::init()
 		return;
 	}
 
-	// loop through each mesh and initialize them
-	for (int x = 0; x < meshes.size(); x++)
-	{
-		// glGenVertexArrays(1, &meshes[x].vao);
-		// glBindVertexArray(meshes[x].vao);
-		// 
-		// glGenBuffers(1, &meshes[x].vbo);
-		// glBindBuffer(GL_ARRAY_BUFFER, meshes[x].vbo);
-		// glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * meshes[x].vertices.size(), &meshes[x].vertices[0], GL_STATIC_DRAW);
-		// 
-		// glGenBuffers(1, &meshes[x].ebo);
-		// glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshes[x].ebo);
-		// glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * meshes[x].indices.size(), &meshes[x].indices[0], GL_STATIC_DRAW);
-		// 
-		// glGenBuffers(1, &meshes[x].uvb);
-		// glBindBuffer(GL_ARRAY_BUFFER, meshes[x].uvb);
-		// glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * meshes[x].uvs.size(), &meshes[x].uvs[0], GL_STATIC_DRAW);
-		// 
-		// glGenBuffers(1, &meshes[x].wbo);
-		// glBindBuffer(GL_ARRAY_BUFFER, meshes[x].wbo);
-		// glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec4) * meshes[x].weights.size(), &meshes[x].weights[0], GL_STATIC_DRAW);
-		// 
-		// glGenBuffers(1, &meshes[x].idbo);
-		// glBindBuffer(GL_ARRAY_BUFFER, meshes[x].idbo);
-		// glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec4) * meshes[x].boneID.size(), &meshes[x].boneID[0], GL_STATIC_DRAW);
+	device = _device;
+	deviceContext = _devicecontext;
+	
 
-		// glGenTextures(1, &meshes[x].tex);
-		// glBindTexture(GL_TEXTURE_2D, meshes[x].tex);
-		// glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, meshes[x].width, meshes[x].height, 0, GL_RGB, GL_UNSIGNED_BYTE, meshes[x].image);
-		// // tex data bound to uniform
-		// glUniform1i(glGetUniformLocation(shader, "tex"), 0);
-		// // now send uv data
-		// glBindBuffer(GL_ARRAY_BUFFER, meshes[x].uvb);
-		// meshes[x].texAttribute = glGetAttribLocation(shader, "Texcoord");
-		// glEnableVertexAttribArray(meshes[x].texAttribute);
-		// glVertexAttribPointer(meshes[x].texAttribute, 2, GL_FLOAT, GL_FALSE, 0, 0);
-		// 
-		// glBindBuffer(GL_ARRAY_BUFFER, meshes[x].vbo);
-		// meshes[x].posAttribute = glGetAttribLocation(shader, "position");
-		// glEnableVertexAttribArray(meshes[x].posAttribute);
-		// glVertexAttribPointer(meshes[x].posAttribute, 3, GL_FLOAT, GL_FALSE, 0, 0);
-		// 
-		// glBindBuffer(GL_ARRAY_BUFFER, meshes[x].wbo);
-		// meshes[x].weightAttribute = glGetAttribLocation(shader, "weight");
-		// glEnableVertexAttribArray(meshes[x].weightAttribute);
-		// glVertexAttribPointer(meshes[x].weightAttribute, 4, GL_FLOAT, GL_FALSE, 0, 0);
-		// 
-		// glBindBuffer(GL_ARRAY_BUFFER, meshes[x].idbo);
-		// meshes[x].boneAttribute = glGetAttribLocation(shader, "boneID");
-		// glEnableVertexAttribArray(meshes[x].boneAttribute);
-		// glVertexAttribPointer(meshes[x].boneAttribute, 4, GL_FLOAT, GL_FALSE, 0, 0);
-		// 
-		// meshes[x].modelID = glGetUniformLocation(shader, "model");
-		// meshes[x].viewID = glGetUniformLocation(shader, "view");
-		// meshes[x].projectionID = glGetUniformLocation(shader, "projection");
-		// meshes[x].transID = glGetUniformLocation(shader, "boneTransformation");
-		// meshes[x].modelTransID = glGetUniformLocation(shader, "modelTransform");
-		// 
-		// glBindVertexArray(0);
-	}
 }
 
 void AssimpModel::render(float dt, XMMATRIX _world, XMMATRIX _viewproj)
 {
 	if (!modelLoaded)
 	{
-		//core::log("Please load in a model before trying to render one.", core::warning);
 		return;
 	}
 
-	// glUseProgram(shader);
-	//for (int x = 0; x < meshes.size(); x++)
-	//{
-	//	glBindVertexArray(meshes[x].vao);
-	//
-	//	cam->Tick(win->getWindow(), dt);
-	//	glUniformMatrix4fv(meshes[x].modelID, 1, GL_FALSE, &meshes[x].baseModelMatrix[0][0]);
-	//	glUniformMatrix4fv(meshes[x].viewID, 1, GL_FALSE, &cam->GetView()[0][0]);
-	//	glUniformMatrix4fv(meshes[x].projectionID, 1, GL_FALSE, &cam->GetProjection()[0][0]);
-	//	glUniformMatrix4fv(meshes[x].transID, animations[currentAnim].boneTrans.size(), GL_FALSE, (GLfloat*)&animations[currentAnim].boneTrans[0][0]);
-	//	glUniformMatrix4fv(meshes[x].modelTransID, 1, GL_FALSE, (GLfloat*)&modelTrans[0][0]);
-	//
-	//	glBindBuffer(GL_ARRAY_BUFFER, meshes[x].vbo);
-	//	glEnableVertexAttribArray(meshes[x].posAttribute);
-	//	glVertexAttribPointer(meshes[x].posAttribute, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	//
-	//	glBindBuffer(GL_ARRAY_BUFFER, meshes[x].uvb);
-	//	glEnableVertexAttribArray(meshes[x].texAttribute);
-	//	glVertexAttribPointer(meshes[x].texAttribute, 2, GL_FLOAT, GL_FALSE, 0, 0);
-	//
-	//	glBindTexture(GL_TEXTURE_2D, meshes[x].tex);
-	//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, meshes[x].width, meshes[x].height, 0, GL_RGB, GL_UNSIGNED_BYTE, meshes[x].image);
-	//	glUniform1i(glGetUniformLocation(shader, "tex"), 0);
-	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	//
-	//	glDrawElements(GL_TRIANGLES, meshes[x].indices.size(), GL_UNSIGNED_INT, 0);
-	//
-	//	glBindVertexArray(0);
-	//}
+	this->cb_vs_vertexshader->data.mat = _world * _viewproj;
+	this->cb_vs_vertexshader->data.mat = XMMatrixTranspose(this->cb_vs_vertexshader->data.mat);
+
+	this->cb_vs_vertexshader->data.gWorldView = _world;
+	this->cb_vs_vertexshader->data.gWorldView = XMMatrixTranspose(this->cb_vs_vertexshader->data.gWorldView);
+
+	this->cb_vs_vertexshader->data.gWorldViewProj = _world * _viewproj; // XMmatrix => hlsl 행렬로 방향 바꾸기
+	this->cb_vs_vertexshader->data.gWorldViewProj = XMMatrixTranspose(this->cb_vs_vertexshader->data.gWorldViewProj);
+
+	for (int i = 0; i < 69; i++)
+	{
+		//this->cb_vs_vertexshader->data.gBoneTransforms[i] = XMLoadFloat4x4(&Boneinfoes[i].FinalTransform);
+		this->cb_vs_vertexshader->data.gBoneTransforms[i] = animations[currentAnim].boneTrans[i];
+	}
+
+
+
+	this->cb_vs_vertexshader->ApplyChanges(); // 변화 적용
+
+
+
+	this->deviceContext->VSSetConstantBuffers(0, 1, this->cb_vs_vertexshader->GetAddressOf());
+
+	for (int i = 0; i < meshes.size(); i++)
+	{
+		meshes[i].Draw(this->deviceContext);
+	}
+
 }
 
 
 void ModelLoder::processNode(const aiScene * scene, aiNode * node, AssimpModel * m, ID3D11Device* device)
 {
-	std::cout << "Processing a node: " << node->mName.C_Str() << std::endl; //debug
+	//std::cout << "Processing a node: " << node->mName.C_Str() << std::endl; //debug
 	   // this is where the fun part starts.
 
 	   // cycle through each mesh within this node
@@ -339,7 +279,7 @@ void ModelLoder::processNode(const aiScene * scene, aiNode * node, AssimpModel *
 		}
 	}
 	if (m->boneID.find(node->mName.data) != m->boneID.end())
-		std::cout << node->mName.data << " IS A BONE NODE!!!!";
+	//	std::cout << node->mName.data << " IS A BONE NODE!!!!";
 
 	// then go through each child in the node and process them as well
 	if (node->mNumChildren > 0)
@@ -354,32 +294,19 @@ void ModelLoder::processNode(const aiScene * scene, aiNode * node, AssimpModel *
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 void ModelLoder::processMesh(const aiScene * scene, aiNode * node, aiMesh * mesh, AssimpModel * m, ID3D11Device* device)
 {
-	std::cout << "Processing a mesh: " << mesh->mName.C_Str() << std::endl; //debug
+	//std::cout << "Processing a mesh: " << mesh->mName.C_Str() << std::endl; //debug
 
-	std::cout << "Has bones? " << mesh->mNumBones << std::endl;
+	//std::cout << "Has bones? " << mesh->mNumBones << std::endl;
 
 	Mesh tempMesh;
 	tempMesh.weights.resize(mesh->mNumVertices);
 	std::fill(tempMesh.weights.begin(), tempMesh.weights.end(), XMFLOAT4(0,0,0,0));
 	tempMesh.boneID.resize(mesh->mNumVertices);
 	std::fill(tempMesh.boneID.begin(), tempMesh.boneID.end(), XMFLOAT4(-123, -123, -123, -123));
+	tempMesh.numVertices = mesh->mNumVertices;
+
 
 	tempMesh.baseModelMatrix = toXMMAT(&node->mTransformation);
 	if (node->mParent != NULL)
@@ -425,7 +352,7 @@ void ModelLoder::processMesh(const aiScene * scene, aiNode * node, aiMesh * mesh
 	{
 		// so that we don't have to type out that whole thing every time
 		aiMaterial* mat = scene->mMaterials[mesh->mMaterialIndex];
-		std::cout << "Has diffuse texture: " << mat->GetTextureCount(aiTextureType_DIFFUSE) << std::endl;
+		//std::cout << "Has diffuse texture: " << mat->GetTextureCount(aiTextureType_DIFFUSE) << std::endl;
 
 		if (mat->GetTextureCount(aiTextureType_DIFFUSE) > 0)
 		{
@@ -502,7 +429,14 @@ void ModelLoder::processMesh(const aiScene * scene, aiNode * node, aiMesh * mesh
 
 		}
 	}
+
+
+	tempMesh.makebuffers(device);
+
+
 	m->meshes.push_back(tempMesh);
+
+
 }
 
 void ModelLoder::processAnimations(const aiScene * scene, AssimpModel * m)
@@ -580,8 +514,8 @@ bool ModelLoder::loadModel(std::string fp, AssimpModel * m , ID3D11Device* devic
 	}
 
 	// some debug stuff, delete later
-	std::cout << "Number of total meshes: " << scene->mNumMeshes << std::endl;
-	std::cout << "Animations: " << scene->HasAnimations() << std::endl;
+	//std::cout << "Number of total meshes: " << scene->mNumMeshes << std::endl;
+	//std::cout << "Animations: " << scene->HasAnimations() << std::endl;
 
 	// set 64 bones to identity, 64 is current limit, might increase it later
 	processAnimations(scene, m);
@@ -599,4 +533,42 @@ bool ModelLoder::loadModel(std::string fp, AssimpModel * m , ID3D11Device* devic
 
 	//core::log((std::string)fp + " loaded successfully.", core::green);
 	return true;
+}
+
+void Mesh::Draw(ID3D11DeviceContext * deviceContext)
+{
+	UINT offset = 0;
+
+	for (int i = 0; i < image.size(); i++)
+	{
+		if (image[i].GetType() == aiTextureType::aiTextureType_DIFFUSE)
+		{
+			deviceContext->PSSetShaderResources(0, 1, image[i].GetTextureResourceViewAddress());
+			break;
+		}
+	}
+
+	deviceContext->IASetVertexBuffers(0, 1, this->vertexbuffer.GetAddressOf(), this->vertexbuffer.StridePtr(), &offset);
+	deviceContext->IASetIndexBuffer(this->indexbuffer.Get(), DXGI_FORMAT::DXGI_FORMAT_R32_UINT, 0);
+	deviceContext->DrawIndexed(this->indexbuffer.IndexCount(), 0, 0);
+}
+
+void Mesh::makebuffers(ID3D11Device* device)
+{
+	
+	for (int i = 0; i < numVertices; i++)
+	{
+		Vertexassimp tempvertex;
+		tempvertex.pos = this->vertices[i];
+		//tempvertex.normals = this->normals[i];
+		tempvertex.uvs = this->uvs[i];
+		tempvertex.boneID = this->boneID[i];
+		tempvertex.weights = this->weights[i];
+		vertives.push_back(tempvertex);
+	}
+
+	HRESULT hr = this->vertexbuffer.Initialize(device, vertives.data(), vertives.size());
+
+	hr = this->indexbuffer.Initialize(device, indices.data(), indices.size());
+
 }
