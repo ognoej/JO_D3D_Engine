@@ -199,7 +199,8 @@ bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 		ModelLoder modloder;
 		modloder.loadModel("Data\\rp_nathan_animated_003_walking.fbx", assimpmodeltemp, this->device.Get());
 
-		assimpmodeltemp;
+		assimpmodeltemp->meshes[0].vertices[0];
+		assimpmodeltemp->meshes[0].vertices[1];
 
 #pragma endregion
 
@@ -219,6 +220,15 @@ bool MyD3D_Mgr::Initialize(HWND hwnd, int width, int height)
 
 
 		NewObject("jigu", "Data\\rp_nathan_animated_003_walking.fbx");
+
+		auto sibal = MyObjectMgr.GetObjects("jigu");
+		auto gnoalb = sibal->model->meshes[0].mvertices;
+
+		//if (MyObjectMgr.GetObjects("jigu") != nullptr)
+		//{
+		//	MyObjectMgr.GetObjects("jigu")->model->meshes[0].mvertices[0];
+		//	MyObjectMgr.GetObjects("jigu")->model->meshes[0].mvertices[1];
+		//}
 		//NewObject("jigu", "Data\\a.fbx");
 
 #pragma endregion

@@ -43,10 +43,13 @@ public:
 
 	void Draw();
 	//std::vector<BoneInfo> mMeshBones;
-
-private:
 	std::vector<Vertex> mvertices;
 	MyVertexBuffer<Vertex> vertexbuffer;
+
+
+private:
+	//std::vector<Vertex> mvertices;
+	//MyVertexBuffer<Vertex> vertexbuffer;
 	MyIndexBuffer indexbuffer;
 	ID3D11DeviceContext * deviceContext;
 	std::vector<MyTexture> textures;

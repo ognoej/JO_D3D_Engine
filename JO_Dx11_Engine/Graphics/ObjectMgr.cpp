@@ -60,7 +60,7 @@ Object* ObjectMgr::GetObjects(std::string _name)
 		}
 	}
 
-	return findobj;
+	return nullptr;
 }
 
 void ObjectMgr::SetObjects(std::string _name)

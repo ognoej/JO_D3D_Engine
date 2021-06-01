@@ -95,7 +95,6 @@ public:
 		void updateBoneTree(double time, Animation::BoneNode* node, XMMATRIX transform);
 
 
-
 		ID3D11Device * device = nullptr;
 
 
